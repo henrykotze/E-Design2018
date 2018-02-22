@@ -1,0 +1,55 @@
+Configuration	EDESIGN
+STM32CubeMX 	4.20.1
+Date	02/19/2018
+MCU	STM32F334R8Tx
+
+
+
+PERIPHERALS	MODES	FUNCTIONS	PINS
+RCC	Crystal/Ceramic Resonator	RCC_OSC_IN	PF0 / OSC_IN
+RCC	Crystal/Ceramic Resonator	RCC_OSC_OUT	PF1 / OSC_OUT
+RCC	Crystal/Ceramic Resonator	RCC_OSC32_IN	PC14 / OSC32_IN
+RCC	Crystal/Ceramic Resonator	RCC_OSC32_OUT	PC15 / OSC32_OUT
+SYS	SysTick	SYS_VS_Systick	VP_SYS_VS_Systick
+USART1	Asynchronous	USART1_RX	PC5
+USART1	Asynchronous	USART1_TX	PC4
+
+
+
+Pin Nb	PINs	FUNCTIONs	LABELs
+2	PC13	GPIO_EXTI13	B1 [Blue PushButton]
+3	PC14 / OSC32_IN	RCC_OSC32_IN	
+4	PC15 / OSC32_OUT	RCC_OSC32_OUT	RCC_OSC32_OUT
+5	PF0 / OSC_IN	RCC_OSC_IN	
+6	PF1 / OSC_OUT	RCC_OSC_OUT	
+21	PA5	GPIO_Output	LD2 [Green Led]
+24	PC4	USART1_TX	
+25	PC5	USART1_RX	
+
+
+
+SOFTWARE PROJECT
+
+Project Settings : 
+Project Name : EDESIGN
+Project Folder : C:\Users\Henry\Documents\EDESIGN
+Toolchain / IDE : TrueSTUDIO
+Firmware Package Name and Version : STM32Cube FW_F3 V1.8.0
+
+
+Code Generation Settings : 
+STM32Cube Firmware Library Package : Copy only the necessary library files
+Generate peripheral initialization as a pair of '.c/.h' files per peripheral : No
+Backup previously generated files when re-generating : No
+Delete previously generated files when not re-generated : Yes
+Set all free pins as analog (to optimize the power consumption) : No
+
+
+Toolchains Settings : 
+Compiler Optimizations : Balanced Size/Speed
+
+
+
+
+
+
