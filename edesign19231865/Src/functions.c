@@ -6,7 +6,6 @@ extern TIM_HandleTypeDef htim2;
 extern UART_HandleTypeDef huart1;
 extern ADC_HandleTypeDef hadc2;
 
-extern
 
 void uart_comms(){
 	HAL_UART_Receive_IT(&huart1, (uint8_t*)&rx_buffer, 1);
