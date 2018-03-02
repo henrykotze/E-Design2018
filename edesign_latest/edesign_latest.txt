@@ -1,0 +1,63 @@
+Configuration	edesign_latest
+STM32CubeMX 	4.24.0
+Date	03/02/2018
+MCU	STM32F334R8Tx
+
+
+
+PERIPHERALS	MODES	FUNCTIONS	PINS
+SYS	SysTick	SYS_VS_Systick	VP_SYS_VS_Systick
+USART1	Asynchronous	USART1_RX	PC5
+USART1	Asynchronous	USART1_TX	PC4
+
+
+
+Pin Nb	PINs	FUNCTIONs	LABELs
+8	PC0	GPIO_Input	
+9	PC1	GPIO_Input	
+14	PA0	GPIO_Input	
+15	PA1	GPIO_Input	
+20	PA4	GPIO_Input	
+21	PA5	GPIO_Output	
+22	PA6	GPIO_Output	
+23	PA7	GPIO_Output	
+24	PC4	USART1_TX	
+25	PC5	USART1_RX	
+29	PB10	GPIO_Input	
+38	PC7	GPIO_Input	
+41	PA8	GPIO_Output	
+42	PA9	GPIO_Output	
+55	PB3	GPIO_Output	
+56	PB4	GPIO_Output	
+57	PB5	GPIO_Output	
+58	PB6	GPIO_Output	
+61	PB8	GPIO_Input	
+62	PB9	GPIO_Input	
+
+
+
+SOFTWARE PROJECT
+
+Project Settings : 
+Project Name : edesign_latest
+Project Folder : H:\E-Design2018\edesign_latest
+Toolchain / IDE : TrueSTUDIO
+Firmware Package Name and Version : STM32Cube FW_F3 V1.9.0
+
+
+Code Generation Settings : 
+STM32Cube Firmware Library Package : Copy only the necessary library files
+Generate peripheral initialization as a pair of '.c/.h' files per peripheral : No
+Backup previously generated files when re-generating : No
+Delete previously generated files when not re-generated : Yes
+Set all free pins as analog (to optimize the power consumption) : No
+
+
+Toolchains Settings : 
+Compiler Optimizations : Balanced Size/Speed
+
+
+
+
+
+
