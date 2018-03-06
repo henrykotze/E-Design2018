@@ -1,11 +1,12 @@
 #MicroXplorer Configuration settings - do not modify
 ADC2.Channel-4\#ChannelRegularConversion=ADC_CHANNEL_8
-ADC2.IPParameters=Rank-4\#ChannelRegularConversion,Channel-4\#ChannelRegularConversion,SamplingTime-4\#ChannelRegularConversion,OffsetNumber-4\#ChannelRegularConversion,Offset-4\#ChannelRegularConversion,NbrOfConversionFlag
+ADC2.IPParameters=Rank-4\#ChannelRegularConversion,Channel-4\#ChannelRegularConversion,SamplingTime-4\#ChannelRegularConversion,OffsetNumber-4\#ChannelRegularConversion,Offset-4\#ChannelRegularConversion,NbrOfConversionFlag,SubFamily
 ADC2.NbrOfConversionFlag=1
 ADC2.Offset-4\#ChannelRegularConversion=0
 ADC2.OffsetNumber-4\#ChannelRegularConversion=ADC_OFFSET_NONE
 ADC2.Rank-4\#ChannelRegularConversion=1
 ADC2.SamplingTime-4\#ChannelRegularConversion=ADC_SAMPLETIME_1CYCLE_5
+ADC2.SubFamily=STM32F334x8
 File.Version=6
 KeepUserPlacement=true
 Mcu.Family=STM32F3
@@ -133,7 +134,7 @@ PC5.Locked=true
 PC5.Mode=Asynchronous
 PC5.Signal=USART1_RX
 PC7.Locked=true
-PC7.Signal=GPIO_Input
+PC7.Signal=GPIO_Output
 PCC.Checker=false
 PCC.Line=STM32F334
 PCC.MCU=STM32F334R(6-8)Tx

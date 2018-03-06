@@ -1,9 +1,12 @@
 #ifndef FUNCTIONS_H_
 #define FUNCTIONS_H_
 
+#include "variables.h"
+
 void uart_comms();
 void seven_segment();
 void init_peripherals();
 void adc_comms();
+void seven_segment_display(uint8_t num);
 
 #endif

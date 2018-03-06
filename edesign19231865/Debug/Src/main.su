@@ -1,6 +1,6 @@
-main.c:310:13:MX_GPIO_Init	56	static
-main.c:381:6:HAL_TIM_PeriodElapsedCallback	0	static
-main.c:391:6:_Error_Handler	0	static
+main.c:310:13:MX_GPIO_Init	64	static
+main.c:391:6:HAL_TIM_PeriodElapsedCallback	0	static
+main.c:401:6:_Error_Handler	0	static
 main.c:249:13:MX_TIM2_Init	40	static
 main.c:282:13:MX_USART1_UART_Init	8	static
 main.c:207:13:MX_ADC2_Init	32	static
