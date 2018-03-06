@@ -127,40 +127,37 @@ void uart_comms(){
 
 void seven_segment(){
 	if(segment_counter == 1){	// Left Most Digit
-		segment_counter += 1;
+
 		HAL_GPIO_WritePin(GPIOB,GPIO_PIN_10,GPIO_PIN_RESET);	// D1
 		HAL_GPIO_WritePin(GPIOB,GPIO_PIN_4,GPIO_PIN_SET);		// D2
 		HAL_GPIO_WritePin(GPIOB,GPIO_PIN_5,GPIO_PIN_SET);		// D3
 		HAL_GPIO_WritePin(GPIOB,GPIO_PIN_3,GPIO_PIN_SET);		// D4
 		seven_segment_display(segment_val);
-		segment_val += 1;
+		segment_counter += 1;
 	}
 	else if( segment_counter == 2){		// Middle left Digit
-		segment_counter += 1;
 		HAL_GPIO_WritePin(GPIOB,GPIO_PIN_10,GPIO_PIN_SET);		// D1
 		HAL_GPIO_WritePin(GPIOB,GPIO_PIN_4,GPIO_PIN_RESET);		// D2
 		HAL_GPIO_WritePin(GPIOB,GPIO_PIN_5,GPIO_PIN_SET);		// D3
 		HAL_GPIO_WritePin(GPIOB,GPIO_PIN_3,GPIO_PIN_SET);		// D4
 		seven_segment_display(segment_val);
+		segment_counter += 1;
 	}
 	else if( segment_counter == 3){		// Middle Right Digit
-		segment_counter += 1;
 		HAL_GPIO_WritePin(GPIOB,GPIO_PIN_10,GPIO_PIN_SET);		// D1
 		HAL_GPIO_WritePin(GPIOB,GPIO_PIN_4,GPIO_PIN_SET);		// D2
 		HAL_GPIO_WritePin(GPIOB,GPIO_PIN_5,GPIO_PIN_RESET);		// D3
 		HAL_GPIO_WritePin(GPIOB,GPIO_PIN_3,GPIO_PIN_SET);		// D4
 		seven_segment_display(segment_val);
+		segment_counter += 1;
 	}
 	else if( segment_counter == 4){ // Right Most Digit
-		segment_counter = 1;
 		HAL_GPIO_WritePin(GPIOB,GPIO_PIN_10,GPIO_PIN_SET);		// D1
 		HAL_GPIO_WritePin(GPIOB,GPIO_PIN_4,GPIO_PIN_SET);		// D2
 		HAL_GPIO_WritePin(GPIOB,GPIO_PIN_5,GPIO_PIN_SET);		// D3
 		HAL_GPIO_WritePin(GPIOB,GPIO_PIN_3,GPIO_PIN_RESET);		// D4
 		seven_segment_display(segment_val);
-		if(segment_val==9){
-			segment_val = 0;
-		}
+		segment_counter = 1;
 	}
 }
 
@@ -186,7 +183,6 @@ void init_peripherals(){
 	HAL_GPIO_WritePin(GPIOB,GPIO_PIN_10,GPIO_PIN_SET);		// D1
 	// C
 	HAL_GPIO_WritePin(GPIOC,GPIO_PIN_7,GPIO_PIN_SET);		// 7_SEG_5
-
 
 	  studentnumber = (uint8_t*)malloc(15);
 	  memset(studentnumber, 0x00, 15);

@@ -8,14 +8,12 @@
 
 extern uint8_t rx_flag;
 extern uint8_t rx_buffer;
-extern uint8_t rx_buf[40];
 extern uint8_t* uart_command;
 extern uint8_t uart_counter;
 extern uint8_t* studentnumber;
 extern char endSimbol[8];
 extern char comma[2];
 extern uint8_t* return_value;
-extern uint8_t return_val[15];
 extern uint8_t sizeOfTemp;
 extern uint8_t auto_heating;
 extern uint8_t* set_temp;
