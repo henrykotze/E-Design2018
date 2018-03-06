@@ -8,4 +8,7 @@
 ## Electrical Characteristics of the MCP601 Opamp
 *	Vdd - Vss = 7.0V
 *	Current at input pints: +- 2mA
+*	Max Output Current: +-30mA
 
+## Schematic of OpAmp:
+![alt text]("https://github.com/hhenryy/E-Design2018/images/opAmpSchematic.png")
