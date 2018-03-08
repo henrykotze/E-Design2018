@@ -126,38 +126,38 @@ void uart_comms(){
 }
 
 void seven_segment(){
-	if(segment_counter == 1){	// Left Most Digit
+	if(segment_counter == 0){	// Left Most Digit
 
 		HAL_GPIO_WritePin(GPIOB,GPIO_PIN_10,GPIO_PIN_RESET);	// D1
 		HAL_GPIO_WritePin(GPIOB,GPIO_PIN_4,GPIO_PIN_SET);		// D2
 		HAL_GPIO_WritePin(GPIOB,GPIO_PIN_5,GPIO_PIN_SET);		// D3
 		HAL_GPIO_WritePin(GPIOB,GPIO_PIN_3,GPIO_PIN_SET);		// D4
-		seven_segment_display(segment_val);
+		seven_segment_display(segment_val[segment_counter]-48);
 		segment_counter += 1;
 	}
-	else if( segment_counter == 2){		// Middle left Digit
+	else if( segment_counter == 1){		// Middle left Digit
 		HAL_GPIO_WritePin(GPIOB,GPIO_PIN_10,GPIO_PIN_SET);		// D1
 		HAL_GPIO_WritePin(GPIOB,GPIO_PIN_4,GPIO_PIN_RESET);		// D2
 		HAL_GPIO_WritePin(GPIOB,GPIO_PIN_5,GPIO_PIN_SET);		// D3
 		HAL_GPIO_WritePin(GPIOB,GPIO_PIN_3,GPIO_PIN_SET);		// D4
-		seven_segment_display(segment_val);
+		seven_segment_display(segment_val[segment_counter]-48);
 		segment_counter += 1;
 	}
-	else if( segment_counter == 3){		// Middle Right Digit
+	else if( segment_counter == 2){		// Middle Right Digit
 		HAL_GPIO_WritePin(GPIOB,GPIO_PIN_10,GPIO_PIN_SET);		// D1
 		HAL_GPIO_WritePin(GPIOB,GPIO_PIN_4,GPIO_PIN_SET);		// D2
 		HAL_GPIO_WritePin(GPIOB,GPIO_PIN_5,GPIO_PIN_RESET);		// D3
 		HAL_GPIO_WritePin(GPIOB,GPIO_PIN_3,GPIO_PIN_SET);		// D4
-		seven_segment_display(segment_val);
+		seven_segment_display(segment_val[segment_counter]-48);
 		segment_counter += 1;
 	}
-	else if( segment_counter == 4){ // Right Most Digit
+	else if( segment_counter == 3){ // Right Most Digit
 		HAL_GPIO_WritePin(GPIOB,GPIO_PIN_10,GPIO_PIN_SET);		// D1
 		HAL_GPIO_WritePin(GPIOB,GPIO_PIN_4,GPIO_PIN_SET);		// D2
 		HAL_GPIO_WritePin(GPIOB,GPIO_PIN_5,GPIO_PIN_SET);		// D3
 		HAL_GPIO_WritePin(GPIOB,GPIO_PIN_3,GPIO_PIN_RESET);		// D4
-		seven_segment_display(segment_val);
-		segment_counter = 1;
+		seven_segment_display(segment_val[segment_counter]-48);
+		segment_counter = 0;
 	}
 }
 
@@ -192,6 +192,8 @@ void init_peripherals(){
 	  memset(uart_command, 0x00, 40);
 	  set_temp = (uint8_t*)malloc(3);
 	  memset(set_temp, 0x00, 3);
+	  segment_val =(uint8_t*)malloc(4);
+	  memset(segment_val, 0x00, 4);
 
 
 	HAL_TIM_Base_Start_IT(&htim2);

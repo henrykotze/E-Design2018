@@ -23,7 +23,7 @@ extern char studentnumber1[];
 
 // Seven Segment Variables
 extern uint8_t segment_counter;
-extern uint8_t segment_val;
+extern uint8_t* segment_val;
 
 
 // ADC Variables

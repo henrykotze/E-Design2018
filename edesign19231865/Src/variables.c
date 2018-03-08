@@ -20,8 +20,8 @@ char* time = "00:00:00";
 
 
 // Seven Segment Variables
-uint8_t segment_counter = 1;
-uint8_t segment_val = 0;
+uint8_t segment_counter = 0;
+uint8_t* segment_val = NULL;
 
 // ADC Variables
 uint8_t adc_flag = 0;
