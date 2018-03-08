@@ -11,4 +11,4 @@
 *	Max Output Current: +-30mA
 
 ## Schematic of OpAmp:
-![alt text]("https://github.com/hhenryy/E-Design2018/images/opAmpSchematic.png")
+![alt text]("https://github.com/hhenryy/E-Design2018/blob/master/images/opAmpSchematic.png")
