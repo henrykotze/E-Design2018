@@ -4,7 +4,7 @@
 // external Variables
 extern TIM_HandleTypeDef htim2;
 extern UART_HandleTypeDef huart1;
-extern ADC_HandleTypeDef hadc2;
+extern ADC_HandleTypeDef hadc1;
 
 
 void uart_comms(){
@@ -194,6 +194,7 @@ void init_peripherals(){
 	  memset(set_temp, 0x00, 3);
 	  segment_val =(uint8_t*)malloc(4);
 	  memset(segment_val, 0x00, 4);
+//	  adc_buffer = adc_buffer_array;
 
 
 	HAL_TIM_Base_Start_IT(&htim2);
@@ -201,7 +202,17 @@ void init_peripherals(){
 }
 
 void adc_comms(){
-	adc_raw_value = HAL_ADC_GetValue(&hadc2);
+	adc_raw_value = HAL_ADC_GetValue(&hadc1);
+	adc_buffer = (pow((adc_raw_value-2072)/551,2))+adc_buffer;
+	adc_counter += 1;
+	if(adc_counter == 20000){
+		voltage_rms = sqrt(adc_buffer/20000);
+		adc_counter = 0;
+		adc_buffer = 0;
+	}
+
+
+	HAL_ADC_Start_IT(&hadc1);
 }
 
 void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc){
@@ -329,6 +340,11 @@ void seven_segment_display(uint8_t num){
 
 	}
 
+
+
+}
+
+void convert_adc_raw(){
 
 
 }

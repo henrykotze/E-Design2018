@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
+#include <math.h>
 
 // UART Variables
 
@@ -28,5 +29,12 @@ extern uint8_t* segment_val;
 
 // ADC Variables
 extern uint8_t adc_flag;
-extern uint8_t adc_raw_value;
+extern uint16_t adc_raw_value;
+extern uint64_t adc_buffer;
+extern uint16_t adc_counter;
+extern uint16_t adc_buffer_array[];
+extern uint32_t voltage_rms;
+
+
+
 #endif
