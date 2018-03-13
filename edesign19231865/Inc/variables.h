@@ -29,11 +29,15 @@ extern uint8_t* segment_val;
 
 // ADC Variables
 extern uint8_t adc_flag;
-extern uint16_t adc_raw_value;
-extern uint64_t adc_buffer;
+extern uint32_t adc_raw_voltage;
+extern uint32_t adc_raw_current;
+
+extern uint64_t adc_buffer_voltage;
+extern uint64_t adc_buffer_current;
 extern uint16_t adc_counter;
 extern uint16_t adc_buffer_array[];
 extern uint64_t voltage_rms;
+extern uint64_t current_rms;
 
 
 

@@ -194,7 +194,6 @@ void init_peripherals(){
 	  memset(set_temp, 0x00, 3);
 	  segment_val =(uint8_t*)malloc(4);
 	  memset(segment_val, 0x00, 4);
-	  segment_val = studentnumber1;
 
 
 	HAL_TIM_Base_Start_IT(&htim2);
@@ -202,14 +201,23 @@ void init_peripherals(){
 }
 
 void adc_comms(){
-	adc_raw_value = HAL_ADC_GetValue(&hadc1);
-	adc_buffer = (pow((adc_raw_value-2072)/8.629,2))+adc_buffer;
+	adc_raw_voltage = 	HAL_ADCEx_InjectedGetValue(&hadc1,1);
+	adc_raw_current =	HAL_ADCEx_InjectedGetValue(&hadc1,2);
+
+	//Converting Voltage
+	adc_buffer_voltage = (pow((adc_raw_voltage-2072.202)/8.629,2))+adc_buffer_voltage;
+
+	//Converting Current
+	adc_buffer_current = (pow((adc_raw_current-2072.202)/146.03,2))+adc_buffer_current;
+
 	adc_counter += 1;
-	if(adc_counter == 40000){
-		voltage_rms = sqrt(adc_buffer/40000)+10;
+	if(adc_counter == 10000){
+		voltage_rms = sqrt(adc_buffer_voltage/10000) + 10;
+		current_rms = sqrt(adc_buffer_current/10000) -5;
 		adc_counter = 0;
-//		segment_val  = (uint8_t)&voltage_rms;
-		adc_buffer = 0;
+
+		adc_buffer_voltage = 0;
+		adc_buffer_current = 0;
 	}
 
 

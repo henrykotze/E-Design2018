@@ -27,7 +27,10 @@ uint8_t* segment_val = NULL;
 #define ADC_SAMPLE 0.25 // MHz
 #define INPUT_HZ 60 // Hz
 uint8_t adc_flag = 0;
-uint16_t adc_raw_value = 0;
-uint64_t adc_buffer = 0;
+uint32_t adc_raw_voltage = 0;
+uint64_t adc_buffer_voltage = 0;
+uint64_t adc_buffer_current = 0;
 uint16_t adc_counter = 0;
 uint64_t voltage_rms = 0;
+uint64_t current_rms = 0;
+uint32_t adc_raw_current = 0;
