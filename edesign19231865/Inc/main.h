@@ -49,15 +49,6 @@
 
 /* Private define ------------------------------------------------------------*/
 
-#define B1_Pin GPIO_PIN_13
-#define B1_GPIO_Port GPIOC
-#define RCC_OSC32_OUT_Pin GPIO_PIN_15
-#define RCC_OSC32_OUT_GPIO_Port GPIOC
-#define TMS_Pin GPIO_PIN_13
-#define TMS_GPIO_Port GPIOA
-#define TCK_Pin GPIO_PIN_14
-#define TCK_GPIO_Port GPIOA
-
 /* ########################## Assert Selection ############################## */
 /**
   * @brief Uncomment the line below to expanse the "assert_param" macro in the 

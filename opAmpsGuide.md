@@ -12,3 +12,10 @@
 
 ## Schematic of OpAmp:
 ![alt text](https://github.com/hhenryy/E-Design2018/blob/master/images/opAmpSchematic.png)
+
+
+## Output of OpAmp Channel 1:
+
+
+
+## Output of OpAmp Channel 2:

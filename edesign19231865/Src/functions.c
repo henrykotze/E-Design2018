@@ -83,6 +83,7 @@ void uart_comms(){
 
 					 sizeOfTemp = uart_counter - 5;
 					 memcpy(set_temp, uart_command+3, sizeOfTemp * sizeof(uint8_t) );
+					 segment_val = set_temp;
 
 					break;
 
@@ -197,13 +198,16 @@ void init_peripherals(){
 
 
 	HAL_TIM_Base_Start_IT(&htim2);
+//	HAL_ADCEx_Calibration_Start(&hadc1,ADC_SINGLE_ENDED);
 
 }
 
 void adc_comms(){
-	adc_raw_voltage = 	HAL_ADCEx_InjectedGetValue(&hadc1,1);
-	adc_raw_current =	HAL_ADCEx_InjectedGetValue(&hadc1,2);
 
+
+
+	 adc_raw_voltage=  HAL_ADC_GetValue(&hadc1);
+	 adc_raw_current= HAL_ADC_GetValue(&hadc1);
 	//Converting Voltage
 	adc_buffer_voltage = (pow((adc_raw_voltage-2072.202)/8.629,2))+adc_buffer_voltage;
 
@@ -212,7 +216,7 @@ void adc_comms(){
 
 	adc_counter += 1;
 	if(adc_counter == 10000){
-		voltage_rms = sqrt(adc_buffer_voltage/10000) + 10;
+		voltage_rms = sqrt(adc_buffer_voltage/10000);
 		current_rms = sqrt(adc_buffer_current/10000) -5;
 		adc_counter = 0;
 
@@ -221,8 +225,9 @@ void adc_comms(){
 	}
 
 
-	HAL_ADC_Start_IT(&hadc1);
+//	HAL_ADC_Start_IT(&hadc1);
 }
+
 
 void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc){
 	adc_flag = 1;
