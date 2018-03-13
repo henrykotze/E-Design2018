@@ -82,8 +82,9 @@ void uart_comms(){
 					HAL_UART_Transmit(&huart1,(uint8_t*)return_value, sizeof(return_value), 1000);
 
 					 sizeOfTemp = uart_counter - 5;
+					 memset(set_temp, 0x00, 4);
 					 memcpy(set_temp, uart_command+3, sizeOfTemp * sizeof(uint8_t) );
-					 segment_val = set_temp;
+					 segment_val =set_temp;
 
 					break;
 
@@ -127,13 +128,14 @@ void uart_comms(){
 }
 
 void seven_segment(){
+
 	if(segment_counter == 0){	// Left Most Digit
 
 		HAL_GPIO_WritePin(GPIOB,GPIO_PIN_10,GPIO_PIN_RESET);	// D1
 		HAL_GPIO_WritePin(GPIOB,GPIO_PIN_4,GPIO_PIN_SET);		// D2
 		HAL_GPIO_WritePin(GPIOB,GPIO_PIN_5,GPIO_PIN_SET);		// D3
 		HAL_GPIO_WritePin(GPIOB,GPIO_PIN_3,GPIO_PIN_SET);		// D4
-		seven_segment_display(segment_val[segment_counter]-48);
+		seven_segment_display(segment_val[segment_counter]-48 );
 		segment_counter += 1;
 	}
 	else if( segment_counter == 1){		// Middle left Digit
@@ -192,9 +194,12 @@ void init_peripherals(){
 	  uart_command = (uint8_t*)malloc(40);
 	  memset(uart_command, 0x00, 40);
 	  set_temp = (uint8_t*)malloc(3);
-	  memset(set_temp, 0x00, 3);
-	  segment_val =(uint8_t*)malloc(4);
-	  memset(segment_val, 0x00, 4);
+	  memset(set_temp, 0x00, 4);
+	  segment_val =set_temp;
+//	  memset(segment_val, 0x00, 4);
+
+	  ADC1_buffer = (uint32_t*)malloc(4*sizeof(uint32_t));
+	  memset(ADC1_buffer, 0x00, 4);
 
 
 	HAL_TIM_Base_Start_IT(&htim2);
@@ -206,8 +211,8 @@ void adc_comms(){
 
 
 
-	 adc_raw_voltage=  HAL_ADC_GetValue(&hadc1);
-	 adc_raw_current= HAL_ADC_GetValue(&hadc1);
+	 adc_raw_voltage=  ADC1_buffer[0];
+	 adc_raw_current=	ADC1_buffer[1];
 	//Converting Voltage
 	adc_buffer_voltage = (pow((adc_raw_voltage-2072.202)/8.629,2))+adc_buffer_voltage;
 
@@ -226,15 +231,14 @@ void adc_comms(){
 
 
 //	HAL_ADC_Start_IT(&hadc1);
+	//HAL_ADC_Start_DMA(&hadc1, ADC1_buffer, 4);
 }
-
 
 void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc){
 	adc_flag = 1;
 }
 
 void seven_segment_display(uint8_t num){
-
 	switch(num){
 	case 1:
 		// ON
@@ -274,6 +278,7 @@ void seven_segment_display(uint8_t num){
 		break;
 	case 4:
 		//ON
+		HAL_GPIO_WritePin(GPIOA,GPIO_PIN_6,GPIO_PIN_RESET);
 		HAL_GPIO_WritePin(GPIOA,GPIO_PIN_8,GPIO_PIN_RESET);//F
 		HAL_GPIO_WritePin(GPIOA,GPIO_PIN_9,GPIO_PIN_RESET);//G
 		HAL_GPIO_WritePin(GPIOA,GPIO_PIN_7,GPIO_PIN_RESET);//C
@@ -290,10 +295,13 @@ void seven_segment_display(uint8_t num){
 		HAL_GPIO_WritePin(GPIOA,GPIO_PIN_8,GPIO_PIN_RESET);//F
 		HAL_GPIO_WritePin(GPIOA,GPIO_PIN_9,GPIO_PIN_RESET);//G
 		HAL_GPIO_WritePin(GPIOA,GPIO_PIN_7,GPIO_PIN_RESET);//C
-		HAL_GPIO_WritePin(GPIOB,GPIO_PIN_6,GPIO_PIN_RESET);//D
 		//OFF
 		HAL_GPIO_WritePin(GPIOA,GPIO_PIN_6,GPIO_PIN_SET); //B
 		HAL_GPIO_WritePin(GPIOC,GPIO_PIN_7,GPIO_PIN_SET);//E
+		HAL_GPIO_WritePin(GPIOB,GPIO_PIN_6,GPIO_PIN_SET);//B
+		HAL_GPIO_WritePin(GPIOB,GPIO_PIN_6,GPIO_PIN_SET);//D
+		HAL_GPIO_WritePin(GPIOC,GPIO_PIN_7,GPIO_PIN_SET);//E
+		HAL_GPIO_WritePin(GPIOA,GPIO_PIN_6,GPIO_PIN_SET);
 
 	case 6:
 		// ON
@@ -319,6 +327,7 @@ void seven_segment_display(uint8_t num){
 
 		break;
 	case 8:
+		HAL_GPIO_WritePin(GPIOA,GPIO_PIN_6,GPIO_PIN_RESET);
 		HAL_GPIO_WritePin(GPIOA,GPIO_PIN_5,GPIO_PIN_RESET); //A
 		HAL_GPIO_WritePin(GPIOB,GPIO_PIN_6,GPIO_PIN_RESET);//B
 		HAL_GPIO_WritePin(GPIOA,GPIO_PIN_7,GPIO_PIN_RESET);//C
@@ -334,12 +343,14 @@ void seven_segment_display(uint8_t num){
 		HAL_GPIO_WritePin(GPIOA,GPIO_PIN_7,GPIO_PIN_RESET);//C
 		HAL_GPIO_WritePin(GPIOA,GPIO_PIN_8,GPIO_PIN_RESET);//F
 		HAL_GPIO_WritePin(GPIOA,GPIO_PIN_9,GPIO_PIN_RESET);//G
+		HAL_GPIO_WritePin(GPIOA,GPIO_PIN_6,GPIO_PIN_RESET);
 		//OFF
 		HAL_GPIO_WritePin(GPIOC,GPIO_PIN_7,GPIO_PIN_SET);//E
 		HAL_GPIO_WritePin(GPIOB,GPIO_PIN_6,GPIO_PIN_SET);//D
 		break;
 	case 0:
 		//ON
+		HAL_GPIO_WritePin(GPIOA,GPIO_PIN_6,GPIO_PIN_RESET);
 		HAL_GPIO_WritePin(GPIOA,GPIO_PIN_5,GPIO_PIN_RESET); //A
 		HAL_GPIO_WritePin(GPIOB,GPIO_PIN_6,GPIO_PIN_RESET);//B
 		HAL_GPIO_WritePin(GPIOA,GPIO_PIN_7,GPIO_PIN_RESET);//C
@@ -349,7 +360,16 @@ void seven_segment_display(uint8_t num){
 		//OFF
 
 		HAL_GPIO_WritePin(GPIOA,GPIO_PIN_9,GPIO_PIN_SET);//G
-
+		break;
+	default:
+		HAL_GPIO_WritePin(GPIOA,GPIO_PIN_5,GPIO_PIN_SET); //A
+		HAL_GPIO_WritePin(GPIOB,GPIO_PIN_6,GPIO_PIN_SET);//B
+		HAL_GPIO_WritePin(GPIOA,GPIO_PIN_7,GPIO_PIN_SET);//C
+		HAL_GPIO_WritePin(GPIOB,GPIO_PIN_6,GPIO_PIN_SET);//D
+		HAL_GPIO_WritePin(GPIOC,GPIO_PIN_7,GPIO_PIN_SET);//E
+		HAL_GPIO_WritePin(GPIOA,GPIO_PIN_8,GPIO_PIN_SET);//F
+		HAL_GPIO_WritePin(GPIOA,GPIO_PIN_9,GPIO_PIN_SET);//
+		HAL_GPIO_WritePin(GPIOA,GPIO_PIN_6,GPIO_PIN_SET);
 
 
 	}
@@ -358,7 +378,3 @@ void seven_segment_display(uint8_t num){
 
 }
 
-void convert_adc_raw(){
-
-
-}

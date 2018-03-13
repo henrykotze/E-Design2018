@@ -1,4 +1,5 @@
-stm32f3xx_it.c:55:6:SysTick_Handler	8	static
-stm32f3xx_it.c:77:6:ADC1_2_IRQHandler	0	static
-stm32f3xx_it.c:91:6:TIM2_IRQHandler	0	static
-stm32f3xx_it.c:105:6:USART1_IRQHandler	0	static
+stm32f3xx_it.c:56:6:SysTick_Handler	8	static
+stm32f3xx_it.c:78:6:DMA1_Channel1_IRQHandler	0	static
+stm32f3xx_it.c:92:6:ADC1_2_IRQHandler	0	static
+stm32f3xx_it.c:106:6:TIM2_IRQHandler	0	static
+stm32f3xx_it.c:120:6:USART1_IRQHandler	0	static

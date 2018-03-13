@@ -34,3 +34,5 @@ uint16_t adc_counter = 0;
 uint64_t voltage_rms = 0;
 uint64_t current_rms = 0;
 uint32_t adc_raw_current = 0;
+
+uint32_t* ADC1_buffer = NULL;

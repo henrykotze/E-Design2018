@@ -39,6 +39,7 @@ extern uint16_t adc_buffer_array[];
 extern uint64_t voltage_rms;
 extern uint64_t current_rms;
 
+extern uint32_t* ADC1_buffer;
 
 
 #endif
