@@ -230,7 +230,7 @@ void adc_comms(){
 	}
 
 
-//	HAL_ADC_Start_IT(&hadc1);
+//HAL_ADC_Start_IT(&hadc1);
 	//HAL_ADC_Start_DMA(&hadc1, ADC1_buffer, 4);
 }
 

@@ -115,8 +115,8 @@ int main(void)
 
   init_peripherals();
   HAL_UART_Receive_IT(&huart1, (uint8_t*)&rx_buffer, 1);
-  HAL_ADC_Start_DMA(&hadc1, ADC1_buffer, 4);
- // HAL_ADC_Start_IT(&hadc1);
+ HAL_ADC_Start_DMA(&hadc1, ADC1_buffer, 4);
+  //HAL_ADC_Start_IT(&hadc1);
 
   /* USER CODE END 2 */
 

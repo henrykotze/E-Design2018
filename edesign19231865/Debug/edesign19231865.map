@@ -2429,7 +2429,7 @@ OUTPUT(edesign19231865.elf elf32-littlearm)
  .debug_ranges  0x00000ea8       0x18 Src\system_stm32f3xx.o
  .debug_ranges  0x00000ec0       0x20 startup\startup_stm32f334x8.o
 
-.debug_line     0x00000000     0x7dcb
+.debug_line     0x00000000     0x7dca
  .debug_line    0x00000000      0x420 Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal.o
  .debug_line    0x00000420      0x371 Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_adc.o
  .debug_line    0x00000791     0x106b Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_adc_ex.o
@@ -2444,11 +2444,11 @@ OUTPUT(edesign19231865.elf elf32-littlearm)
  .debug_line    0x00005aa9      0x3e9 Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_uart_ex.o
  .debug_line    0x00005e92      0x8a3 Src\functions.o
  .debug_line    0x00006735      0x85f Src\main.o
- .debug_line    0x00006f94      0x3ff Src\stm32f3xx_hal_msp.o
- .debug_line    0x00007393      0x35c Src\stm32f3xx_it.o
- .debug_line    0x000076ef      0x27a Src\system_stm32f3xx.o
- .debug_line    0x00007969      0x3e3 Src\variables.o
- .debug_line    0x00007d4c       0x7f startup\startup_stm32f334x8.o
+ .debug_line    0x00006f94      0x3fe Src\stm32f3xx_hal_msp.o
+ .debug_line    0x00007392      0x35c Src\stm32f3xx_it.o
+ .debug_line    0x000076ee      0x27a Src\system_stm32f3xx.o
+ .debug_line    0x00007968      0x3e3 Src\variables.o
+ .debug_line    0x00007d4b       0x7f startup\startup_stm32f334x8.o
 
 .debug_str      0x00000000    0xab1d6
  .debug_str     0x00000000      0xabf Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal.o

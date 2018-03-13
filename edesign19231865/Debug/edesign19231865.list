@@ -35,15 +35,15 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING
  15 .debug_ranges 00000ee0  00000000  00000000  00049198  2**3
                   CONTENTS, READONLY, DEBUGGING
- 16 .debug_line   00007dcb  00000000  00000000  0004a078  2**0
+ 16 .debug_line   00007dca  00000000  00000000  0004a078  2**0
                   CONTENTS, READONLY, DEBUGGING
- 17 .debug_str    000ab1d6  00000000  00000000  00051e43  2**0
+ 17 .debug_str    000ab1d6  00000000  00000000  00051e42  2**0
                   CONTENTS, READONLY, DEBUGGING
- 18 .comment      0000007c  00000000  00000000  000fd019  2**0
+ 18 .comment      0000007c  00000000  00000000  000fd018  2**0
                   CONTENTS, READONLY
- 19 .debug_frame  0000290c  00000000  00000000  000fd098  2**2
+ 19 .debug_frame  0000290c  00000000  00000000  000fd094  2**2
                   CONTENTS, READONLY, DEBUGGING
- 20 .debug_macro  0001be37  00000000  00000000  000ff9a4  2**0
+ 20 .debug_macro  0001be37  00000000  00000000  000ff9a0  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -7113,7 +7113,7 @@ void adc_comms(){
 	}
 
 
-//	HAL_ADC_Start_IT(&hadc1);
+//HAL_ADC_Start_IT(&hadc1);
 	//HAL_ADC_Start_DMA(&hadc1, ADC1_buffer, 4);
 }
  80034f2:	ecbd 8b02 	vpop	{d8}
@@ -8398,7 +8398,7 @@ void _Error_Handler(char *file, int line)
  8003e9c:	4914      	ldr	r1, [pc, #80]	; (8003ef0 <main+0x78>)
  8003e9e:	4815      	ldr	r0, [pc, #84]	; (8003ef4 <main+0x7c>)
  8003ea0:	f7fe fdca 	bl	8002a38 <HAL_UART_Receive_IT>
-  HAL_ADC_Start_DMA(&hadc1, ADC1_buffer, 4);
+ HAL_ADC_Start_DMA(&hadc1, ADC1_buffer, 4);
  8003ea4:	2204      	movs	r2, #4
  8003ea6:	4b14      	ldr	r3, [pc, #80]	; (8003ef8 <main+0x80>)
  8003ea8:	6819      	ldr	r1, [r3, #0]
@@ -8540,9 +8540,9 @@ void HAL_ADC_MspInit(ADC_HandleTypeDef* hadc)
  8003f8c:	f1b3 4fa0 	cmp.w	r3, #1342177280	; 0x50000000
 {
  8003f90:	b086      	sub	sp, #24
- 8003f92:	4606      	mov	r6, r0
+ 8003f92:	4605      	mov	r5, r0
   if(hadc->Instance==ADC1)
- 8003f94:	d139      	bne.n	800400a <HAL_ADC_MspInit+0x82>
+ 8003f94:	d13a      	bne.n	800400c <HAL_ADC_MspInit+0x84>
   {
   /* USER CODE BEGIN ADC1_MspInit 0 */
 
@@ -8557,7 +8557,7 @@ void HAL_ADC_MspInit(ADC_HandleTypeDef* hadc)
     GPIO_InitStruct.Pin = GPIO_PIN_2|GPIO_PIN_3;
     GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
     GPIO_InitStruct.Pull = GPIO_NOPULL;
- 8003f9e:	2500      	movs	r5, #0
+ 8003f9e:	2600      	movs	r6, #0
     __HAL_RCC_ADC12_CLK_ENABLE();
  8003fa0:	695a      	ldr	r2, [r3, #20]
     HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
@@ -8572,7 +8572,7 @@ void HAL_ADC_MspInit(ADC_HandleTypeDef* hadc)
  8003faa:	615a      	str	r2, [r3, #20]
  8003fac:	695b      	ldr	r3, [r3, #20]
     GPIO_InitStruct.Pull = GPIO_NOPULL;
- 8003fae:	9503      	str	r5, [sp, #12]
+ 8003fae:	9603      	str	r6, [sp, #12]
     __HAL_RCC_ADC12_CLK_ENABLE();
  8003fb0:	f003 5380 	and.w	r3, r3, #268435456	; 0x10000000
  8003fb4:	9300      	str	r3, [sp, #0]
@@ -8591,9 +8591,9 @@ void HAL_ADC_MspInit(ADC_HandleTypeDef* hadc)
  8003fc6:	4b14      	ldr	r3, [pc, #80]	; (8004018 <HAL_ADC_MspInit+0x90>)
     hdma_adc1.Init.Direction = DMA_PERIPH_TO_MEMORY;
     hdma_adc1.Init.PeriphInc = DMA_PINC_DISABLE;
- 8003fc8:	60a5      	str	r5, [r4, #8]
+ 8003fc8:	60a6      	str	r6, [r4, #8]
     hdma_adc1.Init.Direction = DMA_PERIPH_TO_MEMORY;
- 8003fca:	e884 0028 	stmia.w	r4, {r3, r5}
+ 8003fca:	e884 0048 	stmia.w	r4, {r3, r6}
     hdma_adc1.Init.MemInc = DMA_MINC_ENABLE;
  8003fce:	2380      	movs	r3, #128	; 0x80
  8003fd0:	60e3      	str	r3, [r4, #12]
@@ -8603,52 +8603,50 @@ void HAL_ADC_MspInit(ADC_HandleTypeDef* hadc)
     hdma_adc1.Init.MemDataAlignment = DMA_MDATAALIGN_WORD;
  8003fd8:	f44f 6300 	mov.w	r3, #2048	; 0x800
  8003fdc:	6163      	str	r3, [r4, #20]
-    hdma_adc1.Init.Mode = DMA_NORMAL;
+    hdma_adc1.Init.Mode = DMA_CIRCULAR;
+ 8003fde:	2320      	movs	r3, #32
+ 8003fe0:	61a3      	str	r3, [r4, #24]
     hdma_adc1.Init.Priority = DMA_PRIORITY_HIGH;
     if (HAL_DMA_Init(&hdma_adc1) != HAL_OK)
- 8003fde:	4620      	mov	r0, r4
+ 8003fe2:	4620      	mov	r0, r4
     hdma_adc1.Init.Priority = DMA_PRIORITY_HIGH;
- 8003fe0:	f44f 5300 	mov.w	r3, #8192	; 0x2000
-    hdma_adc1.Init.Mode = DMA_NORMAL;
- 8003fe4:	61a5      	str	r5, [r4, #24]
-    hdma_adc1.Init.Priority = DMA_PRIORITY_HIGH;
- 8003fe6:	61e3      	str	r3, [r4, #28]
+ 8003fe4:	f44f 5300 	mov.w	r3, #8192	; 0x2000
+ 8003fe8:	61e3      	str	r3, [r4, #28]
     if (HAL_DMA_Init(&hdma_adc1) != HAL_OK)
- 8003fe8:	f7fd fd1e 	bl	8001a28 <HAL_DMA_Init>
- 8003fec:	b118      	cbz	r0, 8003ff6 <HAL_ADC_MspInit+0x6e>
+ 8003fea:	f7fd fd1d 	bl	8001a28 <HAL_DMA_Init>
+ 8003fee:	b118      	cbz	r0, 8003ff8 <HAL_ADC_MspInit+0x70>
     {
       _Error_Handler(__FILE__, __LINE__);
- 8003fee:	2173      	movs	r1, #115	; 0x73
- 8003ff0:	480a      	ldr	r0, [pc, #40]	; (800401c <HAL_ADC_MspInit+0x94>)
- 8003ff2:	f7ff fe44 	bl	8003c7e <_Error_Handler>
+ 8003ff0:	2173      	movs	r1, #115	; 0x73
+ 8003ff2:	480a      	ldr	r0, [pc, #40]	; (800401c <HAL_ADC_MspInit+0x94>)
+ 8003ff4:	f7ff fe43 	bl	8003c7e <_Error_Handler>
     }
 
     __HAL_LINKDMA(hadc,DMA_Handle,hdma_adc1);
 
     /* ADC1 interrupt Init */
     HAL_NVIC_SetPriority(ADC1_2_IRQn, 0, 0);
- 8003ff6:	2200      	movs	r2, #0
- 8003ff8:	2012      	movs	r0, #18
+ 8003ff8:	2200      	movs	r2, #0
+ 8003ffa:	2012      	movs	r0, #18
     __HAL_LINKDMA(hadc,DMA_Handle,hdma_adc1);
- 8003ffa:	63f4      	str	r4, [r6, #60]	; 0x3c
+ 8003ffc:	63ec      	str	r4, [r5, #60]	; 0x3c
     HAL_NVIC_SetPriority(ADC1_2_IRQn, 0, 0);
- 8003ffc:	4611      	mov	r1, r2
+ 8003ffe:	4611      	mov	r1, r2
     __HAL_LINKDMA(hadc,DMA_Handle,hdma_adc1);
- 8003ffe:	6266      	str	r6, [r4, #36]	; 0x24
+ 8004000:	6265      	str	r5, [r4, #36]	; 0x24
     HAL_NVIC_SetPriority(ADC1_2_IRQn, 0, 0);
- 8004000:	f7fd fcaa 	bl	8001958 <HAL_NVIC_SetPriority>
+ 8004002:	f7fd fca9 	bl	8001958 <HAL_NVIC_SetPriority>
     HAL_NVIC_EnableIRQ(ADC1_2_IRQn);
- 8004004:	2012      	movs	r0, #18
- 8004006:	f7fd fcdb 	bl	80019c0 <HAL_NVIC_EnableIRQ>
+ 8004006:	2012      	movs	r0, #18
+ 8004008:	f7fd fcda 	bl	80019c0 <HAL_NVIC_EnableIRQ>
   /* USER CODE BEGIN ADC1_MspInit 1 */
 
   /* USER CODE END ADC1_MspInit 1 */
   }
 
 }
- 800400a:	b006      	add	sp, #24
- 800400c:	bd70      	pop	{r4, r5, r6, pc}
- 800400e:	bf00      	nop
+ 800400c:	b006      	add	sp, #24
+ 800400e:	bd70      	pop	{r4, r5, r6, pc}
  8004010:	48000800 	.word	0x48000800
  8004014:	200001d4 	.word	0x200001d4
  8004018:	40020008 	.word	0x40020008
