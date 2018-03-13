@@ -33,7 +33,7 @@ extern uint16_t adc_raw_value;
 extern uint64_t adc_buffer;
 extern uint16_t adc_counter;
 extern uint16_t adc_buffer_array[];
-extern uint32_t voltage_rms;
+extern uint64_t voltage_rms;
 
 
 

@@ -28,6 +28,6 @@ uint8_t* segment_val = NULL;
 #define INPUT_HZ 60 // Hz
 uint8_t adc_flag = 0;
 uint16_t adc_raw_value = 0;
-uint64_t adc_buffer;
+uint64_t adc_buffer = 0;
 uint16_t adc_counter = 0;
-uint32_t voltage_rms = 0;
+uint64_t voltage_rms = 0;
