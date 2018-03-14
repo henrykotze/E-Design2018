@@ -43,10 +43,10 @@ void uart_comms(){
 					 memcpy(return_value+2, endSimbol,2 );
 					 HAL_UART_Transmit(&huart1, return_value, sizeof(return_value), 1000);
 					 if(uart_command[2]=='0'){
-						auto_heating = 0;	// auto heating off
+						heater_state = heater_OFF;	// auto heating off
 					 }
 					 else if(uart_command[2] == '1'){
-						auto_heating = 1;	// auto heating on
+						 heater_state = heater_ON;	// auto heating on
 					 }
 					 break;
 
@@ -112,6 +112,19 @@ void uart_comms(){
 
 				 case 'K':
 					 // send telematary
+					 memcpy(return_value, uart_command, 2);
+					 memcpy(return_value+2,comma,1 );
+					 memcpy(return_value+3,current_rms,strlen(current_rms));
+					 memcpy(return_value+strlen((char*)return_value),comma,1 );
+					 memcpy(return_value+strlen((char*)return_value),voltage_rms,strlen(voltage_rms) );
+//					 memcpy(return_value+19,(uint8_t*)ambient_temp,1 );
+//					 memcpy(return_value+4,comma,1 );
+//					 memcpy(return_value+19,(uint8_t*)geyser_temp,1 );
+//					 memcpy(return_value+4,comma,1 );
+					 memcpy(return_value+strlen((char*)return_value), endSimbol,2 );
+
+					 HAL_UART_Transmit(&huart1,return_value, strlen((char*)return_value),100);
+
 					 break;
 
 				 case 'L': // Request log Entry
@@ -119,7 +132,7 @@ void uart_comms(){
 					 break;
 				 }
 				memset(uart_command,0x00, 40);
-				memset(return_value,0x00, 15);
+				memset(return_value,0x00, 35);
 				uart_counter = 0;
 		  }
 		  else if(uart_counter > 39 ){
@@ -189,18 +202,33 @@ void init_peripherals(){
 
 	  studentnumber = (uint8_t*)malloc(15);
 	  memset(studentnumber, 0x00, 15);
-	  return_value = (uint8_t*)malloc(15);
-	  memset(return_value, 0x00, 15);
+
+	  return_value = (uint8_t*)malloc(35);
+	  memset(return_value, 0x00, 35);
+
 	  uart_command = (uint8_t*)malloc(40);
 	  memset(uart_command, 0x00, 40);
+
 	  set_temp = (uint8_t*)malloc(3);
 	  memset(set_temp, 0x00, 4);
+
 	  segment_val =set_temp;
 //	  memset(segment_val, 0x00, 4);
 
 	  ADC1_buffer = (uint32_t*)malloc(4*sizeof(uint32_t));
 	  memset(ADC1_buffer, 0x00, 4);
 
+	  voltage_rms =(char*)malloc(3*sizeof(char));
+	  memset(voltage_rms, 0x00, 3);
+
+	  current_rms =(char*)malloc(4*sizeof(char));
+	  memset(current_rms, 0x00, 4);
+
+	  voltage_int_rms = (uint32_t*)malloc(4*sizeof(uint32_t));
+	  current_int_rms= (uint32_t*)malloc(4*sizeof(uint32_t));
+
+	  //HEATER
+	  heater_state = heater_OFF;
 
 	HAL_TIM_Base_Start_IT(&htim2);
 //	HAL_ADCEx_Calibration_Start(&hadc1,ADC_SINGLE_ENDED);
@@ -214,24 +242,22 @@ void adc_comms(){
 	 adc_raw_voltage=  ADC1_buffer[0];
 	 adc_raw_current=	ADC1_buffer[1];
 	//Converting Voltage
-	adc_buffer_voltage = (pow((adc_raw_voltage-2072.202)/8.629,2))+adc_buffer_voltage;
+	adc_buffer_voltage = (pow((adc_raw_voltage-2072.202)/0.008629,2))+adc_buffer_voltage;
 
 	//Converting Current
-	adc_buffer_current = (pow((adc_raw_current-2072.202)/146.03,2))+adc_buffer_current;
+	adc_buffer_current = (pow((adc_raw_current-2072.202)/0.14603,2))+adc_buffer_current;
 
 	adc_counter += 1;
 	if(adc_counter == 10000){
-		voltage_rms = sqrt(adc_buffer_voltage/10000);
-		current_rms = sqrt(adc_buffer_current/10000) -5;
+		*voltage_int_rms = sqrt(adc_buffer_voltage/10000);
+		*current_int_rms = sqrt(adc_buffer_current/10000);
+		sprintf(voltage_rms,"%lu", *voltage_int_rms);
+		sprintf(current_rms,"%lu", *current_int_rms);
 		adc_counter = 0;
 
 		adc_buffer_voltage = 0;
 		adc_buffer_current = 0;
 	}
-
-
-//HAL_ADC_Start_IT(&hadc1);
-	//HAL_ADC_Start_DMA(&hadc1, ADC1_buffer, 4);
 }
 
 void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc){

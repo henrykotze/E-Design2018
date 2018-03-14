@@ -1,7 +1,7 @@
-functions.c:10:6:uart_comms	16	static
-functions.c:167:6:HAL_UART_RxCpltCallback	0	static
-functions.c:172:6:init_peripherals	8	static
-functions.c:210:6:adc_comms	32	static
-functions.c:237:6:HAL_ADC_ConvCpltCallback	0	static
-functions.c:241:6:seven_segment_display	16	static
-functions.c:130:6:seven_segment	8	static
+functions.c:10:6:uart_comms	24	static
+functions.c:180:6:HAL_UART_RxCpltCallback	0	static
+functions.c:185:6:init_peripherals	8	static
+functions.c:238:6:adc_comms	32	static
+functions.c:263:6:HAL_ADC_ConvCpltCallback	0	static
+functions.c:267:6:seven_segment_display	16	static
+functions.c:143:6:seven_segment	8	static

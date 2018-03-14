@@ -116,8 +116,6 @@ int main(void)
   init_peripherals();
   HAL_UART_Receive_IT(&huart1, (uint8_t*)&rx_buffer, 1);
  HAL_ADC_Start_DMA(&hadc1, ADC1_buffer, 4);
-  //HAL_ADC_Start_IT(&hadc1);
-
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -143,7 +141,6 @@ int main(void)
 	  if(adc_flag == 1){	// ADC conversion
 		  adc_flag = 0;
 		  adc_comms();
-		 // HAL_ADC_Start_DMA(&hadc1, ADC1_buffer, 4);
 	  }
 
   }
@@ -191,7 +188,7 @@ void SystemClock_Config(void)
 
   PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_USART1|RCC_PERIPHCLK_ADC12;
   PeriphClkInit.Usart1ClockSelection = RCC_USART1CLKSOURCE_PCLK1;
-  PeriphClkInit.Adc12ClockSelection = RCC_ADC12PLLCLK_DIV64;
+  PeriphClkInit.Adc12ClockSelection = RCC_ADC12PLLCLK_DIV128;
   if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInit) != HAL_OK)
   {
     _Error_Handler(__FILE__, __LINE__);
