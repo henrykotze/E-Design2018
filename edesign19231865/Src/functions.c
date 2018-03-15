@@ -8,12 +8,15 @@ extern ADC_HandleTypeDef hadc1;
 
 
 void uart_comms(){
-	HAL_UART_Receive_IT(&huart1, (uint8_t*)&rx_buffer, 1);
+	//HAL_UART_Receive_IT(&huart1, (uint8_t*)&rx_buffer, 1);
 	rx_flag = 0;
 	uart_command[uart_counter] = rx_buffer;
 	if(uart_command[0] == '$'){
 
 	uart_counter += 1;
+	if(uart_counter > 10){
+		memset(uart_command,0x00, 40);
+	}
 	}
 
 	if(uart_command[0] == '$' && uart_command[uart_counter-1] == '\n' && uart_command[uart_counter - 2] == '\r' && uart_counter > 2){
@@ -194,6 +197,7 @@ void seven_segment(){
 
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart){
 		rx_flag = 1;
+		HAL_UART_Receive_IT(&huart1, (uint8_t*)&rx_buffer, 1);
 
 }
 
@@ -263,9 +267,9 @@ void adc_comms(){
 	adc_buffer_current = (pow((adc_raw_current-2072.202)/0.14603,2))+adc_buffer_current;
 
 	adc_counter += 1;
-	if(adc_counter == 10000){
-		*voltage_int_rms = sqrt(adc_buffer_voltage/10000);
-		*current_int_rms = sqrt(adc_buffer_current/10000);
+	if(adc_counter == 5000){
+		*voltage_int_rms = sqrt(adc_buffer_voltage/5000);
+		*current_int_rms = sqrt(adc_buffer_current/5000);
 		sprintf(voltage_rms,"%lu", *voltage_int_rms);
 		sprintf(current_rms,"%lu", *current_int_rms);
 		adc_counter = 0;
@@ -336,13 +340,12 @@ void seven_segment_display(uint8_t num){
 		HAL_GPIO_WritePin(GPIOA,GPIO_PIN_8,GPIO_PIN_RESET);//F
 		HAL_GPIO_WritePin(GPIOA,GPIO_PIN_9,GPIO_PIN_RESET);//G
 		HAL_GPIO_WritePin(GPIOA,GPIO_PIN_7,GPIO_PIN_RESET);//C
+
 		//OFF
 		HAL_GPIO_WritePin(GPIOA,GPIO_PIN_6,GPIO_PIN_SET); //B
 		HAL_GPIO_WritePin(GPIOC,GPIO_PIN_7,GPIO_PIN_SET);//E
-		HAL_GPIO_WritePin(GPIOB,GPIO_PIN_6,GPIO_PIN_SET);//B
-		HAL_GPIO_WritePin(GPIOB,GPIO_PIN_6,GPIO_PIN_SET);//D
-		HAL_GPIO_WritePin(GPIOC,GPIO_PIN_7,GPIO_PIN_SET);//E
-		HAL_GPIO_WritePin(GPIOA,GPIO_PIN_6,GPIO_PIN_SET);
+		HAL_GPIO_WritePin(GPIOB,GPIO_PIN_6,GPIO_PIN_RESET);//d
+				break;
 
 	case 6:
 		// ON
