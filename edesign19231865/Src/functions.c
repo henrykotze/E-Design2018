@@ -14,9 +14,9 @@ void uart_comms(){
 	if(uart_command[0] == '$'){
 
 	uart_counter += 1;
-	if(uart_counter > 10){
-		memset(uart_command,0x00, 40);
-	}
+//	if(uart_counter > 10){
+//		memset(uart_command,0x00, 40);
+//	}
 	}
 
 	if(uart_command[0] == '$' && uart_command[uart_counter-1] == '\n' && uart_command[uart_counter - 2] == '\r' && uart_counter > 2){
@@ -134,10 +134,10 @@ void uart_comms(){
 					 memcpy(return_value+strlen((char*)return_value),&send_unk_val,1 );
 					 memcpy(return_value+strlen((char*)return_value),comma,1 );
 					 // heating element
-					 memcpy(return_value+strlen((char*)return_value),heater_OFF,strlen(heater_OFF) );
+					 memcpy(return_value+strlen((char*)return_value),SAFE,strlen(SAFE) -1);
 					 memcpy(return_value+strlen((char*)return_value),comma,1 );
 					 //vale state
-					 memcpy(return_value+strlen((char*)return_value), valve_OPEN,strlen(valve_OPEN)-1 );
+					 memcpy(return_value+strlen((char*)return_value), SAFE,strlen(SAFE)-1 );
 					 memcpy(return_value+strlen((char*)return_value), endSimbol,2 );
 
 					 HAL_UART_Transmit(&huart1,return_value, (uint16_t)strlen((char*)return_value),100);

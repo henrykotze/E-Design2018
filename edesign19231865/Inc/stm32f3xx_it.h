@@ -49,7 +49,6 @@
 
 void SysTick_Handler(void);
 void DMA1_Channel1_IRQHandler(void);
-void ADC1_2_IRQHandler(void);
 void TIM2_IRQHandler(void);
 void USART1_IRQHandler(void);
 
