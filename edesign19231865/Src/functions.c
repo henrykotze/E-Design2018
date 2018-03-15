@@ -25,7 +25,8 @@ void uart_comms(){
 				memcpy(studentnumber+2,comma,1);
 				memcpy(studentnumber+3 ,studentnumber1,8 );
 				memcpy(studentnumber+11,endSimbol,sizeof(endSimbol));
-				HAL_UART_Transmit(&huart1, ((uint8_t*)studentnumber), 13, 10);
+//				HAL_UART_Transmit(&huart1, ((uint8_t*)studentnumber), 13, 10);
+				HAL_UART_Transmit_IT(&huart1, ((uint8_t*)studentnumber), 13);
 				break;
 
 				 case 'B':
@@ -114,16 +115,30 @@ void uart_comms(){
 					 // send telematary
 					 memcpy(return_value, uart_command, 2);
 					 memcpy(return_value+2,comma,1 );
+					 //current
 					 memcpy(return_value+3,current_rms,strlen(current_rms));
 					 memcpy(return_value+strlen((char*)return_value),comma,1 );
+					 //voltage
 					 memcpy(return_value+strlen((char*)return_value),voltage_rms,strlen(voltage_rms) );
-//					 memcpy(return_value+19,(uint8_t*)ambient_temp,1 );
-//					 memcpy(return_value+4,comma,1 );
-//					 memcpy(return_value+19,(uint8_t*)geyser_temp,1 );
-//					 memcpy(return_value+4,comma,1 );
+					 memcpy(return_value+strlen((char*)return_value),comma,1 );
+					 //ambient temp
+					 memcpy(return_value+strlen((char*)return_value),&send_unk_val,1 );
+					 memcpy(return_value+strlen((char*)return_value),comma,1 );
+					 // hot water temp
+					 memcpy(return_value+strlen((char*)return_value),&send_unk_val,1 );
+					 memcpy(return_value+strlen((char*)return_value),comma,1 );
+					 // accumulated water
+					 memcpy(return_value+strlen((char*)return_value),&send_unk_val,1 );
+					 memcpy(return_value+strlen((char*)return_value),comma,1 );
+					 // heating element
+					 memcpy(return_value+strlen((char*)return_value),heater_OFF,strlen(heater_OFF) );
+					 memcpy(return_value+strlen((char*)return_value),comma,1 );
+					 //vale state
+					 memcpy(return_value+strlen((char*)return_value), valve_OPEN,strlen(valve_OPEN)-1 );
 					 memcpy(return_value+strlen((char*)return_value), endSimbol,2 );
 
-					 HAL_UART_Transmit(&huart1,return_value, strlen((char*)return_value),100);
+					 HAL_UART_Transmit(&huart1,return_value, (uint16_t)strlen((char*)return_value),100);
+//					 HAL_UART_Transmit_IT(&huart1,return_value, 28);
 
 					 break;
 
@@ -132,7 +147,7 @@ void uart_comms(){
 					 break;
 				 }
 				memset(uart_command,0x00, 40);
-				memset(return_value,0x00, 35);
+				memset(return_value,0x00, 50);
 				uart_counter = 0;
 		  }
 		  else if(uart_counter > 39 ){
@@ -203,8 +218,8 @@ void init_peripherals(){
 	  studentnumber = (uint8_t*)malloc(15);
 	  memset(studentnumber, 0x00, 15);
 
-	  return_value = (uint8_t*)malloc(35);
-	  memset(return_value, 0x00, 35);
+	  return_value = (uint8_t*)malloc(50);
+	  memset(return_value, 0x00, 50);
 
 	  uart_command = (uint8_t*)malloc(40);
 	  memset(uart_command, 0x00, 40);

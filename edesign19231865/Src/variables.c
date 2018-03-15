@@ -22,8 +22,14 @@ char heater_ON[] = {'O','N'};
 char heater_OFF[] = {'O','F','F'};
 char* heater_state = NULL;
 
-// Water Flow Variables
+// Unknown parameters:
+char SAFE[] = {'s','a','f','e'};
+uint8_t send_unk_val = 48 ;
 
+
+// Water Flow Variables
+char valve_OPEN[] = {'O','P','E','N'};
+char valve_CLOSE[] = {'C','L','O','S','E'};
 
 // Temperature Variables
 uint8_t* set_temp = NULL;

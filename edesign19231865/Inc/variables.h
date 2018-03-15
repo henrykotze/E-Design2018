@@ -36,6 +36,13 @@ extern uint8_t auto_heating;
 extern uint8_t* set_temp;
 extern uint8_t* ambient_temp;
 
+// Unknown Variables at this thime
+extern char SAFE[];
+extern uint8_t send_unk_val;
+
+//Water Flow Variables
+extern char valve_OPEN[];
+extern char valve_CLOSE[];
 
 // ADC Variables
 extern uint8_t adc_flag;
