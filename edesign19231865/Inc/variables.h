@@ -59,6 +59,12 @@ extern char* current_rms;
 extern uint32_t* voltage_int_rms;
 extern uint32_t* current_int_rms;
 
+extern uint32_t raw_ambient_temp;
+extern uint32_t raw_geyser_temp;
+
+extern uint32_t* ambient_temp;
+extern uint32_t* geyser_temp;
+
 extern uint32_t* ADC1_buffer;
 
 

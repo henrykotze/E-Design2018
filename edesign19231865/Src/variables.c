@@ -44,6 +44,9 @@ uint8_t* segment_val = NULL;
 // ADC Variables
 uint8_t adc_flag = 0;
 uint32_t adc_raw_voltage = 0;
+uint32_t adc_raw_current = 0;
+uint32_t raw_ambient_temp = 0;
+uint32_t raw_geyser_temp = 0;
 uint64_t adc_buffer_voltage = 0;
 uint64_t adc_buffer_current = 0;
 uint16_t adc_counter = 0;
@@ -54,6 +57,9 @@ char* current_rms = NULL;
 uint32_t* voltage_int_rms = NULL;
 uint32_t* current_int_rms = NULL;
 
-uint32_t adc_raw_current = 0;
+uint32_t* ambient_temp = NULL;
+uint32_t* geyser_temp = NULL;
+
+
 
 uint32_t* ADC1_buffer = NULL;

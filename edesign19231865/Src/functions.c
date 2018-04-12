@@ -244,7 +244,10 @@ void init_peripherals(){
 	  memset(current_rms, 0x00, 4);
 
 	  voltage_int_rms = (uint32_t*)malloc(4*sizeof(uint32_t));
-	  current_int_rms= (uint32_t*)malloc(4*sizeof(uint32_t));
+	  current_int_rms = (uint32_t*)malloc(4*sizeof(uint32_t));
+
+	  ambient_temp = (uint32_t*)malloc(4*sizeof(uint32_t));
+	  geyser_temp = (uint32_t*)malloc(4*sizeof(uint32_t));
 
 	  //HEATER
 	  heater_state = heater_OFF;
@@ -258,13 +261,20 @@ void adc_comms(){
 
 
 
-	 adc_raw_voltage=  ADC1_buffer[0];
-	 adc_raw_current=	ADC1_buffer[1];
+	 adc_raw_voltage =  ADC1_buffer[0];
+	 adc_raw_current =	ADC1_buffer[1];
+	 raw_ambient_temp = ADC1_buffer[3];
+	 raw_geyser_temp = ADC1_buffer[4];
+
 	//Converting Voltage
 	adc_buffer_voltage = (pow((adc_raw_voltage-2072.202)/0.008629,2))+adc_buffer_voltage;
 
 	//Converting Current
 	adc_buffer_current = (pow((adc_raw_current-2072.202)/0.14603,2))+adc_buffer_current;
+
+	//Converting Ambient temperature
+
+	//Converting Geyser Temperature
 
 	adc_counter += 1;
 	if(adc_counter == 5000){
