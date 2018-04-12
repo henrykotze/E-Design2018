@@ -17,6 +17,10 @@ uint8_t* return_value = NULL;
 uint8_t auto_heating = 0;
 char* time = "00:00:00";
 
+
+// Timer variables
+uint8_t tim3 = 0;
+
 // Heater On Off Variables
 char heater_ON[] = {'O','N'};
 char heater_OFF[] = {'O','F','F'};

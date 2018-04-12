@@ -6,7 +6,6 @@
 #include <math.h>
 
 // UART Variables
-
 extern uint8_t rx_flag;
 extern uint8_t rx_buffer;
 extern uint8_t* uart_command;
@@ -15,6 +14,9 @@ extern uint8_t* studentnumber;
 extern char endSimbol[8];
 extern char comma[2];
 extern uint8_t* return_value;
+
+// Timer Variables
+extern uint8_t tim3;
 
 extern uint8_t sizeOfTemp0;
 extern char* time;
@@ -30,11 +32,11 @@ extern char heater_OFF[];
 extern char* heater_state;
 
 // Temperature Variables
-extern uint8_t* geyser_temp;
+//extern uint8_t* geyser_temp;
 extern uint8_t sizeOfTemp;
 extern uint8_t auto_heating;
 extern uint8_t* set_temp;
-extern uint8_t* ambient_temp;
+//extern uint8_t* ambient_temp;
 
 // Unknown Variables at this thime
 extern char SAFE[];
@@ -62,8 +64,8 @@ extern uint32_t* current_int_rms;
 extern uint32_t raw_ambient_temp;
 extern uint32_t raw_geyser_temp;
 
-extern uint32_t* ambient_temp;
-extern uint32_t* geyser_temp;
+extern char* ambient_temp;
+extern char* geyser_temp;
 
 extern uint32_t* ADC1_buffer;
 

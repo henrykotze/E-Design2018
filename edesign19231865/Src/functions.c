@@ -246,8 +246,8 @@ void init_peripherals(){
 	  voltage_int_rms = (uint32_t*)malloc(4*sizeof(uint32_t));
 	  current_int_rms = (uint32_t*)malloc(4*sizeof(uint32_t));
 
-	  ambient_temp = (uint32_t*)malloc(4*sizeof(uint32_t));
-	  geyser_temp = (uint32_t*)malloc(4*sizeof(uint32_t));
+	  ambient_temp = (char*)malloc(3*sizeof(char));
+	  geyser_temp = (char*)malloc(3*sizeof(char));
 
 	  //HEATER
 	  heater_state = heater_OFF;
@@ -273,8 +273,14 @@ void adc_comms(){
 	adc_buffer_current = (pow((adc_raw_current-2072.202)/0.14603,2))+adc_buffer_current;
 
 	//Converting Ambient temperature
-
+	raw_ambient_temp = div(3.3*raw_ambient_temp<<12,0.01 );
 	//Converting Geyser Temperature
+	raw_geyser_temp = div(3.3*raw_ambient_temp<<12,0.01 );
+
+	//Convert to chart
+	sprintf(ambient_temp,"%lu", &raw_ambient_temp);
+	sprintf(geyser_temp,"%lu", &raw_geyser_temp);
+
 
 	adc_counter += 1;
 	if(adc_counter == 5000){
@@ -432,3 +438,9 @@ void seven_segment_display(uint8_t num){
 
 }
 
+void liters_pumped(){
+
+
+
+
+}

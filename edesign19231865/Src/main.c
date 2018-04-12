@@ -145,6 +145,11 @@ int main(void)
 		  adc_flag = 0;
 		  adc_comms();
 	  }
+	  if(tim3 == 1 ){ // also check for time specification.
+		  tim3 = 0;
+	  }
+
+
 
   }
   /* USER CODE END 3 */
