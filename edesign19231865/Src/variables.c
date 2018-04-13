@@ -38,7 +38,7 @@ char* total_water = NULL;
 
 // Water Flow Variables
 char valve_OPEN[] = {'O','P','E','N'};
-char valve_CLOSE[] = {'C','L','O','S','E'};
+char valve_CLOSE[] = {'C','L','O','S','E','D'};
 char* valve_state = NULL;
 
 // Temperature Variables
