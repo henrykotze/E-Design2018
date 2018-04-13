@@ -33,6 +33,10 @@ extern char heater_ON[];
 extern char heater_OFF[];
 extern char* heater_state;
 
+// Water Accumulated
+extern uint32_t water_acc;
+extern char* total_water;
+
 // Temperature Variables
 //extern uint8_t* geyser_temp;
 extern uint8_t sizeOfTemp;
@@ -47,6 +51,7 @@ extern uint8_t send_unk_val;
 //Water Flow Variables
 extern char valve_OPEN[];
 extern char valve_CLOSE[];
+extern char* valve_state;
 
 // ADC Variables
 extern uint8_t adc_flag;

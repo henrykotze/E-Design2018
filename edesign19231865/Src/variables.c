@@ -32,10 +32,14 @@ char* heater_state = NULL;
 char SAFE[] = {'s','a','f','e'};
 uint8_t send_unk_val = 48 ;
 
+// Water Accumulated
+uint32_t water_acc = 0;
+char* total_water = NULL;
 
 // Water Flow Variables
 char valve_OPEN[] = {'O','P','E','N'};
 char valve_CLOSE[] = {'C','L','O','S','E'};
+char* valve_state = NULL;
 
 // Temperature Variables
 uint8_t* set_temp = NULL;

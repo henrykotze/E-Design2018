@@ -38,8 +38,12 @@ void uart_comms(){
 					memcpy(return_value+2, endSimbol,2 );
 					HAL_UART_Transmit(&huart1, return_value, sizeof(return_value), 1000);
 					 if(uart_command[2]=='0'){
+						valve_state=valve_CLOSE;
+						HAL_GPIO_WritePin(GPIOC,GPIO_PIN_1,GPIO_PIN_SET);		// Valve
 					 }
 					 else if(uart_command[2] == '1'){
+						 valve_state = valve_OPEN;
+						 HAL_GPIO_WritePin(GPIOC,GPIO_PIN_1,GPIO_PIN_RESET);		// Valve
 					 }
 					 break;
 
@@ -61,10 +65,11 @@ void uart_comms(){
 					 HAL_UART_Transmit(&huart1, return_value, sizeof(return_value), 1000);
 					 if(auto_heating == 0){	// if auto heating off
 						 if(uart_command[2]=='0'){
+							 HAL_GPIO_WritePin(GPIOC,GPIO_PIN_0,GPIO_PIN_SET);	// Heater
 
 						 }
 						 else if(uart_command[2] == '1'){
-							 // do something
+							 HAL_GPIO_WritePin(GPIOC,GPIO_PIN_0,GPIO_PIN_SET);	// Heater
 						 }
 					 }
 					 break;
@@ -126,19 +131,19 @@ void uart_comms(){
 					 memcpy(return_value+strlen((char*)return_value),voltage_rms,strlen(voltage_rms) );
 					 memcpy(return_value+strlen((char*)return_value),comma,1 );
 					 //ambient temp
-					 memcpy(return_value+strlen((char*)return_value),&send_unk_val,1 );
+					 memcpy(return_value+strlen((char*)return_value),ambient_temp,strlen(ambient_temp) );
 					 memcpy(return_value+strlen((char*)return_value),comma,1 );
 					 // hot water temp
-					 memcpy(return_value+strlen((char*)return_value),&send_unk_val,1 );
+					 memcpy(return_value+strlen((char*)return_value),geyser_temp,strlen(geyser_temp) );
 					 memcpy(return_value+strlen((char*)return_value),comma,1 );
 					 // accumulated water
-					 memcpy(return_value+strlen((char*)return_value),&send_unk_val,1 );
+					 memcpy(return_value+strlen((char*)return_value),total_water,strlen(total_water) );
 					 memcpy(return_value+strlen((char*)return_value),comma,1 );
 					 // heating element
-					 memcpy(return_value+strlen((char*)return_value),SAFE,strlen(SAFE) -1);
+					 memcpy(return_value+strlen((char*)return_value),heater_state,strlen(heater_state));
 					 memcpy(return_value+strlen((char*)return_value),comma,1 );
 					 //vale state
-					 memcpy(return_value+strlen((char*)return_value), SAFE,strlen(SAFE)-1 );
+					 memcpy(return_value+strlen((char*)return_value), valve_state,strlen(valve_state) );
 					 memcpy(return_value+strlen((char*)return_value), endSimbol,2 );
 
 					 HAL_UART_Transmit(&huart1,return_value, (uint16_t)strlen((char*)return_value),100);
@@ -220,6 +225,9 @@ void init_peripherals(){
 	// C
 	HAL_GPIO_WritePin(GPIOC,GPIO_PIN_7,GPIO_PIN_SET);		// 7_SEG_5
 
+	HAL_GPIO_WritePin(GPIOC,GPIO_PIN_0,GPIO_PIN_SET);		// Heater
+	HAL_GPIO_WritePin(GPIOC,GPIO_PIN_1,GPIO_PIN_SET);		// Valve
+
 	  studentnumber = (uint8_t*)malloc(15);
 	  memset(studentnumber, 0x00, 15);
 
@@ -235,14 +243,19 @@ void init_peripherals(){
 	  segment_val =set_temp;
 //	  memset(segment_val, 0x00, 4);
 
-	  ADC1_buffer = (uint32_t*)malloc(5*sizeof(uint32_t));
-	  memset(ADC1_buffer, 0x00, 4);
+	  ADC1_buffer = (uint32_t*)malloc(7*sizeof(uint32_t));
+	  memset(ADC1_buffer, 0x00, 7);
 
 	  voltage_rms =(char*)malloc(3*sizeof(char));
 	  memset(voltage_rms, 0x00, 3);
 
 	  current_rms =(char*)malloc(4*sizeof(char));
 	  memset(current_rms, 0x00, 4);
+
+	  total_water =(char*)malloc(4*sizeof(char));
+	  memset(total_water, 0x00, 4);
+	  sprintf(total_water,"%lu", water_acc);
+
 
 	  voltage_int_rms = (uint32_t*)malloc(4*sizeof(uint32_t));
 	  current_int_rms = (uint32_t*)malloc(4*sizeof(uint32_t));
@@ -252,6 +265,9 @@ void init_peripherals(){
 
 	  //HEATER
 	  heater_state = heater_OFF;
+
+	  //Valve
+	  valve_state = valve_CLOSE;
 
 	HAL_TIM_Base_Start_IT(&htim2);
 	HAL_TIM_Base_Start_IT(&htim3);
@@ -263,12 +279,12 @@ void init_peripherals(){
 
 void adc_comms(){
 
-	tim3_now = htim3.Instance->CNT;
 
+	raw_ambient_temp = ADC1_buffer[3];
+		 raw_geyser_temp = ADC1_buffer[4];
 	 adc_raw_voltage =  ADC1_buffer[0];
 	 adc_raw_current =	ADC1_buffer[1];
-	 raw_ambient_temp = ADC1_buffer[3];
-	 raw_geyser_temp = ADC1_buffer[4];
+
 
 	//Converting Voltage
 	adc_buffer_voltage = (pow((adc_raw_voltage-2072.202)/0.008629,2))+adc_buffer_voltage;
@@ -452,6 +468,8 @@ void liters_pumped(){
 
 	if(tim3_now - tim3_prev > 5000){ //using f=1MHz
 		tim3_prev = tim3_now;
+		water_acc+=100;
+		sprintf(total_water,"%lu", water_acc);
 	}
 
 
