@@ -19,7 +19,9 @@ char* time = "00:00:00";
 
 
 // Timer variables
-uint8_t tim3 = 0;
+uint8_t tim3_flag = 0;
+uint32_t tim3_now = 0;
+uint32_t tim3_prev = 0;
 
 // Heater On Off Variables
 char heater_ON[] = {'O','N'};
@@ -38,8 +40,8 @@ char valve_CLOSE[] = {'C','L','O','S','E'};
 // Temperature Variables
 uint8_t* set_temp = NULL;
 uint8_t sizeOfTemp = 0;
-uint8_t* geyser_temp = NULL;
-uint8_t* ambient_temp = NULL;
+//uint8_t* geyser_temp = NULL;
+//uint8_t* ambient_temp = NULL;
 
 // Seven Segment Variables
 uint8_t segment_counter = 0;
@@ -61,8 +63,8 @@ char* current_rms = NULL;
 uint32_t* voltage_int_rms = NULL;
 uint32_t* current_int_rms = NULL;
 
-uint32_t* ambient_temp = NULL;
-uint32_t* geyser_temp = NULL;
+char* ambient_temp = NULL;
+char* geyser_temp = NULL;
 
 
 

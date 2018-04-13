@@ -3,6 +3,7 @@
 #include "stm32f3xx_hal.h"
 // external Variables
 extern TIM_HandleTypeDef htim2;
+extern TIM_HandleTypeDef htim3;
 extern UART_HandleTypeDef huart1;
 extern ADC_HandleTypeDef hadc1;
 
@@ -234,7 +235,7 @@ void init_peripherals(){
 	  segment_val =set_temp;
 //	  memset(segment_val, 0x00, 4);
 
-	  ADC1_buffer = (uint32_t*)malloc(4*sizeof(uint32_t));
+	  ADC1_buffer = (uint32_t*)malloc(5*sizeof(uint32_t));
 	  memset(ADC1_buffer, 0x00, 4);
 
 	  voltage_rms =(char*)malloc(3*sizeof(char));
@@ -253,13 +254,16 @@ void init_peripherals(){
 	  heater_state = heater_OFF;
 
 	HAL_TIM_Base_Start_IT(&htim2);
+	HAL_TIM_Base_Start_IT(&htim3);
+	HAL_TIM_IC_Start_IT(&htim3,1);			// p696 on HAL & Low level drivers
+
 //	HAL_ADCEx_Calibration_Start(&hadc1,ADC_SINGLE_ENDED);
 
 }
 
 void adc_comms(){
 
-
+	tim3_now = htim3.Instance->CNT;
 
 	 adc_raw_voltage =  ADC1_buffer[0];
 	 adc_raw_current =	ADC1_buffer[1];
@@ -273,19 +277,19 @@ void adc_comms(){
 	adc_buffer_current = (pow((adc_raw_current-2072.202)/0.14603,2))+adc_buffer_current;
 
 	//Converting Ambient temperature
-	raw_ambient_temp = div(3.3*raw_ambient_temp<<12,0.01 );
+	raw_ambient_temp = (raw_ambient_temp-615)/12.3;
 	//Converting Geyser Temperature
-	raw_geyser_temp = div(3.3*raw_ambient_temp<<12,0.01 );
+	raw_geyser_temp = (raw_geyser_temp-615)/12.3;
 
 	//Convert to chart
-	sprintf(ambient_temp,"%lu", &raw_ambient_temp);
-	sprintf(geyser_temp,"%lu", &raw_geyser_temp);
+	sprintf(ambient_temp,"%lu", raw_ambient_temp);
+	sprintf(geyser_temp,"%lu", raw_geyser_temp);
 
 
 	adc_counter += 1;
-	if(adc_counter == 5000){
-		*voltage_int_rms = sqrt(adc_buffer_voltage/5000);
-		*current_int_rms = sqrt(adc_buffer_current/5000);
+	if(adc_counter == 2000){
+		*voltage_int_rms = sqrt(adc_buffer_voltage/2000);
+		*current_int_rms = sqrt(adc_buffer_current/2000);
 		sprintf(voltage_rms,"%lu", *voltage_int_rms);
 		sprintf(current_rms,"%lu", *current_int_rms);
 		adc_counter = 0;
@@ -297,6 +301,10 @@ void adc_comms(){
 
 void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc){
 	adc_flag = 1;
+}
+
+void HAL_TIM_TriggerCallback (TIM_HandleTypeDef * htim){
+	tim3_flag = 1;
 }
 
 void seven_segment_display(uint8_t num){
@@ -440,7 +448,11 @@ void seven_segment_display(uint8_t num){
 
 void liters_pumped(){
 
+	tim3_now = htim3.Instance->CNT; // timer value
 
+	if(tim3_now - tim3_prev > 5000){ //using f=1MHz
+		tim3_prev = tim3_now;
+	}
 
 
 }
