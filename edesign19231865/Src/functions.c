@@ -472,12 +472,19 @@ void seven_segment_display(uint8_t num){
 void liters_pumped(){
 
 	tim3_now = htim3.Instance->CNT; // timer value
+	// register auto-reload value: 65535
 
-	if(tim3_now - tim3_prev > 5100){ //using f=1MHz
+	if(tim3_now - tim3_prev < 0){
+		if(tim3_prev - (65535 + tim3_now) > 5100){
+			tim3_prev = tim3_now;
+			water_acc+=100;
+			sprintf(total_water,"%lu", water_acc);
+		}
+	}
+	else if(tim3_now - tim3_prev > 5100){
 		tim3_prev = tim3_now;
 		water_acc+=100;
 		sprintf(total_water,"%lu", water_acc);
 	}
-
 
 }
