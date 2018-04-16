@@ -37,11 +37,11 @@ void uart_comms(){
 					memcpy(return_value, uart_command, 2);
 					memcpy(return_value+2, endSimbol,2 );
 					HAL_UART_Transmit(&huart1, return_value, sizeof(return_value), 1000);
-					 if(uart_command[2]=='0'){
+					 if(uart_command[3]=='1'){
 						valve_state=valve_CLOSE;
 						HAL_GPIO_WritePin(GPIOC,GPIO_PIN_1,GPIO_PIN_SET);		// Valve
 					 }
-					 else if(uart_command[2] == '1'){
+					 else if(uart_command[3] == '0'){
 						 valve_state = valve_OPEN;
 						 HAL_GPIO_WritePin(GPIOC,GPIO_PIN_1,GPIO_PIN_RESET);		// Valve
 					 }
@@ -52,10 +52,11 @@ void uart_comms(){
 					 memcpy(return_value+2, endSimbol,2 );
 					 HAL_UART_Transmit(&huart1, return_value, sizeof(return_value), 1000);
 					 if(uart_command[2]=='0'){
-						heater_state = heater_OFF;	// auto heating off
+							// auto heating off
+						 auto_heating = 0;
 					 }
 					 else if(uart_command[2] == '1'){
-						 heater_state = heater_ON;	// auto heating on
+						 auto_heating = 1;
 					 }
 					 break;
 
@@ -64,11 +65,13 @@ void uart_comms(){
 					 memcpy(return_value+2, endSimbol,2 );
 					 HAL_UART_Transmit(&huart1, return_value, sizeof(return_value), 1000);
 					 if(auto_heating == 0){	// if auto heating off
-						 if(uart_command[2]=='0'){
+						 if(uart_command[3]=='0'){
+							 heater_state = heater_OFF;
 							 HAL_GPIO_WritePin(GPIOC,GPIO_PIN_0,GPIO_PIN_SET);	// Heater
 
 						 }
-						 else if(uart_command[2] == '1'){
+						 else if(uart_command[3] == '1'){
+							 heater_state = heater_ON;
 							 HAL_GPIO_WritePin(GPIOC,GPIO_PIN_0,GPIO_PIN_SET);	// Heater
 						 }
 					 }
@@ -246,6 +249,9 @@ void init_peripherals(){
 	  ADC1_buffer = (uint32_t*)malloc(7*sizeof(uint32_t));
 	  memset(ADC1_buffer, 0x00, 7);
 
+	  ADC2_buffer = (uint32_t*)malloc(7*sizeof(uint32_t));
+	  memset(ADC2_buffer, 0x00, 7);
+
 	  voltage_rms =(char*)malloc(3*sizeof(char));
 	  memset(voltage_rms, 0x00, 3);
 
@@ -280,10 +286,11 @@ void init_peripherals(){
 void adc_comms(){
 
 
-	raw_ambient_temp = ADC1_buffer[3];
-		 raw_geyser_temp = ADC1_buffer[4];
+
 	 adc_raw_voltage =  ADC1_buffer[0];
 	 adc_raw_current =	ADC1_buffer[1];
+	 raw_ambient_temp = (ADC1_buffer[2] + ADC1_buffer[4]+ADC1_buffer[5])/3;
+	 raw_geyser_temp = ADC1_buffer[3];
 
 
 	//Converting Voltage
@@ -466,7 +473,7 @@ void liters_pumped(){
 
 	tim3_now = htim3.Instance->CNT; // timer value
 
-	if(tim3_now - tim3_prev > 5000){ //using f=1MHz
+	if(tim3_now - tim3_prev > 5100){ //using f=1MHz
 		tim3_prev = tim3_now;
 		water_acc+=100;
 		sprintf(total_water,"%lu", water_acc);

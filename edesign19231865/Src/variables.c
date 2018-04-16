@@ -73,3 +73,4 @@ char* geyser_temp = NULL;
 
 
 uint32_t* ADC1_buffer = NULL;
+uint32_t* ADC2_buffer = NULL;

@@ -75,6 +75,7 @@ extern char* ambient_temp;
 extern char* geyser_temp;
 
 extern uint32_t* ADC1_buffer;
+extern uint32_t* ADC2_buffer;
 
 
 #endif

@@ -4,8 +4,8 @@ stm32f3xx_hal_adc_ex.c:7141:26:ADC_Enable	16	static
 stm32f3xx_hal_adc_ex.c:7115:13:ADC_DMAError	0	static
 stm32f3xx_hal_adc_ex.c:7101:13:ADC_DMAHalfConvCplt	0	static
 stm32f3xx_hal_adc_ex.c:7058:13:ADC_DMAConvCplt	0	static
-stm32f3xx_hal_adc_ex.c:250:19:HAL_ADC_Init	104	static
-stm32f3xx_hal_adc_ex.c:789:19:HAL_ADC_DeInit	104	static
+stm32f3xx_hal_adc_ex.c:250:19:HAL_ADC_Init	112	static
+stm32f3xx_hal_adc_ex.c:789:19:HAL_ADC_DeInit	112	static
 stm32f3xx_hal_adc_ex.c:1204:19:HAL_ADC_Start	16	static
 stm32f3xx_hal_adc_ex.c:1410:19:HAL_ADC_Stop	8	static
 stm32f3xx_hal_adc_ex.c:1515:19:HAL_ADC_PollForConversion	24	static
@@ -39,4 +39,4 @@ stm32f3xx_hal_adc_ex.c:2818:6:HAL_ADC_IRQHandler	8	static
 stm32f3xx_hal_adc_ex.c:5425:19:HAL_ADC_ConfigChannel	112	static
 stm32f3xx_hal_adc_ex.c:5891:19:HAL_ADCEx_InjectedConfigChannel	112	static
 stm32f3xx_hal_adc_ex.c:6643:19:HAL_ADC_AnalogWDGConfig	20	static
-stm32f3xx_hal_adc_ex.c:6928:19:HAL_ADCEx_MultiModeConfigChannel	112	static
+stm32f3xx_hal_adc_ex.c:6928:19:HAL_ADCEx_MultiModeConfigChannel	20	static
