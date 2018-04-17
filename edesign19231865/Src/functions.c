@@ -5,7 +5,7 @@
 extern TIM_HandleTypeDef htim2;
 extern TIM_HandleTypeDef htim3;
 extern UART_HandleTypeDef huart1;
-extern ADC_HandleTypeDef hadc1;
+extern ADC_HandleTypeDef hadc2;
 
 
 void uart_comms(){
@@ -289,7 +289,7 @@ void adc_comms(){
 
 	 adc_raw_voltage =  ADC1_buffer[0];
 	 adc_raw_current =	ADC1_buffer[1];
-	 raw_ambient_temp = (ADC1_buffer[2] + ADC1_buffer[4]+ADC1_buffer[5])/3;
+	 raw_ambient_temp = ADC1_buffer[2];
 	 raw_geyser_temp = ADC1_buffer[3];
 
 
@@ -300,13 +300,19 @@ void adc_comms(){
 	adc_buffer_current = (pow((adc_raw_current-2072.202)/0.14603,2))+adc_buffer_current;
 
 	//Converting Ambient temperature
-	raw_ambient_temp = (raw_ambient_temp-615)/12.3;
+	if( (raw_ambient_temp-615)/12.3 < 100){
+		raw_ambient_temp =(raw_ambient_temp-615)/12.3;
+		sprintf(ambient_temp,"%lu", raw_ambient_temp);
+	}
 	//Converting Geyser Temperature
-	raw_geyser_temp = (raw_geyser_temp-615)/12.3;
+	if( (raw_geyser_temp-615)/12.3 < 100){
+		raw_geyser_temp = (raw_geyser_temp-615)/12.3;
+		sprintf(geyser_temp,"%lu", raw_geyser_temp);
+	}
 
 	//Convert to chart
-	sprintf(ambient_temp,"%lu", raw_ambient_temp);
-	sprintf(geyser_temp,"%lu", raw_geyser_temp);
+
+
 
 
 	adc_counter += 1;
