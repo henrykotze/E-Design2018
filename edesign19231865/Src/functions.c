@@ -67,7 +67,7 @@ void uart_comms(){
 					 if(auto_heating == 0){	// if auto heating off
 						 if(uart_command[3]=='0'){
 							 heater_state = heater_OFF;
-							 HAL_GPIO_WritePin(GPIOC,GPIO_PIN_0,GPIO_PIN_SET);	// Heater
+							 HAL_GPIO_WritePin(GPIOC,GPIO_PIN_0,GPIO_PIN_RESET);	// Heater
 
 						 }
 						 else if(uart_command[3] == '1'){
