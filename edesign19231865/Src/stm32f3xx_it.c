@@ -88,6 +88,7 @@ void SysTick_Handler(void)
   HAL_SYSTICK_IRQHandler();
   /* USER CODE BEGIN SysTick_IRQn 1 */
   tim2_flag = 1;
+  //adc_flag = 1;
   /* USER CODE END SysTick_IRQn 1 */
 }
 
