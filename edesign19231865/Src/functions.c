@@ -38,11 +38,12 @@ void uart_comms(){
 					memcpy(return_value+2, endSimbol,2 );
 					HAL_UART_Transmit(&huart1, return_value, sizeof(return_value), 1000);
 					 if(uart_command[3]=='1'){
-						valve_state=valve_CLOSE;
+						valve_state = valve_OPEN;
+
 						HAL_GPIO_WritePin(GPIOC,GPIO_PIN_1,GPIO_PIN_SET);		// Valve
 					 }
 					 else if(uart_command[3] == '0'){
-						 valve_state = valve_OPEN;
+						 valve_state=valve_CLOSE;
 						 HAL_GPIO_WritePin(GPIOC,GPIO_PIN_1,GPIO_PIN_RESET);		// Valve
 					 }
 					 break;
@@ -146,7 +147,13 @@ void uart_comms(){
 					 memcpy(return_value+strlen((char*)return_value),heater_state,strlen(heater_state));
 					 memcpy(return_value+strlen((char*)return_value),comma,1 );
 					 //vale state
-					 memcpy(return_value+strlen((char*)return_value), valve_state,strlen(valve_state) );
+					 if(valve_state == valve_OPEN){
+						 memcpy(return_value+strlen((char*)return_value), valve_state,strlen(valve_state) -1);
+					 }
+					 else{
+						 memcpy(return_value+strlen((char*)return_value), valve_state,strlen(valve_state) );
+					 }
+
 					 memcpy(return_value+strlen((char*)return_value), endSimbol,2 );
 
 					 HAL_UART_Transmit(&huart1,return_value, (uint16_t)strlen((char*)return_value),100);
@@ -258,8 +265,8 @@ void init_peripherals(){
 	  current_rms =(char*)malloc(4*sizeof(char));
 	  memset(current_rms, 0x00, 4);
 
-	  total_water =(char*)malloc(4*sizeof(char));
-	  memset(total_water, 0x00, 4);
+	  total_water =(char*)malloc(20*sizeof(char));
+	  memset(total_water, 0x00, 20);
 	  sprintf(total_water,"%lu", water_acc);
 
 
@@ -270,14 +277,16 @@ void init_peripherals(){
 	  geyser_temp = (char*)malloc(3*sizeof(char));
 
 	  //HEATER
+	  heater_state = (char*)malloc(5*sizeof(char));
 	  heater_state = heater_OFF;
 
 	  //Valve
+	  valve_state = (char*)malloc(8*sizeof(char));
 	  valve_state = valve_CLOSE;
 
 	HAL_TIM_Base_Start_IT(&htim2);
 	HAL_TIM_Base_Start_IT(&htim3);
-	HAL_TIM_IC_Start_IT(&htim3,1);			// p696 on HAL & Low level drivers
+				// p696 on HAL & Low level drivers
 
 //	HAL_ADCEx_Calibration_Start(&hadc1,ADC_SINGLE_ENDED);
 
@@ -301,12 +310,12 @@ void adc_comms(){
 
 	//Converting Ambient temperature
 	if( (raw_ambient_temp-615)/12.3 < 100){
-		raw_ambient_temp =(raw_ambient_temp-615)/12.3;
+		raw_ambient_temp =(raw_ambient_temp-615-71)/12.3;
 		sprintf(ambient_temp,"%lu", raw_ambient_temp);
 	}
 	//Converting Geyser Temperature
 	if( (raw_geyser_temp-615)/12.3 < 100){
-		raw_geyser_temp = (raw_geyser_temp-615)/12.3;
+		raw_geyser_temp = (raw_geyser_temp-615-71)/12.3;
 		sprintf(geyser_temp,"%lu", raw_geyser_temp);
 	}
 
@@ -332,7 +341,7 @@ void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc){
 	adc_flag = 1;
 }
 
-void HAL_TIM_TriggerCallback (TIM_HandleTypeDef * htim){
+void  HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef * htim){
 	tim3_flag = 1;
 }
 
@@ -478,19 +487,37 @@ void seven_segment_display(uint8_t num){
 void liters_pumped(){
 
 	tim3_now = htim3.Instance->CNT; // timer value
+
 	// register auto-reload value: 65535
 
-	if(tim3_now - tim3_prev < 0){
-		if(tim3_prev - (65535 + tim3_now) > 5100){
+	if(tim3_prev - tim3_now  > 0 && valve_trig == 0){
+		if( (65535 + tim3_now)-tim3_prev > 5100 && valve_trig == 0){
 			tim3_prev = tim3_now;
 			water_acc+=100;
+			valve_trig = 0;
 			sprintf(total_water,"%lu", water_acc);
 		}
 	}
-	else if(tim3_now - tim3_prev > 5100){
+	else if(tim3_now - tim3_prev > 5100 && valve_trig == 0){
 		tim3_prev = tim3_now;
 		water_acc+=100;
+		valve_trig = 0;
 		sprintf(total_water,"%lu", water_acc);
 	}
+
+	else if (tim3_prev - tim3_now  > 0 && valve_trig == 1){
+			if( (65535 + tim3_now) - tim3_prev > 5100 && valve_trig == 1){
+				tim3_prev = tim3_now;
+				water_acc+=100;
+				sprintf(total_water,"%lu", water_acc);
+				valve_trig = 0;
+			}
+		}
+		else if(tim3_now - tim3_prev > 5100 && valve_trig == 1){
+			tim3_prev = tim3_now;
+			water_acc+=100;
+			sprintf(total_water,"%lu", water_acc);
+			valve_trig = 0;
+		}
 
 }

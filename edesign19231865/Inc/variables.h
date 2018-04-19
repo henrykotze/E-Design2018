@@ -36,6 +36,7 @@ extern char* heater_state;
 // Water Accumulated
 extern uint32_t water_acc;
 extern char* total_water;
+extern uint8_t valve_trig;
 
 // Temperature Variables
 //extern uint8_t* geyser_temp;

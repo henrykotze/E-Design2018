@@ -38,6 +38,7 @@
 /* USER CODE BEGIN 0 */
 extern uint8_t tim2_flag;
 extern uint8_t rx_flag;
+extern uint8_t tim3_flag;
 /* USER CODE END 0 */
 
 /* External variables --------------------------------------------------------*/
@@ -109,6 +110,20 @@ void DMA1_Channel2_IRQHandler(void)
   /* USER CODE BEGIN DMA1_Channel2_IRQn 1 */
 
   /* USER CODE END DMA1_Channel2_IRQn 1 */
+}
+
+/**
+* @brief This function handles EXTI line[9:5] interrupts.
+*/
+void EXTI9_5_IRQHandler(void)
+{
+  /* USER CODE BEGIN EXTI9_5_IRQn 0 */
+
+  /* USER CODE END EXTI9_5_IRQn 0 */
+  HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_6);
+  /* USER CODE BEGIN EXTI9_5_IRQn 1 */
+  tim3_flag = 1;
+  /* USER CODE END EXTI9_5_IRQn 1 */
 }
 
 /**

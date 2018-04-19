@@ -49,6 +49,10 @@
 
 /* Private define ------------------------------------------------------------*/
 
+#define FLOW_TRIG_Pin GPIO_PIN_6
+#define FLOW_TRIG_GPIO_Port GPIOC
+#define FLOW_TRIG_EXTI_IRQn EXTI9_5_IRQn
+
 /* ########################## Assert Selection ############################## */
 /**
   * @brief Uncomment the line below to expanse the "assert_param" macro in the 

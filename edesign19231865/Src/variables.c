@@ -29,16 +29,16 @@ char heater_OFF[] = {'O','F','F'};
 char* heater_state = NULL;
 
 // Unknown parameters:
-char SAFE[] = {'s','a','f','e'};
 uint8_t send_unk_val = 48 ;
 
 // Water Accumulated
 uint32_t water_acc = 0;
 char* total_water = NULL;
+uint8_t valve_trig = 0;
 
 // Water Flow Variables
-char valve_OPEN[] = {'O','P','E','N'};
-char valve_CLOSE[] = {'C','L','O','S','E','D'};
+char valve_OPEN[4] = {'O','P','E','N'};
+char valve_CLOSE[6] = {'C','L','O','S','E','D'};
 char* valve_state = NULL;
 
 // Temperature Variables
