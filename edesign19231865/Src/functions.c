@@ -39,11 +39,11 @@ void uart_comms(){
 			if(uart_command[3]=='1'){
 				valve_state = valve_OPEN;
 
-				HAL_GPIO_WritePin(GPIOC,GPIO_PIN_1,GPIO_PIN_RESET);		// Valve
+				HAL_GPIO_WritePin(GPIOC,GPIO_PIN_1,GPIO_PIN_SET);		// Valve
 			}
 			else if(uart_command[3] == '0'){
 				valve_state=valve_CLOSE;
-				HAL_GPIO_WritePin(GPIOC,GPIO_PIN_1,GPIO_PIN_SET);		// Valve
+				HAL_GPIO_WritePin(GPIOC,GPIO_PIN_1,GPIO_PIN_RESET);		// Valve
 			}
 			break;
 
@@ -232,7 +232,7 @@ void init_peripherals(){
 	// C
 	HAL_GPIO_WritePin(GPIOC,GPIO_PIN_7,GPIO_PIN_SET);		// 7_SEG_5
 
-	HAL_GPIO_WritePin(GPIOC,GPIO_PIN_0,GPIO_PIN_SET);		// Heater
+	HAL_GPIO_WritePin(GPIOC,GPIO_PIN_0,GPIO_PIN_RESET);		// Heater
 	HAL_GPIO_WritePin(GPIOC,GPIO_PIN_1,GPIO_PIN_SET);		// Valve
 
 	studentnumber = (uint8_t*)malloc(15);
@@ -270,8 +270,8 @@ void init_peripherals(){
 	voltage_int_rms = (uint32_t*)malloc(4*sizeof(uint32_t));
 	current_int_rms = (uint32_t*)malloc(4*sizeof(uint32_t));
 
-	ambient_temp = (char*)malloc(3*sizeof(char));
-	geyser_temp = (char*)malloc(3*sizeof(char));
+	ambient_temp = (char*)malloc(4*sizeof(char));
+	geyser_temp = (char*)malloc(4*sizeof(char));
 
 	//HEATER
 	heater_state = (char*)malloc(5*sizeof(char));
@@ -297,10 +297,10 @@ void adc_comms(){
 
 
 
-	adc_raw_voltage =  ADC1_buffer[0];
-	adc_raw_current =	ADC1_buffer[1];
-	raw_ambient_temp = ADC1_buffer[2];
-	raw_geyser_temp = ADC1_buffer[3];
+	adc_raw_voltage =  0;
+	adc_raw_current =	0;
+	raw_ambient_temp = ADC1_buffer[0];
+	raw_geyser_temp = ADC1_buffer[1];
 
 
 	//Converting Voltage
@@ -311,12 +311,12 @@ void adc_comms(){
 
 	//Converting Ambient temperature
 	if( (raw_ambient_temp-615)/12.3 < 100){
-		raw_ambient_temp =(raw_ambient_temp-615-71)/12.3;
+		raw_ambient_temp =(raw_ambient_temp-615)/12.3;
 		sprintf(ambient_temp,"%lu", raw_ambient_temp);
 	}
 	//Converting Geyser Temperature
 	if( (raw_geyser_temp-615)/12.3 < 100){
-		raw_geyser_temp = (raw_geyser_temp-615-71)/12.3;
+		raw_geyser_temp = (raw_geyser_temp-615)/12.3;
 		sprintf(geyser_temp,"%lu", raw_geyser_temp);
 	}
 
@@ -336,7 +336,10 @@ void adc_comms(){
 		adc_buffer_voltage = 0;
 		adc_buffer_current = 0;
 	}
+	HAL_ADC_Stop_DMA(&hadc2);
 }
+
+
 
 void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc){
 	adc_flag = 1;
