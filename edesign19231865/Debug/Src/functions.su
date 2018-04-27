@@ -1,9 +1,3 @@
-functions.c:11:6:uart_comms	32	static
-functions.c:211:6:HAL_UART_RxCpltCallback	4	static
-functions.c:217:6:init_peripherals	16	static
-functions.c:292:6:adc_comms	40	static
-functions.c:344:6:HAL_ADC_ConvCpltCallback	0	static
-functions.c:348:7:HAL_TIM_IC_CaptureCallback	0	static
-functions.c:352:6:seven_segment_display	8	static
-functions.c:174:6:seven_segment	16	static
-functions.c:491:6:liters_pumped	24	static
+functions.c:11:6:HAL_UART_RxCpltCallback	4	static
+functions.c:17:6:HAL_ADC_ConvCpltCallback	0	static
+functions.c:21:7:HAL_TIM_IC_CaptureCallback	0	static

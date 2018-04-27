@@ -70,6 +70,9 @@ uint32_t* current_int_rms = NULL;
 char* ambient_temp = NULL;
 char* geyser_temp = NULL;
 
+// Logging to flash memory;
+uint8_t enableFlashLogging = 0;
+
 
 
 uint32_t* ADC1_buffer = NULL;

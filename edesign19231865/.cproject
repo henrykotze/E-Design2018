@@ -297,7 +297,7 @@
 	</storageModule>
 	<storageModule moduleId="refreshScope" versionNumber="2">
 		<configuration configurationName="Debug">
-			<resource resourceType="PROJECT" workspacePath="edesign19231865"/>
+			<resource resourceType="PROJECT" workspacePath="/edesign19231865"/>
 		</configuration>
 		<configuration configurationName="Release">
 			<resource resourceType="PROJECT" workspacePath="/edesign19231865"/>

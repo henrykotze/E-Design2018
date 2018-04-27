@@ -120,21 +120,17 @@ int main(void)
   MX_ADC2_Init();
   MX_TIM3_Init();
   /* USER CODE BEGIN 2 */
-//  HAL_ADCEx_Calibration_Start(&hadc1, ADC_SINGLE_ENDED);
+
   HAL_ADCEx_Calibration_Start(&hadc2, ADC_SINGLE_ENDED);
 
   init_peripherals();
   HAL_UART_Receive_IT(&huart1, (uint8_t*)&rx_buffer, 1);
 
- //HAL_ADCEx_MultiModeConfigChannel()
-
 //  HAL_ADC_Start(&hadc2);
-//  HAL_ADCEx_MultiModeStart_DMA(&hadc1, ADC1_buffer, 7);
 
 
-//  HAL_ADC_Start_DMA(&hadc1, ADC1_buffer, 7);
  HAL_ADC_Start_DMA(&hadc2, ADC1_buffer, 7);
- //HAL_TIM_IC_Start_IT(&htim3,1);
+
   /* USER CODE END 2 */
 
   /* Infinite loop */

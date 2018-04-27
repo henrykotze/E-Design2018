@@ -75,6 +75,9 @@ extern uint32_t raw_geyser_temp;
 extern char* ambient_temp;
 extern char* geyser_temp;
 
+// Logging to flash memory;
+extern uint8_t enableFlashLogging;
+
 extern uint32_t* ADC1_buffer;
 extern uint32_t* ADC2_buffer;
 
