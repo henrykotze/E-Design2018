@@ -78,6 +78,13 @@ extern char* geyser_temp;
 // Logging to flash memory;
 extern uint8_t enableFlashLogging;
 
+// Heating Schedule
+extern char* heating_schedule_info[];
+extern char* heat_schedule1;
+extern char* heat_schedule2;
+extern char* heat_schedule3;
+extern char* heating_info;
+
 extern uint32_t* ADC1_buffer;
 extern uint32_t* ADC2_buffer;
 

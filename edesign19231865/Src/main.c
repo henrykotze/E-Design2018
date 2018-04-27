@@ -129,7 +129,7 @@ int main(void)
 //  HAL_ADC_Start(&hadc2);
 
 
- HAL_ADC_Start_DMA(&hadc2, ADC1_buffer, 7);
+ //HAL_ADC_Start_DMA(&hadc2, ADC1_buffer, 7);
 
   /* USER CODE END 2 */
 

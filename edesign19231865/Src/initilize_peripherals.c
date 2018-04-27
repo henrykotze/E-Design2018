@@ -75,6 +75,22 @@ void init_peripherals(){
 	valve_state = (char*)malloc(8*sizeof(char));
 	valve_state = valve_CLOSE;
 
+	// Heating schedule
+	heat_schedule1 = (char*)malloc(10*sizeof(char));
+	memset(heat_schedule1, 0x00, 10);
+	heat_schedule2 = (char*)malloc(10*sizeof(char));
+	memset(heat_schedule2, 0x00, 10);
+	heat_schedule3 = (char*)malloc(10*sizeof(char));
+	memset(heat_schedule3, 0x00, 10);
+
+	heating_schedule_info[0] = heat_schedule1;
+	heating_schedule_info[1] = heat_schedule2;
+	heating_schedule_info[2] = heat_schedule3;
+
+	heating_info = (char*)malloc(20*sizeof(char));
+	memset(heating_info, 0x00, 10);
+
+
 	HAL_TIM_Base_Start_IT(&htim2);
 	HAL_TIM_Base_Start_IT(&htim3);
 	// p696 on HAL & Low level drivers

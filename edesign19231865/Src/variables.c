@@ -73,6 +73,13 @@ char* geyser_temp = NULL;
 // Logging to flash memory;
 uint8_t enableFlashLogging = 0;
 
+// Heating Schedule
+char* heating_schedule_info[3];
+char* heat_schedule1 = NULL;
+char* heat_schedule2 = NULL;
+char* heat_schedule3 = NULL;
+char* heating_info = NULL;
+
 
 
 uint32_t* ADC1_buffer = NULL;

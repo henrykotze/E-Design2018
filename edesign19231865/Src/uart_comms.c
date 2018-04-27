@@ -52,11 +52,11 @@ void uart_comms(){
 			memcpy(return_value, uart_command, 2);
 			memcpy(return_value+2, endSimbol,2 );
 			HAL_UART_Transmit_IT(&huart1, return_value, strlen((char*)return_value));
-			if(uart_command[2]=='0'){
+			if(uart_command[3]=='0'){
 				// auto heating off
 				auto_heating = 0;
 			}
-			else if(uart_command[2] == '1'){
+			else if(uart_command[3] == '1'){
 				auto_heating = 1;
 			}
 			break;
@@ -121,7 +121,21 @@ void uart_comms(){
 			break;
 
 		case 'J': // set heating schedule
-			HAL_UART_Transmit_IT(&huart1,return_value, sizeof(return_value));
+			if(auto_heating == 1){
+				HAL_UART_Transmit_IT(&huart1,return_value, sizeof(return_value));
+				if(uart_command[3] == '1'){ // first heating schedule
+					heating_info = strtok((char*)uart_command, ",$\n\r");
+					heat_schedule1 = NULL;
+
+	//				heat_schedule1;
+				}
+				else if(uart_command[3] == '2'){
+	//				heat_schedule2;
+				}
+				else if(uart_command[3] == '3'){
+	//				heat_schedule3
+				}
+			}
 			break;
 
 		case 'K':
