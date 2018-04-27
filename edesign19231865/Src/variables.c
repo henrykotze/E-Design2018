@@ -23,6 +23,8 @@ char* time = "00:00:00";
 uint8_t tim3_flag = 0;
 uint32_t tim3_now = 0;
 uint32_t tim3_prev = 0;
+uint8_t systick_flag = 0;
+uint8_t tim2_flag = 0;
 
 // Heater On Off Variables
 char heater_ON[] = {'O','N'};

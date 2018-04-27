@@ -20,6 +20,8 @@ extern uint8_t* return_value;
 extern uint8_t tim3_flag;
 extern uint32_t tim3_now;
 extern uint32_t tim3_prev;
+extern uint8_t tim2_flag;
+extern uint8_t systick_flag;
 
 extern uint8_t sizeOfTemp0;
 extern char* time;
