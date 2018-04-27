@@ -35,8 +35,12 @@ void init_peripherals(){
 	return_value = (uint8_t*)malloc(50);
 	memset(return_value, 0x00, 50);
 
-	uart_command = (uint8_t*)malloc(40);
-	memset(uart_command, 0x00, 40);
+	uart_command = (uint8_t*)malloc(60);
+	memset(uart_command, 0x00, 60);
+
+	uart_command_copy = (uint8_t*)malloc(60);
+	memset(uart_command, 0x00, 60);
+
 
 	set_temp = (uint8_t*)malloc(3);
 	memset(set_temp, 0x00, 4);
@@ -76,12 +80,12 @@ void init_peripherals(){
 	valve_state = valve_CLOSE;
 
 	// Heating schedule
-	heat_schedule1 = (char*)malloc(10*sizeof(char));
-	memset(heat_schedule1, 0x00, 10);
-	heat_schedule2 = (char*)malloc(10*sizeof(char));
-	memset(heat_schedule2, 0x00, 10);
-	heat_schedule3 = (char*)malloc(10*sizeof(char));
-	memset(heat_schedule3, 0x00, 10);
+	heat_schedule1 = (char*)malloc(15*sizeof(char));
+	memset(heat_schedule1, 0x00, 15);
+	heat_schedule2 = (char*)malloc(15*sizeof(char));
+	memset(heat_schedule2, 0x00, 15);
+	heat_schedule3 = (char*)malloc(15*sizeof(char));
+	memset(heat_schedule3, 0x00, 15);
 
 	heating_schedule_info[0] = heat_schedule1;
 	heating_schedule_info[1] = heat_schedule2;
@@ -89,6 +93,8 @@ void init_peripherals(){
 
 	heating_info = (char*)malloc(20*sizeof(char));
 	memset(heating_info, 0x00, 10);
+
+	heating_time_size = 0;
 
 
 	HAL_TIM_Base_Start_IT(&htim2);

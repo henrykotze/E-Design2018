@@ -34,9 +34,9 @@ void adc_comms(){
 	}
 
 	adc_counter += 1;
-	if(adc_counter == 200){
-		*voltage_int_rms = sqrt(adc_buffer_voltage/200);
-		*current_int_rms = sqrt(adc_buffer_current/200);
+	if(adc_counter == 10){
+		*voltage_int_rms = sqrt(adc_buffer_voltage/10);
+		*current_int_rms = sqrt(adc_buffer_current/10);
 		sprintf(voltage_rms,"%lu", *voltage_int_rms);
 		sprintf(current_rms,"%lu", *current_int_rms);
 		adc_counter = 0;
@@ -44,5 +44,5 @@ void adc_comms(){
 		adc_buffer_voltage = 0;
 		adc_buffer_current = 0;
 	}
-	HAL_ADC_Stop_DMA(&hadc2);
+//	HAL_ADC_Stop_DMA(&hadc2);
 }

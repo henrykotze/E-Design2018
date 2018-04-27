@@ -16,13 +16,11 @@ void uart_comms(){
 	if(uart_command[0] == '$'){
 
 		uart_counter += 1;
-		//	if(uart_counter > 10){
-		//		memset(uart_command,0x00, 40);
-		//	}
 	}
 
 	if(uart_command[0] == '$' && uart_command[uart_counter-1] == '\n' && uart_command[uart_counter - 2] == '\r' && uart_counter > 2){
 		memset(return_value,0x00, 50);
+		uart_command_copy = uart_command;
 		switch(uart_command[1]){
 		case  'A': // Request Serial number
 
@@ -122,23 +120,48 @@ void uart_comms(){
 
 		case 'J': // set heating schedule
 			if(auto_heating == 1){
-//				HAL_UART_Transmit_IT(&huart1,return_value, sizeof(return_value));
+				memcpy(return_value, uart_command, 2);
+				memcpy(return_value+2, endSimbol,2 );
+				HAL_UART_Transmit_IT(&huart1,return_value, strlen((char*)return_value));
 				if(uart_command[3] == '1'){ // first heating schedule
-					heating_info = strtok((char*)uart_command, ",");
-					HAL_UART_Transmit_IT(&huart1,(uint8_t*)heating_info, strlen((char*)heating_info));
-					memcpy(heat_schedule1, heating_info, 2);
-					memcpy(heat_schedule1+1, comma, 1);
-					memcpy(heat_schedule1+2, heating_info, 3);
-					memcpy(heat_schedule1+3, comma, 1);
-					memcpy(heat_schedule1+4, heating_info, 1);
 
-	//				heat_schedule1;
+					heating_info = strtok((char*)uart_command_copy, "$J,1");
+					memcpy(heat_schedule1, heating_info, strlen((char*)heating_info) );
+					memcpy(heat_schedule1+strlen((char*)heat_schedule1),comma,1 );
+
+					heating_info = (strtok(NULL, ","));
+					memcpy(heat_schedule1+strlen((char*)heat_schedule1), heating_info, strlen((char*)heating_info) );
+					memcpy(heat_schedule1+strlen((char*)heat_schedule1),comma,1 );
+
+					heating_info = (strtok(NULL, ",\r\n"));
+					memcpy(heat_schedule1+strlen((char*)heat_schedule1), heating_info, strlen((char*)heating_info) );
+
+
 				}
 				else if(uart_command[3] == '2'){
-	//				heat_schedule2;
+
+					memcpy(heat_schedule2, heating_info, strlen((char*)heating_info) );
+					memcpy(heat_schedule2+strlen((char*)heat_schedule2),comma,1 );
+
+					heating_info = (strtok(NULL, ","));
+					memcpy(heat_schedule2+strlen((char*)heat_schedule2), heating_info, strlen((char*)heating_info) );
+					memcpy(heat_schedule2+strlen((char*)heat_schedule2),comma,1 );
+
+					heating_info = (strtok(NULL, ",\r\n"));
+					memcpy(heat_schedule2+strlen((char*)heat_schedule2), heating_info, strlen((char*)heating_info) );
 				}
 				else if(uart_command[3] == '3'){
-	//				heat_schedule3
+
+					memcpy(heat_schedule3, heating_info, strlen((char*)heating_info) );
+					memcpy(heat_schedule3+strlen((char*)heat_schedule3),comma,1 );
+
+					heating_info = (strtok(NULL, ","));
+					memcpy(heat_schedule3+strlen((char*)heat_schedule3), heating_info, strlen((char*)heating_info) );
+					memcpy(heat_schedule3+strlen((char*)heat_schedule3),comma,1 );
+
+					heating_info = (strtok(NULL, ",\r\n"));
+					memcpy(heat_schedule3+strlen((char*)heat_schedule3), heating_info, strlen((char*)heating_info) );
+					memcpy(heat_schedule3+strlen((char*)heat_schedule3),comma,1 );
 				}
 			}
 			break;
@@ -182,11 +205,11 @@ void uart_comms(){
 			// do something
 			break;
 		}
-		memset(uart_command,0x00, 40);
+		memset(uart_command,0x00, 60);
 
 		uart_counter = 0;
 	}
-	else if(uart_counter > 39 ){
+	else if(uart_counter > 59 ){
 		uart_counter = 0;
 	}
 }

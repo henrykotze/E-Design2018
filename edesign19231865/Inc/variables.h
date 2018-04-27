@@ -9,6 +9,7 @@
 extern uint8_t rx_flag;
 extern uint8_t rx_buffer;
 extern uint8_t* uart_command;
+extern uint8_t* uart_command_copy;
 extern uint8_t uart_counter;
 extern uint8_t* studentnumber;
 extern char endSimbol[8];
@@ -84,6 +85,8 @@ extern char* heat_schedule1;
 extern char* heat_schedule2;
 extern char* heat_schedule3;
 extern char* heating_info;
+extern size_t heating_time_size;
+
 
 extern uint32_t* ADC1_buffer;
 extern uint32_t* ADC2_buffer;

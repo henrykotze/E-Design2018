@@ -129,7 +129,7 @@ int main(void)
 //  HAL_ADC_Start(&hadc2);
 
 
- //HAL_ADC_Start_DMA(&hadc2, ADC1_buffer, 7);
+ HAL_ADC_Start_DMA(&hadc2, ADC1_buffer, 7);
 
   /* USER CODE END 2 */
 
@@ -151,7 +151,7 @@ int main(void)
 	  if(tim2_flag == 1){	// Seven Segment
 		  tim2_flag = 0;
 		  seven_segment();
-		  HAL_ADC_Start_DMA(&hadc2, ADC1_buffer, 7);
+		 HAL_ADC_Start_DMA(&hadc2, ADC1_buffer, 7);
 
 	  }
 	  if(adc_flag == 1){	// ADC conversion

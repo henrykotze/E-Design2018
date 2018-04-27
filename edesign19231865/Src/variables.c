@@ -6,6 +6,7 @@
 uint8_t rx_flag = 0;
 uint8_t rx_buffer;
 uint8_t* uart_command = NULL;
+uint8_t* uart_command_copy = NULL;
 uint8_t uart_counter = 0;
 uint8_t rx_val = 0;
 char studentnumber1[] = {'1', '9','2','3','1','8','6','5'};
@@ -79,6 +80,7 @@ char* heat_schedule1 = NULL;
 char* heat_schedule2 = NULL;
 char* heat_schedule3 = NULL;
 char* heating_info = NULL;
+size_t heating_time_size;
 
 
 

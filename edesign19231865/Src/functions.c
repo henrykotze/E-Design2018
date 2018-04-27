@@ -16,6 +16,7 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart){
 
 void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc){
 	adc_flag = 1;
+	HAL_ADC_Stop_DMA(&hadc2);
 }
 
 void  HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef * htim){
