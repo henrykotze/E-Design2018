@@ -122,10 +122,15 @@ void uart_comms(){
 
 		case 'J': // set heating schedule
 			if(auto_heating == 1){
-				HAL_UART_Transmit_IT(&huart1,return_value, sizeof(return_value));
+//				HAL_UART_Transmit_IT(&huart1,return_value, sizeof(return_value));
 				if(uart_command[3] == '1'){ // first heating schedule
-					heating_info = strtok((char*)uart_command, ",$\n\r");
-					heat_schedule1 = NULL;
+					heating_info = strtok((char*)uart_command, ",");
+					HAL_UART_Transmit_IT(&huart1,(uint8_t*)heating_info, strlen((char*)heating_info));
+					memcpy(heat_schedule1, heating_info, 2);
+					memcpy(heat_schedule1+1, comma, 1);
+					memcpy(heat_schedule1+2, heating_info, 3);
+					memcpy(heat_schedule1+3, comma, 1);
+					memcpy(heat_schedule1+4, heating_info, 1);
 
 	//				heat_schedule1;
 				}
