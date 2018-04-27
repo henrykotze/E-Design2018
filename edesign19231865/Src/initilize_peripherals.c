@@ -98,7 +98,7 @@ void init_peripherals(){
 
 
 	HAL_TIM_Base_Start_IT(&htim2);
-	HAL_TIM_Base_Start_IT(&htim3);
+	//HAL_TIM_Base_Start_IT(&htim3);
 	// p696 on HAL & Low level drivers
 
 	//	HAL_ADCEx_Calibration_Start(&hadc1,ADC_SINGLE_ENDED);
