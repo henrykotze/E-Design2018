@@ -16,7 +16,6 @@ char comma[] = {','};
 uint8_t* return_value = NULL;
 
 uint8_t auto_heating = 0;
-char* time = "00:00:00";
 
 
 // Timer variables
@@ -84,6 +83,12 @@ char* heat_schedule3 = NULL;
 char* heating_info = NULL;
 size_t heating_time_size;
 
+// Time Variables & RTC
+RTC_TimeTypeDef* time = NULL;
+RTC_TimeTypeDef* new_time = NULL;
+RTC_DateTypeDef* date = NULL;
+char* temp_time_var = NULL;
+uint8_t rtcSecFlag = 0;
 
 
 uint32_t* ADC1_buffer = NULL;

@@ -6,6 +6,7 @@ extern TIM_HandleTypeDef htim2;
 extern TIM_HandleTypeDef htim3;
 extern UART_HandleTypeDef huart1;
 extern ADC_HandleTypeDef hadc2;
+extern RTC_HandleTypeDef hrtc;
 
 
 
@@ -111,11 +112,47 @@ void uart_comms(){
 			break;
 
 		case 'H': //set time
-			HAL_UART_Transmit_IT(&huart1,return_value, sizeof(return_value)+1);
+			memcpy(return_value, uart_command, 2);
+			memcpy(return_value+2,endSimbol, 2);
+			HAL_UART_Transmit_IT(&huart1,return_value, strlen((char*)return_value));
+
+			__HAL_RTC_WRITEPROTECTION_DISABLE(&hrtc); // Disable write protection
+			RTC_EnterInitMode(&hrtc); // Enter init mode
+
+			heating_info = strtok((char*)uart_command_copy, "$H,");
+			time->Hours = strtol(heating_info, NULL,10);
+			heating_info = (strtok(NULL, ","));
+			time->Minutes = strtol(heating_info, NULL,10);
+			heating_info = (strtok(NULL, ",\r\n"));
+			time->Seconds = strtol(heating_info, NULL,10);
+			// Update the Calendar (cancel write protection and enter init mode)
+//			time->DayLightSaving = time->DayLightSaving;
+//			new_time->SecondFraction = time->SecondFraction;
+//			new_time->StoreOperation = time->StoreOperation;
+//			new_time->TimeFormat = time->TimeFormat;
+//			new_time->SubSeconds = time->SubSeconds;
+			HAL_RTC_SetTime(&hrtc, time, RTC_FORMAT_BCD);
+//			halStatus = HAL_RTC_SetDate(&hrtc, &rtcDate, RTC_FORMAT_BCD);
+			__HAL_RTC_WRITEPROTECTION_ENABLE(&hrtc);
+
 			break;
 
 		case 'I': // get time
-			HAL_UART_Transmit_IT(&huart1,(uint8_t*)time, sizeof(time));
+			HAL_RTC_GetTime(&hrtc,time,RTC_FORMAT_BCD);
+			memcpy(return_value, uart_command, 2);
+			memcpy(return_value+2,comma,1);
+			itoa((time->Hours),temp_time_var,10  );
+			memcpy(return_value+strlen((char*)return_value),temp_time_var,strlen(temp_time_var));
+			memcpy(return_value+strlen((char*)return_value),comma,1 );
+			itoa((time->Minutes),temp_time_var,10  );
+			memcpy(return_value+strlen((char*)return_value),temp_time_var,strlen(temp_time_var));
+			itoa((time->Seconds),temp_time_var,10  );
+			memcpy(return_value+strlen((char*)return_value),comma,1 );
+			memcpy(return_value+strlen((char*)return_value),temp_time_var,strlen(temp_time_var));
+			memcpy(return_value+strlen((char*)return_value), endSimbol,2 );
+
+
+			HAL_UART_Transmit_IT(&huart1,(uint8_t*)return_value, strlen((char*)return_value));
 			break;
 
 		case 'J': // set heating schedule

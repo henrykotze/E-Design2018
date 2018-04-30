@@ -7,6 +7,7 @@ extern TIM_HandleTypeDef htim2;
 extern TIM_HandleTypeDef htim3;
 extern UART_HandleTypeDef huart1;
 extern ADC_HandleTypeDef hadc2;
+extern RTC_HandleTypeDef hrtc;
 
 void init_peripherals(){
 
@@ -96,6 +97,18 @@ void init_peripherals(){
 
 	heating_time_size = 0;
 
+	time = malloc(6*sizeof(uint32_t));
+	memset(time, 0x00, 6);
+
+	new_time = malloc(6*sizeof(uint32_t));
+	memset(new_time, 0x00, 6);
+
+	temp_time_var = (char*)malloc(3*sizeof(uint8_t));
+	memset(temp_time_var, 0x00, 3);
+
+
+	// get time
+	HAL_RTC_GetTime(&hrtc, time, RTC_FORMAT_BCD);
 
 	HAL_TIM_Base_Start_IT(&htim2);
 	//HAL_TIM_Base_Start_IT(&htim3);

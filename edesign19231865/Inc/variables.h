@@ -4,6 +4,7 @@
 #include <string.h>
 #include <stdio.h>
 #include <math.h>
+#include "stm32f3xx_hal.h"
 
 // UART Variables
 extern uint8_t rx_flag;
@@ -24,7 +25,6 @@ extern uint8_t tim2_flag;
 extern uint8_t systick_flag;
 
 extern uint8_t sizeOfTemp0;
-extern char* time;
 extern char studentnumber1[];
 
 // Seven Segment Variables
@@ -89,7 +89,14 @@ extern char* heat_schedule3;
 extern char* heating_info;
 extern size_t heating_time_size;
 
+// TIME
+extern RTC_TimeTypeDef* time;
+extern RTC_TimeTypeDef* new_time;
+extern RTC_DateTypeDef* date;
+extern uint8_t rtcSecFlag;
+extern char* temp_time_var;
 
+// ADC
 extern uint32_t* ADC1_buffer;
 extern uint32_t* ADC2_buffer;
 

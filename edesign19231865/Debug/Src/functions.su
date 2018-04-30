@@ -1,3 +1,4 @@
 functions.c:11:6:HAL_UART_RxCpltCallback	4	static
 functions.c:17:6:HAL_ADC_ConvCpltCallback	0	static
 functions.c:22:7:HAL_TIM_IC_CaptureCallback	0	static
+functions.c:26:6:HAL_RTCEx_WakeUpTimerEventCallback	0	static

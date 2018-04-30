@@ -22,3 +22,9 @@ void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc){
 void  HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef * htim){
 	tim3_flag = 1;
 }
+
+void HAL_RTCEx_WakeUpTimerEventCallback(RTC_HandleTypeDef *hrtc)
+{
+rtcSecFlag = 1; // Flag to indicate 1 second period
+}
+
