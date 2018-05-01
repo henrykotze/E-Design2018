@@ -130,6 +130,9 @@ int main(void)
   init_peripherals();
   HAL_UART_Receive_IT(&huart1, (uint8_t*)&rx_buffer, 1);
 
+  // RTC Clock = 32.768kHz
+  // 32.768/16 = 2.048kHz
+  HAL_RTCEx_SetWakeUpTimer_IT(&hrtc,2048,RTC_WAKEUPCLOCK_RTCCLK_DIV16);
 //  HAL_ADC_Start(&hadc2);
 
 
