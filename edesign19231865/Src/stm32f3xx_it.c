@@ -40,10 +40,12 @@ extern uint8_t tim2_flag;
 extern uint8_t rx_flag;
 extern uint8_t tim3_flag;
 extern uint8_t systick_flag;
+extern uint8_t touch_flag;
 /* USER CODE END 0 */
 
 /* External variables --------------------------------------------------------*/
 extern DMA_HandleTypeDef hdma_adc2;
+extern I2C_HandleTypeDef hi2c1;
 extern TIM_HandleTypeDef htim2;
 extern UART_HandleTypeDef huart1;
 
@@ -101,6 +103,20 @@ void SysTick_Handler(void)
 /******************************************************************************/
 
 /**
+* @brief This function handles EXTI line 0 interrupt.
+*/
+void EXTI0_IRQHandler(void)
+{
+  /* USER CODE BEGIN EXTI0_IRQn 0 */
+
+  /* USER CODE END EXTI0_IRQn 0 */
+  HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_0);
+  /* USER CODE BEGIN EXTI0_IRQn 1 */
+  touch_flag = 1;
+  /* USER CODE END EXTI0_IRQn 1 */
+}
+
+/**
 * @brief This function handles DMA1 channel2 global interrupt.
 */
 void DMA1_Channel2_IRQHandler(void)
@@ -142,6 +158,20 @@ void TIM2_IRQHandler(void)
 //  HAL_TIM_Base_Stop_IT(&htim2);
 
   /* USER CODE END TIM2_IRQn 1 */
+}
+
+/**
+* @brief This function handles I2C1 event global interrupt / I2C1 wake-up interrupt through EXT line 23.
+*/
+void I2C1_EV_IRQHandler(void)
+{
+  /* USER CODE BEGIN I2C1_EV_IRQn 0 */
+
+  /* USER CODE END I2C1_EV_IRQn 0 */
+  HAL_I2C_EV_IRQHandler(&hi2c1);
+  /* USER CODE BEGIN I2C1_EV_IRQn 1 */
+
+  /* USER CODE END I2C1_EV_IRQn 1 */
 }
 
 /**

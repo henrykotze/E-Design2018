@@ -100,5 +100,8 @@ extern char* temp_time_var;
 extern uint32_t* ADC1_buffer;
 extern uint32_t* ADC2_buffer;
 
+// Touch Toggle
+extern uint8_t touch_flag;
+
 
 #endif

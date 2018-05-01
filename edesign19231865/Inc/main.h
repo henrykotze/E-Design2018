@@ -49,6 +49,9 @@
 
 /* Private define ------------------------------------------------------------*/
 
+#define TOUCH_TOGGLE_Pin GPIO_PIN_0
+#define TOUCH_TOGGLE_GPIO_Port GPIOA
+#define TOUCH_TOGGLE_EXTI_IRQn EXTI0_IRQn
 #define FLOW_TRIG_Pin GPIO_PIN_6
 #define FLOW_TRIG_GPIO_Port GPIOC
 #define FLOW_TRIG_EXTI_IRQn EXTI9_5_IRQn

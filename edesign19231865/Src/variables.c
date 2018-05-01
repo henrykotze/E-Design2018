@@ -90,6 +90,9 @@ RTC_DateTypeDef* date = NULL;
 char* temp_time_var = NULL;
 uint8_t rtcSecFlag = 0;
 
+ // Touch Toggle
+uint8_t touch_flag = 0;
+
 
 uint32_t* ADC1_buffer = NULL;
 uint32_t* ADC2_buffer = NULL;
