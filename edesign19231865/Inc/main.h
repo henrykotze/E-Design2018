@@ -49,12 +49,58 @@
 
 /* Private define ------------------------------------------------------------*/
 
+#define I2C_SCL_Pin GPIO_PIN_0
+#define I2C_SCL_GPIO_Port GPIOC
+#define I2C_SDA_Pin GPIO_PIN_1
+#define I2C_SDA_GPIO_Port GPIOC
+#define VOLTAGE_RMS_Pin GPIO_PIN_2
+#define VOLTAGE_RMS_GPIO_Port GPIOC
+#define CURRENT_RMS_Pin GPIO_PIN_3
+#define CURRENT_RMS_GPIO_Port GPIOC
 #define TOUCH_TOGGLE_Pin GPIO_PIN_0
 #define TOUCH_TOGGLE_GPIO_Port GPIOA
 #define TOUCH_TOGGLE_EXTI_IRQn EXTI0_IRQn
+#define w_RDY_Pin GPIO_PIN_1
+#define w_RDY_GPIO_Port GPIOA
+#define s_RDY_Pin GPIO_PIN_4
+#define s_RDY_GPIO_Port GPIOA
+#define SEG_1_Pin GPIO_PIN_5
+#define SEG_1_GPIO_Port GPIOA
+#define SEG_2_Pin GPIO_PIN_6
+#define SEG_2_GPIO_Port GPIOA
+#define SEG_3_Pin GPIO_PIN_7
+#define SEG_3_GPIO_Port GPIOA
+#define AMBIENT_TEMP_Pin GPIO_PIN_2
+#define AMBIENT_TEMP_GPIO_Port GPIOB
+#define SEG_8_Digit_1_Pin GPIO_PIN_10
+#define SEG_8_Digit_1_GPIO_Port GPIOB
+#define VALVE_CONTROL_Pin GPIO_PIN_13
+#define VALVE_CONTROL_GPIO_Port GPIOB
+#define HEATER_CONTROL_Pin GPIO_PIN_14
+#define HEATER_CONTROL_GPIO_Port GPIOB
+#define GEYSER_TEMP_Pin GPIO_PIN_15
+#define GEYSER_TEMP_GPIO_Port GPIOB
 #define FLOW_TRIG_Pin GPIO_PIN_6
 #define FLOW_TRIG_GPIO_Port GPIOC
 #define FLOW_TRIG_EXTI_IRQn EXTI9_5_IRQn
+#define SEG_5_Pin GPIO_PIN_7
+#define SEG_5_GPIO_Port GPIOC
+#define SEG_7_Pin GPIO_PIN_8
+#define SEG_7_GPIO_Port GPIOA
+#define SEG_6_Pin GPIO_PIN_9
+#define SEG_6_GPIO_Port GPIOA
+#define SEG_11_Digit_4_Pin GPIO_PIN_3
+#define SEG_11_Digit_4_GPIO_Port GPIOB
+#define SEG_9_Digit_2_Pin GPIO_PIN_4
+#define SEG_9_Digit_2_GPIO_Port GPIOB
+#define SEG_10_Digit_3_Pin GPIO_PIN_5
+#define SEG_10_Digit_3_GPIO_Port GPIOB
+#define SEG_4_Pin GPIO_PIN_6
+#define SEG_4_GPIO_Port GPIOB
+#define I2C_SCLB8_Pin GPIO_PIN_8
+#define I2C_SCLB8_GPIO_Port GPIOB
+#define I2C_SDAB9_Pin GPIO_PIN_9
+#define I2C_SDAB9_GPIO_Port GPIOB
 
 /* ########################## Assert Selection ############################## */
 /**
