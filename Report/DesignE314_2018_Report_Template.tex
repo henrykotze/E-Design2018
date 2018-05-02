@@ -1,0 +1,385 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% University/School Laboratory Report
+% LaTeX Template
+% Version 3.1 (25/3/14)
+%
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% Original author:
+% Linux and Unix Users Group at Virginia Tech Wiki 
+% (https://vtluug.org/wiki/Example_LaTeX_chem_lab_report)
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+% Modified for Design (E) 314 Report by Arno Barnard, title page adapted from UCT Report Template
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass[11pt,a4paper]{article}
+
+\usepackage{geometry} % To set page size and margins accurately
+\usepackage[version=3]{mhchem} % Package for chemical equation typesetting
+\usepackage{siunitx} % Provides the \SI{}{} and \si{} command for typesetting SI units
+\usepackage{graphicx} % Required for the inclusion of images
+%\usepackage{natbib} % Required to change bibliography style to APA
+\usepackage{amsmath} % Required for some math elements 
+\usepackage{paralist} % For compactitem lists
+\usepackage{color} % Color management options
+\usepackage{listings} % To typeset source code
+\usepackage{pdflscape} % Landscape pages
+\usepackage{acro} %To create acronyms lists
+
+\geometry{
+	a4paper,
+	total={170mm,257mm},
+	left=20mm,
+	top=20mm,
+}
+\setlength\parindent{0.5cm} % Set indentation for paragraphs
+% To make floats, on float only pages, placed at top.
+\makeatletter
+	\setlength{\@fptop}{0pt}
+	\setlength{\@fpbot}{0pt plus 1fil}
+\makeatother
+%\renewcommand{\labelenumi}{\alph{enumi}.} % Make numbering in the enumerate environment by letter rather than number (e.g. section 6)
+
+%----------------------------------------------------------------------------------------
+%	ACRONYMS AND SYMBOLS
+%----------------------------------------------------------------------------------------
+% class `abbrev': abbreviations:
+\DeclareAcronym{ny}{
+  short = NY ,
+  long  = New York ,
+  class = abbrev
+}
+\DeclareAcronym{cpu}{
+  short = CPU ,
+  long  = central processing unit ,
+  short-plural = s ,
+  long-plural = s ,
+  class = abbrev
+}
+\DeclareAcronym{un}{
+  short = UN ,
+  long  = United Nations ,
+  class = abbrev
+}
+\DeclareAcronym{lcd}{
+  short = LCD ,
+  long  = Liquid Crystal Display ,
+  class = abbrev
+}
+
+% class `symbol': symbols
+\DeclareAcronym{angelsperarea}{
+  short = \ensuremath{a} ,
+  long  = The number of angels per unit area ,
+  sort = a ,
+  class = symbol
+}
+\DeclareAcronym{numofangels}{
+  short = \ensuremath{N} ,
+  long  = The number of angels per needle point ,
+  sort = N ,
+  class = symbol
+}
+\DeclareAcronym{areaofneedle}{
+  short = \ensuremath{A} ,
+  long  = The area of the needle point ,
+  sort = A ,
+  class = symbol
+}
+
+%----------------------------------------------------------------------------------------
+%	DOCUMENT INFORMATION AND TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\title{Hot Water Geyser Controller/Monitor System} % Title
+
+\author{Henry \textsc{Kotze}} % Author name
+
+\date{\today} % Date for the report
+
+\makeatletter
+\let\thetitle\@title
+\let\theauthor\@author
+\let\thedate\@date
+\makeatother
+
+%\pagestyle{fancy}
+%\fancyhf{}
+%\rhead{\theauthor}
+%\lhead{\thetitle}
+%\cfoot{\thepage}
+
+\begin{document}
+
+\begin{titlepage}
+    \centering
+    \vspace*{0.5 cm}
+    \includegraphics[scale = 2]{EELogo.png}\\[1.0 cm]   % University Logo
+    \textsc{\LARGE Design (E) 314 \\ Technical Report}\\[0.5 cm]               % Course Name
+    \rule{\linewidth}{0.2 mm} \\[0.4 cm]
+    { \huge \bfseries \thetitle }\\[0.4 cm]
+    \rule{\linewidth}{0.2 mm} \\[1.5 cm]
+    
+	\begin{minipage}{6.5cm}
+		\begin{flushleft} \large
+			\emph{Author:}\\
+			\theauthor
+		\end{flushleft}
+	\end{minipage}~
+	\begin{minipage}{6.5cm}
+		\begin{flushright} \large
+			\emph{Student Number:} \\
+			19231865                                   % Your Student Number
+		\end{flushright}
+	\end{minipage}\\[2 cm]
+    
+    {\large \thedate}\\[2 cm]
+ 
+    \vfill
+    
+\end{titlepage}
+
+%----------------------------------------------------------------------------------------
+%	DECLARATION - DUAL LANGUAGE
+%----------------------------------------------------------------------------------------
+{\Large \bf Plagiaatverklaring / Plagiarism Declaration}
+\begin{enumerate}
+\item Plagiaat is die oorneem en gebruik van die idees, materiaal en ander intellektuele eiendom van ander persone asof dit jou eie werk is.\\
+\textit{Plagiarism is the use of ideas, material and other intellectual property of another's work and to present is as my own.}
+\item Ek erken dat die pleeg van plagiaat 'n strafbare oortreding is aangesien dit 'n vorm van diefstal is. \\
+\textit{I agree that plagiarism is a punishable offence because it constitutes theft.}
+\item Ek verstaan ook dat direkte vertalings plagiaat is.\\
+\textit{I also understand that direct translations are plagiarism.}
+\item Dienooreenkomstig is alle aanhalings en bydraes vanuit enige bron (ingesluit die internet) volledig verwys (erken). Ek erken dat die woordelikse aanhaal van teks sonder aanhalingstekens (selfs al word die bron volledig erken) plagiaat is.\\
+\textit{Accordingly all quotations and contributions from any source whatsoever (including the internet) have been cited fully. I understand that the reproduction of text without quotation marks (even when the source is cited) is plagiarism.}
+\item Ek verklaar dat die werk in hierdie skryfstuk vervat, behalwe waar anders aangedui, my eie oorspronklike werk is en dat ek dit nie vantevore in die geheel of gedeeltelik ingehandig het vir bepunting in hierdie module/werkstuk of 'n ander module/werkstuk nie.\\
+\textit{I declare that the work contained in this assignment, except where otherwise stated, is my original work and that I have not previously (in its entirety or in part) submitted it for grading in this module/assignment or another module/assignment.}
+\end{enumerate}
+\vspace{1cm}
+\begin{table}[ht]
+	\begin{center}
+		\begin{tabular*}{15.5cm}{@{\extracolsep{\fill}}lll}
+%		\begin{tabular}{l l l}
+			\makebox[8cm]{\hrulefill} &  & \makebox[6cm]{\hrulefill}\\
+			Handtekening / \textit{Signature} & & Studentenommer / \textit{Student number}\\[1cm]
+			\makebox[8cm]{\hrulefill} & & \makebox[6cm]{\hrulefill}\\ 
+			Voorletters en van / \textit{Initials and surname} & & Datum / \textit{Date} \\
+		\end{tabular*}
+	\end{center}
+\end{table}
+\newpage
+
+%----------------------------------------------------------------------------------------
+%	ABSTRACT
+%----------------------------------------------------------------------------------------
+\begin{abstract}
+	This will be where you write your abstract, eg:
+	
+	\ac{ny}, \acp{cpu} and \ac{un} are abbreviations whereas \ac{angelsperarea}, \ac{numofangels} and \ac{areaofneedle} are part of the symbols. Repeat after me: \ac{ny}, \acp{cpu} and \ac{un} are abbreviations whereas \ac{angelsperarea}, \ac{numofangels} and \ac{areaofneedle} are part of the symbols.
+\end{abstract}
+\newpage
+
+%----------------------------------------------------------------------------------------
+%	TOC, Lists (Figures, Tables etc)
+%----------------------------------------------------------------------------------------
+\tableofcontents
+\listoffigures
+\listoftables
+%Acronym lists
+\printacronyms[include-classes=abbrev,name={List of Abbreviations}]
+\printacronyms[include-classes=symbol,name={List of Symbols}]
+\newpage
+
+%----------------------------------------------------------------------------------------
+%	SECTION 1
+%----------------------------------------------------------------------------------------
+\section{Introduction}
+Here you describe your overall project briefly, context, requirements, aims etc. For more details on the marks that will be awarded per section see the, \textit{Design (E) 314 -2018 Report Marking Scheme} document.
+
+%----------------------------------------------------------------------------------------
+%	SECTION 2
+%----------------------------------------------------------------------------------------
+\section{System description}\label{sec:desc}
+Here you will describe your system, eg: The system blocks are shown in Figure~\ref{fig:place}, with the major components listed in Table~\ref{tab:components}.
+\begin{table}[ht]
+	\begin{center}
+		\caption{Your table caption}
+		\begin{tabular}{| l | l |}
+			\hline
+			Component & Operating Voltage\\
+			\hline
+			RL78-Stick & \SI{2.0}{\volt}-\SI{5.5}{\volt}\\
+			FX230 UART & \SI{3.3}{\volt}\\
+			PC 1601 - LCD Module & \SI{5.0}{\volt}\\
+			\hline
+		\end{tabular}
+		\label{tab:components}
+	\end{center}
+\end{table}
+
+%----------------------------------------------------------------------------------------
+%	SECTION 3
+%----------------------------------------------------------------------------------------
+\section{Hardware design and implementation}
+Here you will describe your design motivations, calculations and implementation, also using equations where applicable, eg: A player faces a dynamic optimization problem of 5 periods. Let $a_t$ denote the player's action in period $t$,
+\begin{equation}
+	a_t \in \{P,N\}
+\end{equation}
+
+%----------------------------------------------------------------------------------------
+\subsection{Power supply}
+This section describes a sub-circuit/component of your design. Circuit diagram (schematic) or description, with relevant requirements, assumptions, design details, motivations and calculations. $V_{GS} = V_{OUT} \times \frac{R1}{R_{Tot}} = 24.12345 = \SI{24.12}{\ohm}$ (to two significant digits after the decimal point).
+
+%----------------------------------------------------------------------------------------
+\subsection{UART communications}
+The Universal Asynchronous Receive Transmit (UART) communications is the protocol which the Geyser Controller use to debug the system if physical inspection is needed. 
+
+The Geyser Controller implements a communications command structure where the Geyser Controller acts as a slave in the UART communcations. The Geyser Controller will only respond to valid commands which starts with a '\$' and ends with a two character sequence, the carriage return character and the line feed character.  The Geyser Controller will  only transmit over the UART if a request is received. 
+
+The communication command structure will have  a format as seen in shown in Figure \ref{commandFrame} and all response from the Geyser Controller will have the format as shown in Figure \ref{responseFrame}.
+
+The Geyser Controller has a hard real-time deadline to respond to each received command within 50ms.
+
+The hardware design of the UART communication is based of the schematic shown in Figure~\ref{USB2UART}. The chip responsible to convert the serial communication with the Geyser Controller is the FTX230XS USB to Serial. The only values to be designed are resistors R6 and R10. These resistor values are designed to ensure the maximum ratings of both the STM32Fxxx pins and FTX230XS chip will not be exceeded. These maximum of the respective pins are shown in Table~\ref{USB2UARTRating}.
+
+Thus the maximum ratings will only occur if the both pins output a high or low respectively. This sets the minumum value of the resistors as $$R6=R10 = \frac{5V-0V}{I_{max}} = something \Omega$$
+
+The capacitors are their to reduce reflection within the circuit.
+%----------------------------------------------------------------------------------------
+\subsection{ADC interfaces}
+The geyser controller will be indicating to the clients how much power they are saving by using this system. Thus it is of importance to calculate the power usage of the geyser. This section will cover how the power usage of the geyser will be captured.
+
+The power usage of the geyser will be achieved by sampling the voltage and current that is supplied to the geyser through a Current Transformer (CT) and Voltage Transformer (VT).This CT and VT will convert the time-varying -220V and +220V signal to a -1V and +1V with a frequency of 50Hz. The CT will represent the -13A and +13A between -1V and +1V signal.
+
+This two time varying signals will be sampled by using the embedded Analog-to-Digital Converter (ADC) to represent the continuous time varying signal as a discrete time-series.
+
+The embedded ADC of the STM32xxx uses capacitors to sample the signal. Switching to fast between these channel will cause the internal capacitor to be depleted. When sampling the desired signal while this internal capacitor is charging will cause a erroneous sampling value. Allowing the internal capacitor to recharge without affecting the sampled value, an 100nF ceramic capacitor is placed between the ADC pin and ground. (Another method in software is to increase the sampling period and the number of sampling cycles.)
+
+Mentions about sampling theorem, Nyquist frequency, specifications, 
+
+
+
+%-----------------------------------------------------------------------------------------
+
+\subsection{Geyser Flow-meter interface}
+
+%-----------------------------------------------------------------------------------------
+
+\subsection{Temperature Measurement interface}
+
+%------------------------------------------------------------------------------------------
+
+\subsection{Flow and Valve control interface}
+
+
+
+%----------------------------------------------------------------------------------------
+%	SECTION 4
+%----------------------------------------------------------------------------------------
+\section{Software design and implementation}
+Discuss top-level software design and implementation. 
+
+%----------------------------------------------------------------------------------------
+\subsection{7-Segment driver}
+For each driver code segment discuss requirements, design, assumptions, describe/explain implemented code functionality (do not give a code listing!). Use applicable diagrams/charts to communicate detail eg: The flowchart of the 7-Segment driver is shown in Figure~\ref{fig:place}.
+
+%----------------------------------------------------------------------------------------
+\subsection{Timers and timing ... etc.}
+
+\begin{figure}[ht]
+	\begin{center}
+		\includegraphics[width=0.65\textwidth]{placeholder} % Include the image placeholder.png
+		\caption{Figure caption.}
+		\label{fig:place}
+	\end{center}
+\end{figure}
+
+%----------------------------------------------------------------------------------------
+%	SECTION 5
+%----------------------------------------------------------------------------------------
+\section{Measurements and Results}
+
+Describe your measurements and results to determine where your system meets, or don't meet the requirements/specifications. A fake discussion follows as partial example: A fake discussion follows as example:
+
+The accepted value (periodic table) is \SI{24.3}{\gram\per\mole} \cite{Smith:2012qr}. The percentage discrepancy between the accepted value and the result obtained here is 1.3\%. Because only a single measurement was made, it is not possible to calculate an estimated standard deviation.
+
+The most obvious source of experimental uncertainty is the limited precision of the balance. Other potential sources of experimental uncertainty are: the reaction might not be complete; if not enough time was allowed for total oxidation, less than complete oxidation of the magnesium might have, in part, reacted with nitrogen in the air (incorrect reaction); the magnesium oxide might have absorbed water from the air, and thus weigh ``too much". Because the result obtained is close to the accepted value it is possible that some of these experimental uncertainties have fortuitously cancelled one another.
+
+%----------------------------------------------------------------------------------------
+%	SECTION 6
+%----------------------------------------------------------------------------------------
+
+\section{Conclusions}
+Use experimental results, design limitations and system performance, explain your conclusions drawn.
+
+%----------------------------------------------------------------------------------------
+\subsection{Chemistry}
+\begin{enumerate}
+	\begin{item}
+		The \emph{atomic weight of an element} is the relative weight of one of its atoms compared to C-12 with a weight of 12.0000000$\ldots$, hydrogen with a weight of 1.008, to oxygen with a weight of 16.00. Atomic weight is also the average weight of all the atoms of that element assuming:
+		\begin{itemize}
+			\item we are working with nature
+			\item all measurements are calibrated
+		\end{itemize}	
+	\end{item}
+	\begin{item}
+		The \emph{units of atomic weight} are two-fold, with an identical numerical value. They are g/mole of atoms (or just g/mol) or amu/atom.
+	\end{item}
+	\begin{item}
+		\emph{Percentage discrepancy} between an accepted (literature) value and an experimental value is
+		\begin{equation}
+			\frac{\mathrm{experimental\;result} - \mathrm{accepted\;result}}{\mathrm{accepted\;result}}
+		\end{equation}
+	\end{item}
+\end{enumerate}
+
+%----------------------------------------------------------------------------------------
+\subsubsection{Code efficiency}
+A fake discussion follows as example.
+
+The code is not very efficient if it takes 50s to write ``Hello World'' over the UART. Future designs should focus on improving the code listed in listing \ref{cod:bad}, to execute in less than 20ms.
+
+\begin{lstlisting}[%basicstyle=\ttfamily,
+						language=C,
+						tabsize=4,
+						numbers=left,
+						linewidth=16cm,
+						xleftmargin=1cm,
+						frame=single,
+						float=t,
+						caption={Useless code},
+						label = cod:bad]
+#include <stdio.h>
+void main (void)
+{
+	//This will probably not work.
+	a = a + 1;
+	b = bear;
+}
+\end{lstlisting}
+
+%----------------------------------------------------------------------------------------
+\subsubsection{Notes on references}
+Don't forget to reference all references in text using IEEE Documentation Style \cite{Graffox:2009}.
+
+All applicable documents should be in references list, specifically datasheets, like the LMT01 datasheet \cite{lmt01:2016} and FT230X datasheet \cite{fx230:2016}, used as references for designs, explanations of device operation etc.
+
+\clearpage % So we get new page even after float flow-over
+
+%----------------------------------------------------------------------------------------
+%	BIBLIOGRAPHY
+%----------------------------------------------------------------------------------------
+\bibliographystyle{IEEEtran}
+\bibliography{IEEEabrv,references}
+
+%----------------------------------------------------------------------------------------
+
+\end{document}

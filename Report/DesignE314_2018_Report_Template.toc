@@ -1,0 +1,17 @@
+\contentsline {section}{\numberline {1}Introduction}{4}
+\contentsline {section}{\numberline {2}System description}{4}
+\contentsline {section}{\numberline {3}Hardware design and implementation}{4}
+\contentsline {subsection}{\numberline {3.1}Power supply}{4}
+\contentsline {subsection}{\numberline {3.2}UART communications}{4}
+\contentsline {subsection}{\numberline {3.3}ADC interfaces}{5}
+\contentsline {subsection}{\numberline {3.4}Geyser Flow-meter interface}{5}
+\contentsline {subsection}{\numberline {3.5}Temperature Measurement interface}{5}
+\contentsline {subsection}{\numberline {3.6}Flow and Valve control interface}{5}
+\contentsline {section}{\numberline {4}Software design and implementation}{5}
+\contentsline {subsection}{\numberline {4.1}7-Segment driver}{5}
+\contentsline {subsection}{\numberline {4.2}Timers and timing ... etc.}{5}
+\contentsline {section}{\numberline {5}Measurements and Results}{6}
+\contentsline {section}{\numberline {6}Conclusions}{6}
+\contentsline {subsection}{\numberline {6.1}Chemistry}{6}
+\contentsline {subsubsection}{\numberline {6.1.1}Code efficiency}{6}
+\contentsline {subsubsection}{\numberline {6.1.2}Notes on references}{7}
