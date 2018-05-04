@@ -104,4 +104,6 @@ extern uint32_t* ADC2_buffer;
 extern uint8_t touch_flag;
 
 
+extern RTC_TimeTypeDef heating_schedule[3];
+
 #endif

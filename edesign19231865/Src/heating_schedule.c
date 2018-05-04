@@ -9,7 +9,14 @@ extern ADC_HandleTypeDef hadc2;
 
 
 
-void heating_schedule(){
+void heating_scheduling(){
+	//HAL_RTC_GetTime(&hrtc,time,RTC_FORMAT_BIN);
+
+	// checking heating schedule 1
+//	if(time->Hours > heating_schedule1)
+
+
+
 
 
 

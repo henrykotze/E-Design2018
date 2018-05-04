@@ -118,6 +118,13 @@ void init_peripherals(){
 
 
 
+//	*heating_schedule = malloc(3*6*sizeof(uint32_t));
+//	memset(heating_schedule, 0x00, 18);
+
+
+
+
+
 
 	new_time = malloc(6*sizeof(uint32_t));
 	memset(new_time, 0x00, 6);

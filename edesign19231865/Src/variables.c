@@ -90,6 +90,14 @@ RTC_DateTypeDef* date = NULL;
 char* temp_time_var = NULL;
 uint8_t rtcSecFlag = 0;
 
+RTC_TimeTypeDef heating_schedule[3];
+
+
+
+
+
+
+
  // Touch Toggle
 uint8_t touch_flag = 0;
 

@@ -162,53 +162,43 @@ void uart_comms(){
 				memcpy(return_value, uart_command, 2);
 				memcpy(return_value+2, endSimbol,2 );
 				HAL_UART_Transmit_IT(&huart1,return_value, strlen((char*)return_value));
-				heating_info = strtok((char*)uart_command_copy, "$J,1");
+
 
 				if(uart_command[3] == '1'){ // first heating schedule
 
-					//heating_info = strtok((char*)uart_command_copy, "$J,1");
-					memcpy(heat_schedule1, heating_info, strlen((char*)heating_info) );
-					memcpy(heat_schedule1+strlen((char*)heat_schedule1),comma,1 );
-
+					heating_info = strtok((char*)uart_command_copy, ",");
 					heating_info = (strtok(NULL, ","));
-					memcpy(heat_schedule1+strlen((char*)heat_schedule1), heating_info, strlen((char*)heating_info) );
-					memcpy(heat_schedule1+strlen((char*)heat_schedule1),comma,1 );
-
-					heating_info = (strtok(NULL, ",\r\n"));
-					memcpy(heat_schedule1+strlen((char*)heat_schedule1), heating_info, strlen((char*)heating_info) );
-					heating_schedule_info[0] = heat_schedule1;
+					heating_info = (strtok(NULL, ","));
+					heating_schedule[0].Hours = strtol(heating_info, NULL,10);
+					heating_info = (strtok(NULL, ","));
+					heating_schedule[0].Minutes = strtol(heating_info, NULL,10);
+					heating_info = (strtok(NULL, "\r\n"));
+					heating_schedule[0].Seconds = strtol(heating_info, NULL,10);
 
 
 				}
 				else if(uart_command[3] == '2'){ // second heating schedule
 
-					memcpy(heat_schedule2, heating_info, strlen((char*)heating_info) );
-					memcpy(heat_schedule2+strlen((char*)heat_schedule2),comma,1 );
-
+					heating_info = strtok((char*)uart_command_copy, ",");
 					heating_info = (strtok(NULL, ","));
-					memcpy(heat_schedule2+strlen((char*)heat_schedule2), heating_info, strlen((char*)heating_info) );
-					memcpy(heat_schedule2+strlen((char*)heat_schedule2),comma,1 );
-
-					heating_info = (strtok(NULL, ",\r\n"));
-					memcpy(heat_schedule2+strlen((char*)heat_schedule2), heating_info, strlen((char*)heating_info) );
-
-					heating_schedule_info[1] = heat_schedule2;
+					heating_info = (strtok(NULL, ","));
+					heating_schedule[1].Hours = strtol(heating_info, NULL,10);
+					heating_info = (strtok(NULL, ","));
+					heating_schedule[1].Minutes = strtol(heating_info, NULL,10);
+					heating_info = (strtok(NULL, "\r\n"));
+					heating_schedule[1].Seconds = strtol(heating_info, NULL,10);
 
 				}
 				else if(uart_command[3] == '3'){ // 3rd heating schedule
 
-					memcpy(heat_schedule3, heating_info, strlen((char*)heating_info) );
-					memcpy(heat_schedule3+strlen((char*)heat_schedule3),comma,1 );
-
+					heating_info = strtok((char*)uart_command_copy, ",");
 					heating_info = (strtok(NULL, ","));
-					memcpy(heat_schedule3+strlen((char*)heat_schedule3), heating_info, strlen((char*)heating_info) );
-					memcpy(heat_schedule3+strlen((char*)heat_schedule3),comma,1 );
-
-					heating_info = (strtok(NULL, ",\r\n"));
-					memcpy(heat_schedule3+strlen((char*)heat_schedule3), heating_info, strlen((char*)heating_info) );
-					memcpy(heat_schedule3+strlen((char*)heat_schedule3),comma,1 );
-
-					heating_schedule_info[2] = heat_schedule3;
+					heating_info = (strtok(NULL, ","));
+					heating_schedule[2].Hours = strtol(heating_info, NULL,10);
+					heating_info = (strtok(NULL, ","));
+					heating_schedule[2].Minutes = strtol(heating_info, NULL,10);
+					heating_info = (strtok(NULL, "\r\n"));
+					heating_schedule[2].Seconds = strtol(heating_info, NULL,10);
 				}
 			}
 			break;
