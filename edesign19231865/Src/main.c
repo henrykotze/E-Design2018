@@ -178,6 +178,15 @@ int main(void)
 		  heating_scheduling();
 		 //do something
 	  }
+	  if(flash_counter == 10000){
+		  flash_counter = 0;
+		  if(enableFlashLogging){
+			  write2Flash();
+			  //HAL_FLASH_Unlock();
+//			  HAL_FLASH_Program (uint32_t TypeProgram, uint32_t Address, uint64_t Data);
+			  //HAL_FLASH_Lock();
+		  }
+	  }
 
 
 

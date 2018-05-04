@@ -1,2 +1,2 @@
-flash_memory.c:16:6:write2Flash	0	static
-flash_memory.c:24:6:readFlash	0	static
+flash_memory.c:17:6:write2Flash	32	static
+flash_memory.c:78:6:readFlash	0	static

@@ -24,7 +24,7 @@ void adc_comms(){
 
 	//Converting Ambient temperature
 	if( (raw_ambient_temp-615)/12.3f < 100){
-		raw_ambient_temp =(raw_ambient_temp-615)/12.3f;
+		raw_ambient_temp = (raw_ambient_temp-615)/12.3f;
 		sprintf(ambient_temp,"%lu", raw_ambient_temp);
 	}
 	//Converting Geyser Temperature

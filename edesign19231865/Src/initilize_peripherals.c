@@ -122,8 +122,9 @@ void init_peripherals(){
 //	memset(heating_schedule, 0x00, 18);
 
 
-
-
+	// FLASH
+	flash_stored = malloc(sizeof(uint32_t)/sizeof(char)*sizeof(char));
+	memset(flash_stored, 0x00, sizeof(uint32_t)/sizeof(char));
 
 
 	new_time = malloc(6*sizeof(uint32_t));

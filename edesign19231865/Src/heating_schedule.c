@@ -74,11 +74,6 @@ void heating_scheduling(){
 			heater_state = heater_OFF;
 			HAL_GPIO_WritePin(GPIOB,GPIO_PIN_14,GPIO_PIN_SET);
 		}
-
-	// Heating schedule 2
-
-
-
 	}
 }
 

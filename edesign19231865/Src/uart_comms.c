@@ -81,10 +81,10 @@ void uart_comms(){
 			memcpy(return_value, uart_command, 2);
 			memcpy(return_value+2, endSimbol,2 );
 			HAL_UART_Transmit_IT(&huart1, return_value, strlen((char*)return_value));
-			if(uart_command[2]=='0'){ // logging disable
+			if(uart_command[3]=='0'){ // logging disable
 				enableFlashLogging = 0;
 			}
-			else if(uart_command[2] == '1'){ // logging enable
+			else if(uart_command[3] == '1'){ // logging enable
 				enableFlashLogging = 1;
 			}
 			break;
@@ -130,6 +130,8 @@ void uart_comms(){
 			HAL_RTC_SetTime(&hrtc, time, RTC_FORMAT_BIN);
 			HAL_RTC_SetDate(&hrtc, date, RTC_FORMAT_BIN);
 			__HAL_RTC_WRITEPROTECTION_ENABLE(&hrtc);
+			HAL_RTC_GetTime(&hrtc,time,RTC_FORMAT_BIN);
+			HAL_RTC_GetDate(&hrtc,date,RTC_FORMAT_BIN);
 
 			break;
 
@@ -263,6 +265,14 @@ void uart_comms(){
 
 		case 'L': // Request log Entry
 			// do something
+			log_receiced_num = uart_command[3] - 48;
+			if(log_receiced_num > log_counter && log_full == 0){
+
+			}
+			else{
+				memcpy(return_value, flash_mem_start, 1 );
+				HAL_UART_Transmit_IT(&huart1,return_value, strlen((char*)return_value));
+			}
 			break;
 		}
 		memset(uart_command,0x00, 60);

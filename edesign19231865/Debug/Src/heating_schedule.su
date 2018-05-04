@@ -1,2 +1,2 @@
 heating_schedule.c:12:6:heating_scheduling	16	static
-heating_schedule.c:86:6:heating_control	8	static
+heating_schedule.c:81:6:heating_control	8	static
