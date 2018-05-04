@@ -41,6 +41,7 @@ extern uint8_t rx_flag;
 extern uint8_t tim3_flag;
 extern uint8_t systick_flag;
 extern uint8_t touch_flag;
+extern uint16_t fake_RTC_timer;
 /* USER CODE END 0 */
 
 /* External variables --------------------------------------------------------*/
@@ -92,6 +93,7 @@ void SysTick_Handler(void)
   HAL_SYSTICK_IRQHandler();
   /* USER CODE BEGIN SysTick_IRQn 1 */
   systick_flag = 1;
+  fake_RTC_timer += 1;
   //adc_flag = 1;
   /* USER CODE END SysTick_IRQn 1 */
 }

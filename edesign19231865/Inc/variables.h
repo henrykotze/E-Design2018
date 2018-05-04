@@ -74,6 +74,7 @@ extern uint32_t* current_int_rms;
 
 extern uint32_t raw_ambient_temp;
 extern uint32_t raw_geyser_temp;
+extern uint8_t geyser_temp_int;
 
 extern char* ambient_temp;
 extern char* geyser_temp;
@@ -104,6 +105,7 @@ extern uint32_t* ADC2_buffer;
 extern uint8_t touch_flag;
 
 
-extern RTC_TimeTypeDef heating_schedule[3];
+extern RTC_TimeTypeDef heating_schedule[6];
+extern uint16_t fake_RTC_timer;
 
 #endif

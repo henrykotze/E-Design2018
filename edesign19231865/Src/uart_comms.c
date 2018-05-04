@@ -117,7 +117,7 @@ void uart_comms(){
 			HAL_UART_Transmit_IT(&huart1,return_value, strlen((char*)return_value));
 
 			__HAL_RTC_WRITEPROTECTION_DISABLE(&hrtc); // Disable write protection
-			//RTC_EnterInitMode(&hrtc); // Enter init mode
+			RTC_EnterInitMode(&hrtc); // Enter init mode
 
 			heating_info = strtok((char*)uart_command_copy, "$H,");
 			time->Hours = strtol(heating_info, NULL,10);
@@ -135,6 +135,7 @@ void uart_comms(){
 
 		case 'I': // get time
 			HAL_RTC_GetTime(&hrtc,time,RTC_FORMAT_BIN);
+			HAL_RTC_GetDate(&hrtc,date,RTC_FORMAT_BIN);
 			memcpy(return_value, uart_command, 2);
 			memcpy(return_value+2,comma,1);
 
@@ -172,8 +173,16 @@ void uart_comms(){
 					heating_schedule[0].Hours = strtol(heating_info, NULL,10);
 					heating_info = (strtok(NULL, ","));
 					heating_schedule[0].Minutes = strtol(heating_info, NULL,10);
-					heating_info = (strtok(NULL, "\r\n"));
+					heating_info = (strtok(NULL, ","));
 					heating_schedule[0].Seconds = strtol(heating_info, NULL,10);
+
+
+					heating_info = (strtok(NULL, ","));
+					heating_schedule[1].Hours = strtol(heating_info, NULL,10);
+					heating_info = (strtok(NULL, ","));
+					heating_schedule[1].Minutes = strtol(heating_info, NULL,10);
+					heating_info = (strtok(NULL, "\r\n"));
+					heating_schedule[1].Seconds = strtol(heating_info, NULL,10);
 
 
 				}
@@ -182,11 +191,18 @@ void uart_comms(){
 					heating_info = strtok((char*)uart_command_copy, ",");
 					heating_info = (strtok(NULL, ","));
 					heating_info = (strtok(NULL, ","));
-					heating_schedule[1].Hours = strtol(heating_info, NULL,10);
+					heating_schedule[2].Hours = strtol(heating_info, NULL,10);
 					heating_info = (strtok(NULL, ","));
-					heating_schedule[1].Minutes = strtol(heating_info, NULL,10);
+					heating_schedule[2].Minutes = strtol(heating_info, NULL,10);
+					heating_info = (strtok(NULL, ","));
+					heating_schedule[2].Seconds = strtol(heating_info, NULL,10);
+
+					heating_info = (strtok(NULL, ","));
+					heating_schedule[3].Hours = strtol(heating_info, NULL,10);
+					heating_info = (strtok(NULL, ","));
+					heating_schedule[3].Minutes = strtol(heating_info, NULL,10);
 					heating_info = (strtok(NULL, "\r\n"));
-					heating_schedule[1].Seconds = strtol(heating_info, NULL,10);
+					heating_schedule[3].Seconds = strtol(heating_info, NULL,10);
 
 				}
 				else if(uart_command[3] == '3'){ // 3rd heating schedule
@@ -194,11 +210,18 @@ void uart_comms(){
 					heating_info = strtok((char*)uart_command_copy, ",");
 					heating_info = (strtok(NULL, ","));
 					heating_info = (strtok(NULL, ","));
-					heating_schedule[2].Hours = strtol(heating_info, NULL,10);
+					heating_schedule[4].Hours = strtol(heating_info, NULL,10);
 					heating_info = (strtok(NULL, ","));
-					heating_schedule[2].Minutes = strtol(heating_info, NULL,10);
+					heating_schedule[4].Minutes = strtol(heating_info, NULL,10);
+					heating_info = (strtok(NULL, ","));
+					heating_schedule[4].Seconds = strtol(heating_info, NULL,10);
+
+					heating_info = (strtok(NULL, ","));
+					heating_schedule[5].Hours = strtol(heating_info, NULL,10);
+					heating_info = (strtok(NULL, ","));
+					heating_schedule[5].Minutes = strtol(heating_info, NULL,10);
 					heating_info = (strtok(NULL, "\r\n"));
-					heating_schedule[2].Seconds = strtol(heating_info, NULL,10);
+					heating_schedule[5].Seconds = strtol(heating_info, NULL,10);
 				}
 			}
 			break;

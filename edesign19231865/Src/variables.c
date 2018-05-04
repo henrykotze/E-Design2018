@@ -59,6 +59,7 @@ uint32_t adc_raw_voltage = 0;
 uint32_t adc_raw_current = 0;
 uint32_t raw_ambient_temp = 0;
 uint32_t raw_geyser_temp = 0;
+uint8_t geyser_temp_int = 0;
 uint64_t adc_buffer_voltage = 0;
 uint64_t adc_buffer_current = 0;
 uint16_t adc_counter = 0;
@@ -90,7 +91,11 @@ RTC_DateTypeDef* date = NULL;
 char* temp_time_var = NULL;
 uint8_t rtcSecFlag = 0;
 
-RTC_TimeTypeDef heating_schedule[3];
+
+// Heating Schedule
+RTC_TimeTypeDef heating_schedule[6];
+uint16_t fake_RTC_timer = 0;
+
 
 
 

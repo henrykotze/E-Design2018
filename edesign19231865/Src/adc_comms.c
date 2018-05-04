@@ -17,19 +17,20 @@ void adc_comms(){
 
 
 	//Converting Voltage
-	adc_buffer_voltage = (pow((adc_raw_voltage-2072.202)/0.008629,2))+adc_buffer_voltage;
+	adc_buffer_voltage = (pow((adc_raw_voltage-2072.202f)/0.008629f,2))+adc_buffer_voltage;
 
 	//Converting Current
-	adc_buffer_current = (pow((adc_raw_current-2072.202)/0.14603,2))+adc_buffer_current;
+	adc_buffer_current = (pow((adc_raw_current-2072.202f)/0.14603f,2))+adc_buffer_current;
 
 	//Converting Ambient temperature
-	if( (raw_ambient_temp-615)/12.3 < 100){
-		raw_ambient_temp =(raw_ambient_temp-615)/12.3;
+	if( (raw_ambient_temp-615)/12.3f < 100){
+		raw_ambient_temp =(raw_ambient_temp-615)/12.3f;
 		sprintf(ambient_temp,"%lu", raw_ambient_temp);
 	}
 	//Converting Geyser Temperature
-	if( (raw_geyser_temp-615)/12.3 < 100){
-		raw_geyser_temp = (raw_geyser_temp-615)/12.3;
+	if( (raw_geyser_temp-615)/12.3f < 100){
+		raw_geyser_temp = (raw_geyser_temp-615)/12.3f;
+		geyser_temp_int = raw_geyser_temp;
 		sprintf(geyser_temp,"%lu", raw_geyser_temp);
 	}
 

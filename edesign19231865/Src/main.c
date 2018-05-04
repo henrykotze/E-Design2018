@@ -173,6 +173,11 @@ int main(void)
 		  touch_flag = 0;
 		  // do something
 	  }
+	  if(fake_RTC_timer == 1000){
+		  fake_RTC_timer = 0;
+		  heating_scheduling();
+		 //do something
+	  }
 
 
 

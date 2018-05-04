@@ -13,6 +13,7 @@ void liters_pumped();
 void heating_scheduling();
 void write2Flash();
 void readFlash();
+void heating_control();
 
 
 #endif
