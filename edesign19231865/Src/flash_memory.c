@@ -33,7 +33,7 @@ void write2Flash(){
 		memcpy(flash_stored+strlen((char*)flash_stored),comma,1 );
 
 		//current
-		memcpy(flash_stored,current_rms,strlen(current_rms));
+		memcpy(flash_stored+strlen((char*)flash_stored),current_rms,strlen(current_rms));
 		memcpy(flash_stored+strlen((char*)flash_stored),comma,1 );
 		//voltage
 		memcpy(flash_stored+strlen((char*)flash_stored),voltage_rms,strlen(voltage_rms) );
@@ -52,16 +52,17 @@ void write2Flash(){
 		memcpy(flash_stored+strlen((char*)flash_stored),comma,1 );
 		//vale state
 		if(valve_state == valve_OPEN){
-			memcpy(flash_stored+strlen((char*)return_value), valve_state,strlen(valve_state) -1);
+			memcpy(flash_stored+strlen((char*)flash_stored), valve_state,strlen(valve_state) -1);
 		}
 		else{
-			memcpy(flash_stored+strlen((char*)return_value), valve_state,strlen(valve_state) );
+			memcpy(flash_stored+strlen((char*)flash_stored), valve_state,strlen(valve_state) );
 		}
 
-		memcpy(flash_stored+strlen((char*)return_value), endSimbol,2 );
+		memcpy(flash_stored+strlen((char*)flash_stored), endSimbol,2 );
 		HAL_FLASH_Unlock();
-		HAL_FLASH_Program(FLASH_TYPEPROGRAM_DOUBLEWORD, (0x08000000+log_counter*64), *flash_stored);
+		HAL_FLASH_Program(FLASH_TYPEPROGRAM_HALFWORD, 0x08000000, *((uint64_t*)flash_stored) );
 		HAL_FLASH_Lock();
+		memset(flash_stored, 0x00, 50);
 
 
 		log_counter += 1;

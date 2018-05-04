@@ -257,10 +257,8 @@ void uart_comms(){
 			else{
 				memcpy(return_value+strlen((char*)return_value), valve_state,strlen(valve_state) );
 			}
-
 			memcpy(return_value+strlen((char*)return_value), endSimbol,2 );
 			HAL_UART_Transmit_IT(&huart1,(uint8_t*)return_value, strlen((char*)return_value));
-
 			break;
 
 		case 'L': // Request log Entry
@@ -270,8 +268,11 @@ void uart_comms(){
 
 			}
 			else{
-				memcpy(return_value, flash_mem_start, 1 );
-				HAL_UART_Transmit_IT(&huart1,return_value, strlen((char*)return_value));
+				memcpy(flash_stored, flash_mem_start, 50 );
+				//flash_stored = flash_mem_start;
+				//return_value = (char*)flash_stored;
+				HAL_UART_Transmit_IT(&huart1,(uint8_t*)flash_stored, strlen((char*)flash_stored));
+				//HAL_FLASH_Lock();
 			}
 			break;
 		}

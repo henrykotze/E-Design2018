@@ -123,8 +123,8 @@ void init_peripherals(){
 
 
 	// FLASH
-	flash_stored = malloc(sizeof(uint32_t)/sizeof(char)*sizeof(char));
-	memset(flash_stored, 0x00, sizeof(uint32_t)/sizeof(char));
+	flash_stored = (uint8_t*)malloc(70*sizeof(uint8_t));
+	memset(flash_stored, 0x00, 70);
 
 
 	new_time = malloc(6*sizeof(uint32_t));

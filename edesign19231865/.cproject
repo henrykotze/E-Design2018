@@ -121,7 +121,7 @@
 					</fileInfo>
 					<fileInfo id="com.atollic.truestudio.exe.debug.1518366166.483079480" name="initilize_peripherals.c" rcbsApplicability="disable" resourcePath="Src/initilize_peripherals.c" toolsToInvoke="com.atollic.truestudio.exe.debug.toolchain.gcc.1836874447.1226019421">
 						<tool id="com.atollic.truestudio.exe.debug.toolchain.gcc.1836874447.1226019421" name="C Compiler" superClass="com.atollic.truestudio.exe.debug.toolchain.gcc.1836874447">
-							<option id="com.atollic.truestudio.exe.debug.toolchain.gcc.optimization.level.425372900" name="Optimization Level" superClass="com.atollic.truestudio.exe.debug.toolchain.gcc.optimization.level" useByScannerDiscovery="false" value="com.atollic.truestudio.gcc.optimization.level.0fast" valueType="enumerated"/>
+							<option id="com.atollic.truestudio.exe.debug.toolchain.gcc.optimization.level.425372900" name="Optimization Level" superClass="com.atollic.truestudio.exe.debug.toolchain.gcc.optimization.level" useByScannerDiscovery="false" value="com.atollic.truestudio.gcc.optimization.level.0g" valueType="enumerated"/>
 							<inputType id="com.atollic.truestudio.gcc.input.1895806848" superClass="com.atollic.truestudio.gcc.input"/>
 						</tool>
 						<tool customBuildStep="true" id="org.eclipse.cdt.managedbuilder.ui.rcbs.1317978805" name="Resource Custom Build Step">
@@ -146,7 +146,7 @@
 					</fileInfo>
 					<fileInfo id="com.atollic.truestudio.exe.debug.1518366166.1631634779" name="functions.c" rcbsApplicability="disable" resourcePath="Src/functions.c" toolsToInvoke="com.atollic.truestudio.exe.debug.toolchain.gcc.1836874447.2105637333">
 						<tool id="com.atollic.truestudio.exe.debug.toolchain.gcc.1836874447.2105637333" name="C Compiler" superClass="com.atollic.truestudio.exe.debug.toolchain.gcc.1836874447">
-							<option id="com.atollic.truestudio.exe.debug.toolchain.gcc.optimization.level.1101696727" name="Optimization Level" superClass="com.atollic.truestudio.exe.debug.toolchain.gcc.optimization.level" useByScannerDiscovery="false" value="com.atollic.truestudio.gcc.optimization.level.0fast" valueType="enumerated"/>
+							<option id="com.atollic.truestudio.exe.debug.toolchain.gcc.optimization.level.1101696727" name="Optimization Level" superClass="com.atollic.truestudio.exe.debug.toolchain.gcc.optimization.level" useByScannerDiscovery="false" value="com.atollic.truestudio.gcc.optimization.level.0g" valueType="enumerated"/>
 							<option id="com.atollic.truestudio.exe.debug.toolchain.gcc.debug.info.698057095" name="Debug Level" superClass="com.atollic.truestudio.exe.debug.toolchain.gcc.debug.info" useByScannerDiscovery="false" value="com.atollic.truestudio.gcc.debug.info.3" valueType="enumerated"/>
 							<inputType id="com.atollic.truestudio.gcc.input.1464264808" superClass="com.atollic.truestudio.gcc.input"/>
 						</tool>

@@ -138,9 +138,9 @@ int main(void)
 
 
 //  HAL_ADC_Start(&hadc2);
-  //HAL_NVIC_SetPriority(USART1_IRQn, 0, 0);
+  HAL_NVIC_SetPriority(USART1_IRQn, 0, 0);
 
- //HAL_ADC_Start_DMA(&hadc2, ADC1_buffer, 7);
+ HAL_ADC_Start_DMA(&hadc2, ADC1_buffer, 7);
 
   /* USER CODE END 2 */
 
@@ -162,7 +162,7 @@ int main(void)
 	  if(systick_flag == 1){	// Seven Segment
 		  systick_flag = 0;
 		  seven_segment();
-		 // HAL_ADC_Start_DMA(&hadc2, ADC1_buffer, 7);
+		 HAL_ADC_Start_DMA(&hadc2, ADC1_buffer, 7);
 
 	  }
 	  if(adc_flag == 1){	// ADC conversion
@@ -181,10 +181,7 @@ int main(void)
 	  if(flash_counter == 10000){
 		  flash_counter = 0;
 		  if(enableFlashLogging){
-			  write2Flash();
-			  //HAL_FLASH_Unlock();
-//			  HAL_FLASH_Program (uint32_t TypeProgram, uint32_t Address, uint64_t Data);
-			  //HAL_FLASH_Lock();
+		  write2Flash();
 		  }
 	  }
 

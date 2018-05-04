@@ -103,11 +103,11 @@ uint16_t fake_RTC_timer = 0;
 // Flash memorry varibales
 //uint32_t* memoryStartLoc = 0x0800 0000;
 uint32_t flash_counter = 0 ;
-uint64_t* flash_stored = NULL;
+uint8_t* flash_stored = NULL;
 uint8_t log_counter = 0;
 uint8_t log_receiced_num = 0;
 uint8_t log_full = 0;
-uint32_t* flash_mem_start = 0x08000000;
+uint8_t* flash_mem_start = (uint8_t*)0x08000000;
 
 
  // Touch Toggle
