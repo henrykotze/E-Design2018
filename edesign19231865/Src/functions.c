@@ -28,3 +28,5 @@ void HAL_RTCEx_WakeUpTimerEventCallback(RTC_HandleTypeDef *hrtc)
 rtcSecFlag = 1; // Flag to indicate 1 second period
 }
 
+
+

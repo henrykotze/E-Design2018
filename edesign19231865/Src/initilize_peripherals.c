@@ -97,8 +97,27 @@ void init_peripherals(){
 
 	heating_time_size = 0;
 
+
+	// Initiliazing the RTC
 	time = malloc(6*sizeof(uint32_t));
 	memset(time, 0x00, 6);
+//
+	time->Hours = 0x0;
+	time->Minutes = 0x0;
+	time->Seconds = 0x0;
+	time->DayLightSaving = RTC_DAYLIGHTSAVING_NONE;
+	time->StoreOperation = RTC_STOREOPERATION_RESET;
+
+	date = malloc(sizeof(uint32_t));
+	memset(date,0x00,1);
+
+	date->WeekDay = RTC_WEEKDAY_MONDAY;
+	date->Month = RTC_MONTH_JANUARY;
+	date->Date = 0x1;
+	date->Year = 0x0;
+
+
+
 
 	new_time = malloc(6*sizeof(uint32_t));
 	memset(new_time, 0x00, 6);

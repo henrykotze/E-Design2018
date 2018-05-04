@@ -11,6 +11,9 @@ void seven_segment_display(uint8_t num);
 void convert_adc_raw();
 void liters_pumped();
 void heating_schedule();
+void write2Flash();
+void readFlash();
+void heating_schedule();
 
 
 #endif
