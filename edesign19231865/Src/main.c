@@ -96,7 +96,7 @@ static void MX_I2C1_Init(void);
 int main(void)
 {
   /* USER CODE BEGIN 1 */
-
+	HAL_StatusTypeDef result;
   /* USER CODE END 1 */
 
   /* MCU Configuration----------------------------------------------------------*/
@@ -125,7 +125,7 @@ int main(void)
   MX_I2C1_Init();
   /* USER CODE BEGIN 2 */
 
- // HAL_ADCEx_Calibration_Start(&hadc2, ADC_SINGLE_ENDED);
+  HAL_ADCEx_Calibration_Start(&hadc2, ADC_SINGLE_ENDED);
 
   init_peripherals();
   HAL_UART_Receive_IT(&huart1, (uint8_t*)&rx_buffer, 1);
@@ -141,6 +141,16 @@ int main(void)
   HAL_NVIC_SetPriority(USART1_IRQn, 0, 0);
 
  HAL_ADC_Start_DMA(&hadc2, ADC1_buffer, 7);
+
+ result = HAL_I2C_IsDeviceReady(&hi2c1, 0x44,0,1);
+ result = HAL_I2C_IsDeviceReady(&hi2c1, 0x45,0,1);
+ if(result != HAL_OK){
+
+ }
+ if(result == HAL_OK){
+
+ }
+
 
   /* USER CODE END 2 */
 
@@ -162,26 +172,26 @@ int main(void)
 	  if(systick_flag == 1){	// Seven Segment
 		  systick_flag = 0;
 		  seven_segment();
-		 HAL_ADC_Start_DMA(&hadc2, ADC1_buffer, 7);
+		// HAL_ADC_Start_DMA(&hadc2, ADC1_buffer, 7);
 
 	  }
 	  if(adc_flag == 1){	// ADC conversion
-		  adc_flag = 0;
-		  adc_comms();
+		//  adc_flag = 0;
+		//  adc_comms();
 	  }
 	  if(touch_flag == 1 ){
 		  touch_flag = 0;
 		  // do something
 	  }
 	  if(fake_RTC_timer == 1000){
-		  fake_RTC_timer = 0;
-		  heating_scheduling();
+		 // fake_RTC_timer = 0;
+		 // heating_scheduling();
 		 //do something
 	  }
 	  if(flash_counter == 10000){
 		  flash_counter = 0;
 		  if(enableFlashLogging){
-		  write2Flash();
+	//	  write2Flash();
 		  }
 	  }
 
