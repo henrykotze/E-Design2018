@@ -110,6 +110,10 @@ uint8_t log_full = 0;
 uint8_t* flash_mem_start = (uint8_t*)0x08000000;
 
 
+unsigned char sliderCoords;                     // variable identified with a Slide event
+unsigned char data_buffer[30];
+unsigned char events = 0;                       // variable identified with all events
+
  // Touch Toggle
 uint8_t touch_flag = 0;
 

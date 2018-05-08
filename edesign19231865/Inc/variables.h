@@ -109,6 +109,11 @@ extern uint32_t* ADC2_buffer;
 // Touch Toggle
 extern uint8_t touch_flag;
 
+extern unsigned char sliderCoords;                     // variable identified with a Slide event
+extern unsigned char data_buffer[30];
+extern unsigned char events;                       // variable identified with all events
+
+
 
 extern RTC_TimeTypeDef heating_schedule[6];
 extern uint16_t fake_RTC_timer;

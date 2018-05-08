@@ -39,6 +39,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "stm32f3xx_hal.h"
+#include "IQS263.h"
 
 /* USER CODE BEGIN Includes */
 //#include <stdlib.h>
@@ -96,7 +97,7 @@ static void MX_I2C1_Init(void);
 int main(void)
 {
   /* USER CODE BEGIN 1 */
-	HAL_StatusTypeDef result;
+//	HAL_StatusTypeDef result;
   /* USER CODE END 1 */
 
   /* MCU Configuration----------------------------------------------------------*/
@@ -135,33 +136,33 @@ int main(void)
  // HAL_RTCEx_SetWakeUpTimer_IT(&hrtc,2048,RTC_WAKEUPCLOCK_RTCCLK_DIV16);
 
   HAL_RTCEx_SetWakeUpTimer_IT(&hrtc,2048,RTC_WAKEUPCLOCK_RTCCLK_DIV16);
-
+  //Init_IQS263();
 
 //  HAL_ADC_Start(&hadc2);
   HAL_NVIC_SetPriority(USART1_IRQn, 0, 0);
 
- HAL_ADC_Start_DMA(&hadc2, ADC1_buffer, 7);
+// HAL_ADC_Start_DMA(&hadc2, ADC1_buffer, 7);
 
- result = HAL_I2C_IsDeviceReady(&hi2c1, 0x44,0,1);
- result = HAL_I2C_IsDeviceReady(&hi2c1, 0x45,0,1);
- if(result != HAL_OK){
 
- }
- if(result == HAL_OK){
 
- }
+
+  int i2c_state = init_iqs263();
+  //int i2c_state = Init_IQS263();;
 
 
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  while (1)
+  while (i2c_state)
   {
+	  handleEvents();
 
+	  //IQS263_READ_TOUCH_Events();
   /* USER CODE END WHILE */
 
   /* USER CODE BEGIN 3 */
+	  //IQS263_READ_TOUCH_Events();
 
 	  if(rx_flag == 1 ){ 	// UART Comms
 		  rx_flag = 0;
