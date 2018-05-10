@@ -268,7 +268,7 @@ void uart_comms(){
 
 			}
 			else{
-				memcpy(flash_stored, flash_mem_start, 50 );
+				memcpy(flash_stored, flash_mem_start+48*log_counter, 60 );
 				//flash_stored = flash_mem_start;
 				//return_value = (char*)flash_stored;
 				HAL_UART_Transmit_IT(&huart1,(uint8_t*)flash_stored, strlen((char*)flash_stored));

@@ -39,7 +39,6 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "stm32f3xx_hal.h"
-#include "IQS263.h"
 
 /* USER CODE BEGIN Includes */
 //#include <stdlib.h>
@@ -141,24 +140,25 @@ int main(void)
 //  HAL_ADC_Start(&hadc2);
   HAL_NVIC_SetPriority(USART1_IRQn, 0, 0);
 
-// HAL_ADC_Start_DMA(&hadc2, ADC1_buffer, 7);
+ HAL_ADC_Start_DMA(&hadc2, ADC1_buffer, 7);
 
 
 
 
-  int i2c_state = init_iqs263();
-  //int i2c_state = Init_IQS263();;
+ // int i2c_state = init_iqs263();
+//  Init_IQS263();
 
 
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  while (i2c_state)
+ flash_counter = 10000-2000;
+  while (1)
   {
-	  handleEvents();
+//	  handleEvents();
 
-	  //IQS263_READ_TOUCH_Events();
+//	  IQS263_READ_TOUCH_Events();
   /* USER CODE END WHILE */
 
   /* USER CODE BEGIN 3 */
@@ -173,26 +173,26 @@ int main(void)
 	  if(systick_flag == 1){	// Seven Segment
 		  systick_flag = 0;
 		  seven_segment();
-		// HAL_ADC_Start_DMA(&hadc2, ADC1_buffer, 7);
+		 HAL_ADC_Start_DMA(&hadc2, ADC1_buffer, 7);
 
 	  }
 	  if(adc_flag == 1){	// ADC conversion
-		//  adc_flag = 0;
-		//  adc_comms();
+		  adc_flag = 0;
+		  adc_comms();
 	  }
 	  if(touch_flag == 1 ){
 		  touch_flag = 0;
 		  // do something
 	  }
 	  if(fake_RTC_timer == 1000){
-		 // fake_RTC_timer = 0;
-		 // heating_scheduling();
+		  fake_RTC_timer = 0;
+		  heating_scheduling();
 		 //do something
 	  }
 	  if(flash_counter == 10000){
 		  flash_counter = 0;
 		  if(enableFlashLogging){
-	//	  write2Flash();
+		  write2Flash();
 		  }
 	  }
 
@@ -251,7 +251,7 @@ void SystemClock_Config(void)
   PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_USART1|RCC_PERIPHCLK_I2C1
                               |RCC_PERIPHCLK_RTC|RCC_PERIPHCLK_ADC12;
   PeriphClkInit.Usart1ClockSelection = RCC_USART1CLKSOURCE_PCLK1;
-  PeriphClkInit.Adc12ClockSelection = RCC_ADC12PLLCLK_DIV256;
+  PeriphClkInit.Adc12ClockSelection = RCC_ADC12PLLCLK_DIV1;
   PeriphClkInit.I2c1ClockSelection = RCC_I2C1CLKSOURCE_HSI;
   PeriphClkInit.RTCClockSelection = RCC_RTCCLKSOURCE_LSE;
   if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInit) != HAL_OK)
@@ -300,10 +300,10 @@ static void MX_ADC2_Init(void)
 
     /**Configure Regular Channel 
     */
-  sConfig.Channel = ADC_CHANNEL_12;
+  sConfig.Channel = ADC_CHANNEL_8;
   sConfig.Rank = ADC_REGULAR_RANK_1;
   sConfig.SingleDiff = ADC_SINGLE_ENDED;
-  sConfig.SamplingTime = ADC_SAMPLETIME_1CYCLE_5;
+  sConfig.SamplingTime = ADC_SAMPLETIME_601CYCLES_5;
   sConfig.OffsetNumber = ADC_OFFSET_NONE;
   sConfig.Offset = 0;
   if (HAL_ADC_ConfigChannel(&hadc2, &sConfig) != HAL_OK)
@@ -313,7 +313,7 @@ static void MX_ADC2_Init(void)
 
     /**Configure Regular Channel 
     */
-  sConfig.Channel = ADC_CHANNEL_15;
+  sConfig.Channel = ADC_CHANNEL_9;
   sConfig.Rank = ADC_REGULAR_RANK_2;
   if (HAL_ADC_ConfigChannel(&hadc2, &sConfig) != HAL_OK)
   {

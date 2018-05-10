@@ -1,2 +1,2 @@
-IQS263.c:195:6:IQS263_READ_TOUCH_Events	0	static
-IQS263.c:214:6:CommsIQS_start	0	static
+IQS263.c:52:6:Init_IQS263	0	static
+IQS263.c:169:6:IQS263_READ_TOUCH_Events	0	static

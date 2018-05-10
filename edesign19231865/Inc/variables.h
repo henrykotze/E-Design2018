@@ -117,5 +117,7 @@ extern unsigned char events;                       // variable identified with a
 
 extern RTC_TimeTypeDef heating_schedule[6];
 extern uint16_t fake_RTC_timer;
+extern FLASH_EraseInitTypeDef *pEraseInit;
+extern uint32_t* flash_error;
 
 #endif

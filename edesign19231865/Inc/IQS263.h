@@ -1,8 +1,21 @@
+/**
+	******************************************************************************
+	* File Name          : IQS263.H
+	* Description        : This file contains the common defines of the application
+	******************************************************************************
+	*
+	* COPYRIGHT(c) 2017 Akash kapashia
+  * Created by Akash kapashia
+	******************************************************************************
+	*/
+/* Define to prevent recursive inclusion -------------------------------------*/
+
+
  #ifndef __IQS263_H
  #define __IQS263_H
 
-//
-//#define IQS263_ADD              0x44<<1
+
+//#define IQS263_ADD              0x44
 //#define DEVICE_INFO             0x00
 //#define SYS_FLAGS               0x01
 //#define COORDINATES             0x02
@@ -17,7 +30,7 @@
 //#define TIMINGS_AND_TARGETS     0x0B
 //#define GESTURE_TIMERS          0x0C
 //#define ACTIVE_CHANNELS         0x0D
-//#define PROX_SETTINGS0			0x09
+//#define PROX_SETTINGS0			    0x09
 //
 //
 ///*	BIT DEFINITIONS FOR IQS263	*/
@@ -53,14 +66,14 @@
 //
 ///*	Acknowledge that chip was reset	*/
 //#define ACK_RESET			0x80
-//int Init_IQS263(void);
-//void Monotor_Touch_IQS263(void);
-//void IQS263_READ_TOUCH_Events(void);
-//
-//
-//
-//
-//
+void Init_IQS263(void);
+void Monotor_Touch_IQS263(void);
+void IQS263_READ_TOUCH_Events(void);
+
+
+
+
+
 
 
 

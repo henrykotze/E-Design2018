@@ -5,7 +5,7 @@
 
 
 // I2C DEFAULT SLAVE ADDRESS
-#define IQS263_ADD             0x44<<1
+#define IQS263_ADD             0x44
 
 /*********************** IQS263 REGISTERS *************************************/
 
@@ -58,7 +58,7 @@
 #define TOUCH_THRESHOLD_CH3				0x20
 #define MOVEMENT_THRESHOLD				0x03
 #define RESEED_BLOCK					0x00
-#define HALT_TIME						0x14
+#define HALT_TIME						0x14 //0x14 -> orig
 #define I2C_TIMEOUT						0x04
 
 /* Change the Timing settings (0x0B in this order) */

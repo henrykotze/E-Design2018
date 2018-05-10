@@ -1,7 +1,7 @@
 #include "functions.h"
 #include "variables.h"
 #include "stm32f3xx_hal.h"
-// external Variables
+// external VariabHAL_ADC_Stop_DMAles
 extern TIM_HandleTypeDef htim2;
 extern TIM_HandleTypeDef htim3;
 extern UART_HandleTypeDef huart1;
@@ -16,7 +16,7 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart){
 
 void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc){
 	adc_flag = 1;
-	HAL_ADC_Stop_DMA(&hadc2);
+	(&hadc2);
 }
 
 void  HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef * htim){

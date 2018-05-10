@@ -76,7 +76,7 @@ char* ambient_temp = NULL;
 char* geyser_temp = NULL;
 
 // Logging to flash memory;
-uint8_t enableFlashLogging = 0;
+uint8_t enableFlashLogging = 1;
 
 // Heating Schedule
 char* heating_schedule_info[3];
@@ -107,7 +107,7 @@ uint8_t* flash_stored = NULL;
 uint8_t log_counter = 0;
 uint8_t log_receiced_num = 0;
 uint8_t log_full = 0;
-uint8_t* flash_mem_start = (uint8_t*)0x08000000;
+uint8_t* flash_mem_start = (uint8_t*)0x08008000;
 
 
 unsigned char sliderCoords;                     // variable identified with a Slide event
@@ -120,3 +120,6 @@ uint8_t touch_flag = 0;
 
 uint32_t* ADC1_buffer = NULL;
 uint32_t* ADC2_buffer = NULL;
+
+FLASH_EraseInitTypeDef *pEraseInit = NULL;
+uint32_t* flash_error = NULL;

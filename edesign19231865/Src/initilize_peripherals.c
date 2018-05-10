@@ -133,6 +133,8 @@ void init_peripherals(){
 	temp_time_var = (char*)malloc(3*sizeof(uint8_t));
 	memset(temp_time_var, 0x00, 3);
 
+	flash_error = (uint32_t*)malloc(1*sizeof(uint32_t));
+	pEraseInit = (FLASH_EraseInitTypeDef*)malloc(4*sizeof(uint32_t));
 
 	// get time
 	HAL_RTC_GetTime(&hrtc, time, RTC_FORMAT_BCD);
@@ -142,5 +144,11 @@ void init_peripherals(){
 	// p696 on HAL & Low level drivers
 
 	//	HAL_ADCEx_Calibration_Start(&hadc1,ADC_SINGLE_ENDED);
+
+
+
+
+
+
 
 }

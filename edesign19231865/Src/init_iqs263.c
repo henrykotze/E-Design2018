@@ -15,16 +15,17 @@ extern I2C_HandleTypeDef hi2c1;
 //unsigned char events = 0;                       // variable identified with all events
 int init_iqs263(){
 
-	// READING DEVICE INFORMATION
-	 while(HAL_GPIO_ReadPin(GPIOA,GPIO_PIN_1)==1){}; // Waiting for device
-	 HAL_I2C_Mem_Write( &hi2c1, IQS263_ADD, DEVICE_INFO, I2C_MEMADD_SIZE_8BIT,  &data_buffer[0], 2,50);
-	 while (HAL_I2C_GetState(&hi2c1) != HAL_I2C_STATE_READY){};
+//	 READING DEVICE INFORMATION
+	 data_buffer[0] = DEVICE_INFO;
+		 while(HAL_GPIO_ReadPin(GPIOA,GPIO_PIN_1)==1){}; // Waiting for device
+		 HAL_I2C_Mem_Read( &hi2c1, IQS263_ADD, DEVICE_INFO, I2C_MEMADD_SIZE_8BIT,  &data_buffer[0], 1,50);
+		 while (HAL_I2C_GetState(&hi2c1) != HAL_I2C_STATE_READY){};
 
 
 	// READING DEVICE INFORMATION
 	 data_buffer[0] = SYSTEM_FLAGS_VAL;
 	 while(HAL_GPIO_ReadPin(GPIOA,GPIO_PIN_1)==1){}; // Waiting for device
-	 HAL_I2C_Mem_Write( &hi2c1, IQS263_ADD, SYS_FLAGS, I2C_MEMADD_SIZE_8BIT,  &data_buffer[0], 1,50);
+	 HAL_I2C_Mem_Read( &hi2c1, IQS263_ADD, SYS_FLAGS, I2C_MEMADD_SIZE_8BIT,  &data_buffer[0], 1,50);
 	 while (HAL_I2C_GetState(&hi2c1) != HAL_I2C_STATE_READY){};
 
 
@@ -67,9 +68,16 @@ int init_iqs263(){
 	while (HAL_I2C_GetState(&hi2c1) != HAL_I2C_STATE_READY){};
 
 
+//	while(HAL_GPIO_ReadPin(GPIOA,GPIO_PIN_1)==1){}; // Waiting for device
+//	HAL_I2C_Mem_Read( &hi2c1, IQS263_ADD, PROX_SETTINGS, I2C_MEMADD_SIZE_8BIT,  &data_buffer[0], 5,50);
+//	while (HAL_I2C_GetState(&hi2c1) != HAL_I2C_STATE_READY){};
+
+
 	// Setup prox settings
+//	data_buffer[0] = 0;
 	data_buffer[0] = PROXSETTINGS0_VAL;
 	data_buffer[1] = PROXSETTINGS1_VAL;
+//	data_buffer[2] = 8;
 	data_buffer[2] = PROXSETTINGS2_VAL;
 	data_buffer[3] = PROXSETTINGS3_VAL;
 	data_buffer[4] = EVENT_MASK_VAL;
@@ -133,43 +141,66 @@ int init_iqs263(){
 
 void handleEvents(void){
 
-	while(HAL_GPIO_ReadPin(GPIOA,GPIO_PIN_1)==1){}; // Waiting for device
-	HAL_I2C_Mem_Read( &hi2c1, IQS263_ADD, SYS_FLAGS, I2C_MEMADD_SIZE_8BIT,  &data_buffer[0], 2,50);
+
+
+//	while(HAL_GPIO_ReadPin(GPIOA,GPIO_PIN_1)==1){}; // WaitiADD_SIZE_8BIT,  &data_buffer[0], 2,50);
+//
+//
+//	while (HAL_I2C_GetState(&hi2c1) != HAL_I2C_STATE_READY){};//ng for device
+//	HAL_I2C_Mem_Read( &hi2c1, IQS263_ADD, SYS_FLAGS, I2C_MEMADD_SIZE_8BIT,  &data_buffer[0], 2,50);
+//	while (HAL_I2C_GetState(&hi2c1) != HAL_I2C_STATE_READY){};
+//
+//
+//	while (HAL_I2C_GetState(&hi2c1) != HAL_I2C_STATE_READY){};//ng for device
 //	HAL_I2C_Mem_Read( &hi2c1, IQS263_ADD, TOUCH_BYTES, I2C_MEMADD_SIZE_8BIT,  &data_buffer[2], 1,50);// Create another start condition
-//	HAL_I2C_Mem_Read( &hi2c1, IQS263_ADD, COORDINATES, I2C_MEMADD_SIZE_8BIT,  &data_buffer[3], 3,50);// Create another start condition
-
-	while (HAL_I2C_GetState(&hi2c1) != HAL_I2C_STATE_READY){}
-	//HAL_I2C_Mem_Read( &hi2c1, IQS263_ADD, TOUCH_BYTES, I2C_MEMADD_SIZE_8BIT,  &data_buffer[2], 1,50);// Create another start condition
-
-
-	//HAL_I2C_Master_Sequential_Receive_IT(&hi2c1,IQS263_ADD,&data_buffer[0])
-
-//	while (HAL_I2C_GetState(&hi2c1) != HAL_I2C_STATE_READY){}
-//
-//	__HAL_I2C_CLEAR_FLAG(&hi2c1, I2C_FLAG_AF);
-//
-//
-//
-////	HAL_GPIO_ReadPin(GPIOA,GPIO_PIN_1)==1)
-////		HAL_GPIO_WritePin
+//	while (HAL_I2C_GetState(&hi2c1) != HAL_I2C_STATE_READY){};
 //
 
-	while(HAL_GPIO_ReadPin(GPIOA,GPIO_PIN_1)==1){}; // Waiting for device
-	HAL_I2C_Mem_Read( &hi2c1, IQS263_ADD, TOUCH_BYTES, I2C_MEMADD_SIZE_8BIT,  &data_buffer[2], 1,50);// Create another start condition
-	while (HAL_I2C_GetState(&hi2c1) != HAL_I2C_STATE_READY){};
-//
-//
-//
-	while(HAL_GPIO_ReadPin(GPIOA,GPIO_PIN_1)==1){}; // Waiting for device
-	HAL_I2C_Mem_Read( &hi2c1, IQS263_ADD, COORDINATES, I2C_MEMADD_SIZE_8BIT,  &data_buffer[3], 3,50);// Create another start condition
-	while (HAL_I2C_GetState(&hi2c1) != HAL_I2C_STATE_READY){};
+////
+//	while(HAL_GPIO_ReadPin(GPIOA,GPIO_PIN_1)==1){}; // Waiting for device
+//	HAL_I2C_Mem_Read( &hi2c1, IQS263_ADD, COORDINATES, I2C_MEMADD_SIZE_8BIT,  &data_buffer[2], 1,50);// Create another start condition
+//	while (HAL_I2C_GetState(&hi2c1) != HAL_I2C_STATE_READY){};
+
+	//(&hi2c)->Instance->CR2 = I2C_GENERATE_START(hi2c->Init.AddressingMode, DevAddress);
 
 	//HAL_UART_Transmit_IT(&huart1, (uint8_t*)(data_buffer+3), 3);
 //	HAL_Delay(1000);
+
+
+
+
+	//HAL_StatusTypeDef HAL_I2C_Master_Transmit(I2C_HandleTypeDef *hi2c, uint16_t DevAddress, uint8_t *pData, uint16_t Size, uint32_t Timeout)
+//
+//	uint8_t mem_buffer[] = {SYS_FLAGS,TOUCH_BYTES,COORDINATES};
+//	HAL_I2C_Master_Transmit(&hi2c1,IQS263_ADD,mem_buffer,3,70);
+//
+//	HAL_I2C_Master_Receive(&hi2c1,IQS263_ADD,data_buffer,5,70);
+
+
+	uint8_t pdata[] = {SYS_FLAGS,TOUCH_BYTES,COORDINATES};
+	HAL_I2C_Master_Sequential_Transmit_IT(&hi2c1,IQS263_ADD,pdata,3,I2C_FIRST_AND_NEXT_FRAME);
+	HAL_I2C_Master_Sequential_Receive_IT(&hi2c1,IQS263_ADD,pdata,3,I2C_FIRST_AND_NEXT_FRAME);
+
+
+
+
+
+
+
 	events = data_buffer[1];
 	if (((events & 0x04) == 0x04) && (events != 0)){
 		sliderCoords = data_buffer[3];
 	}
+
+
+}
+
+
+
+void i2c_mem_read(){
+
+
+
 
 
 }

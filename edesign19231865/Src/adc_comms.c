@@ -10,10 +10,10 @@ extern ADC_HandleTypeDef hadc2;
 
 void adc_comms(){
 
-	adc_raw_voltage =  0;
-	adc_raw_current =	0;
-	raw_ambient_temp = ADC1_buffer[0];
-	raw_geyser_temp = ADC1_buffer[1];
+	adc_raw_voltage =  ADC1_buffer[0];
+	adc_raw_current =	ADC1_buffer[1];
+	raw_ambient_temp = ADC1_buffer[2];
+	raw_geyser_temp = ADC1_buffer[3];
 
 
 	//Converting Voltage

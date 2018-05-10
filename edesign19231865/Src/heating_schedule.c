@@ -83,4 +83,8 @@ void heating_control(){
 		heater_state = heater_ON;
 		HAL_GPIO_WritePin(GPIOB,GPIO_PIN_14,GPIO_PIN_RESET);
 	}
+	else{
+		heater_state = heater_OFF;
+		HAL_GPIO_WritePin(GPIOB,GPIO_PIN_14,GPIO_PIN_RESET);
+	}
 }
