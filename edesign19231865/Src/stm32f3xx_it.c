@@ -94,8 +94,8 @@ void SysTick_Handler(void)
   HAL_SYSTICK_IRQHandler();
   /* USER CODE BEGIN SysTick_IRQn 1 */
   systick_flag = 1;
-  fake_RTC_timer += 1;
-  flash_counter += 1;
+  RTC_timer_flag = 1;
+  flash_flag = 1;
   //adc_flag = 1;
   /* USER CODE END SysTick_IRQn 1 */
 }

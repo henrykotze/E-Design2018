@@ -87,6 +87,7 @@ extern uint8_t log_counter;
 extern uint8_t log_receiced_num;
 extern uint8_t log_full;
 extern uint8_t* flash_mem_start;
+extern uint8_t flash_flag;
 // Heating Schedule
 extern char* heating_schedule_info[];
 extern char* heat_schedule1;
@@ -101,6 +102,7 @@ extern RTC_TimeTypeDef* new_time;
 extern RTC_DateTypeDef* date;
 extern uint8_t rtcSecFlag;
 extern char* temp_time_var;
+extern uint8_t RTC_timer_flag;
 
 // ADC
 extern uint32_t* ADC1_buffer;

@@ -76,7 +76,7 @@ char* ambient_temp = NULL;
 char* geyser_temp = NULL;
 
 // Logging to flash memory;
-uint8_t enableFlashLogging = 1;
+uint8_t enableFlashLogging = 0;
 
 // Heating Schedule
 char* heating_schedule_info[3];
@@ -97,7 +97,7 @@ uint8_t rtcSecFlag = 0;
 // Heating Schedule
 RTC_TimeTypeDef heating_schedule[6];
 uint16_t fake_RTC_timer = 0;
-
+uint8_t RTC_timer_flag = 0;
 
 
 // Flash memorry varibales
@@ -108,7 +108,7 @@ uint8_t log_counter = 0;
 uint8_t log_receiced_num = 0;
 uint8_t log_full = 0;
 uint8_t* flash_mem_start = (uint8_t*)0x08008000;
-
+uint8_t flash_flag = 0;
 
 unsigned char sliderCoords;                     // variable identified with a Slide event
 unsigned char data_buffer[30];

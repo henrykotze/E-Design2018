@@ -124,7 +124,7 @@ int main(void)
   MX_RTC_Init();
   MX_I2C1_Init();
   /* USER CODE BEGIN 2 */
-
+  int erase_flash = 1;
   HAL_ADCEx_Calibration_Start(&hadc2, ADC_SINGLE_ENDED);
 
   init_peripherals();
@@ -140,7 +140,7 @@ int main(void)
 //  HAL_ADC_Start(&hadc2);
   HAL_NVIC_SetPriority(USART1_IRQn, 0, 0);
 
- HAL_ADC_Start_DMA(&hadc2, ADC1_buffer, 7);
+// HAL_ADC_Start_DMA(&hadc2, ADC1_buffer, 7);
 
  if(erase_flash==1){
 	HAL_FLASH_Unlock();
@@ -161,7 +161,6 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
- flash_counter = 10000-2000;
   while (1)
   {
 //	  handleEvents();
@@ -181,7 +180,7 @@ int main(void)
 	  if(systick_flag == 1){	// Seven Segment
 		  systick_flag = 0;
 		  seven_segment();
-		 HAL_ADC_Start_DMA(&hadc2, ADC1_buffer, 7);
+		// HAL_ADC_Start_DMA(&hadc2, ADC1_buffer, 7);
 
 	  }
 	  if(adc_flag == 1){	// ADC conversion
@@ -192,15 +191,23 @@ int main(void)
 		  touch_flag = 0;
 		  // do something
 	  }
-	  if(fake_RTC_timer == 1000){
-		  fake_RTC_timer = 0;
-		  heating_scheduling();
+	  if(RTC_timer_flag == 1){
+		  fake_RTC_timer += 1;
+		  RTC_timer_flag = 0;
+		  if(fake_RTC_timer == 1000){
+			  fake_RTC_timer = 0;
+			  heating_scheduling();
+		  }
 		 //do something
 	  }
-	  if(flash_counter == 10000){
-		  flash_counter = 0;
-		  if(enableFlashLogging){
-		  write2Flash();
+	  if(flash_flag){
+		  flash_flag = 0;
+		  flash_counter += 1;
+		  if(flash_counter == 10000){
+			  flash_counter = 0;
+			  if(enableFlashLogging){
+			  write2Flash();
+		  	  }
 		  }
 	  }
 
