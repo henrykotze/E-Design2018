@@ -45,5 +45,5 @@ void adc_comms(){
 		adc_buffer_voltage = 0;
 		adc_buffer_current = 0;
 	}
-//	HAL_ADC_Stop_DMA(&hadc2);
+
 }

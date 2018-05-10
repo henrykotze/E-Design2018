@@ -268,10 +268,11 @@ void uart_comms(){
 
 			}
 			else{
-				memcpy(flash_stored, flash_mem_start+48*log_counter, 60 );
+				//flash_mem_start=flash_mem_start+64*log_receiced_num;
+				//memcpy(flash_stored, flash_mem_start+64*log_receiced_num, 60 );
 				//flash_stored = flash_mem_start;
 				//return_value = (char*)flash_stored;
-				HAL_UART_Transmit_IT(&huart1,(uint8_t*)flash_stored, strlen((char*)flash_stored));
+				HAL_UART_Transmit_IT(&huart1,(uint8_t*)(flash_mem_start+64*log_receiced_num), strlen((char*)(flash_mem_start+64*log_receiced_num)));
 				//HAL_FLASH_Lock();
 			}
 			break;

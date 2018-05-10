@@ -10,11 +10,8 @@ extern ADC_HandleTypeDef hadc2;
 extern RTC_HandleTypeDef hrtc;
 
 
-//#define memoryStartLoc (uint32_t*)0x0800 0000
-//#define memoryStopLoc 0x0800 FFFF;
 
 
-//static uint32_t *PageError = (uint32_t*)malloc(sizeof(uint32_t));
 void write2Flash(){
 	if(log_counter < 100){
 		HAL_RTC_GetTime(&hrtc,time,RTC_FORMAT_BIN);
@@ -79,20 +76,20 @@ void write2Flash(){
 			HAL_FLASH_Program(FLASH_TYPEPROGRAM_DOUBLEWORD, 0x08008018, *((uint64_t*)(flash_stored)+3) );
 			HAL_FLASH_Program(FLASH_TYPEPROGRAM_DOUBLEWORD, 0x08008020, *((uint64_t*)(flash_stored)+4) );
 			HAL_FLASH_Program(FLASH_TYPEPROGRAM_DOUBLEWORD, 0x08008028, *((uint64_t*)(flash_stored)+5) );
-//			HAL_FLASH_Program(FLASH_TYPEPROGRAM_DOUBLEWORD, 0x08008030, *((uint64_t*)(flash_stored)+6) );
-//			HAL_FLASH_Program(FLASH_TYPEPROGRAM_DOUBLEWORD, 0x08008038, *((uint64_t*)(flash_stored)+7) );
+			HAL_FLASH_Program(FLASH_TYPEPROGRAM_DOUBLEWORD, 0x08008030, *((uint64_t*)(flash_stored)+6) );
+			HAL_FLASH_Program(FLASH_TYPEPROGRAM_DOUBLEWORD, 0x08008038, *((uint64_t*)(flash_stored)+7) );
 			HAL_FLASH_Lock();
 		}
 		else{
 			HAL_FLASH_Unlock();
-			HAL_FLASH_Program(FLASH_TYPEPROGRAM_DOUBLEWORD, 0x08008000+48*log_counter, *((uint64_t*)(flash_stored)) );
-			HAL_FLASH_Program(FLASH_TYPEPROGRAM_DOUBLEWORD, 0x08008008+48*log_counter, *((uint64_t*)(flash_stored)+1) );
-			HAL_FLASH_Program(FLASH_TYPEPROGRAM_DOUBLEWORD, 0x08008010+48*log_counter, *((uint64_t*)(flash_stored)+2) );
-			HAL_FLASH_Program(FLASH_TYPEPROGRAM_DOUBLEWORD, 0x08008018+48*log_counter, *((uint64_t*)(flash_stored)+3) );
-			HAL_FLASH_Program(FLASH_TYPEPROGRAM_DOUBLEWORD, 0x08008020+48*log_counter, *((uint64_t*)(flash_stored)+4) );
-			HAL_FLASH_Program(FLASH_TYPEPROGRAM_DOUBLEWORD, 0x08008028+48*log_counter, *((uint64_t*)(flash_stored)+5) );
-//			HAL_FLASH_Program(FLASH_TYPEPROGRAM_DOUBLEWORD, 0x08008030+48*log_counter, *((uint64_t*)(flash_stored+56)) );
-//			HAL_FLASH_Program(FLASH_TYPEPROGRAM_DOUBLEWORD, 0x08008038+48*log_counter, *((uint64_t*)(flash_stored+64)) );
+			HAL_FLASH_Program(FLASH_TYPEPROGRAM_DOUBLEWORD, 0x08008000+64*log_counter, *((uint64_t*)(flash_stored)) );
+			HAL_FLASH_Program(FLASH_TYPEPROGRAM_DOUBLEWORD, 0x08008008+64*log_counter, *((uint64_t*)(flash_stored)+1) );
+			HAL_FLASH_Program(FLASH_TYPEPROGRAM_DOUBLEWORD, 0x08008010+64*log_counter, *((uint64_t*)(flash_stored)+2) );
+			HAL_FLASH_Program(FLASH_TYPEPROGRAM_DOUBLEWORD, 0x08008018+64*log_counter, *((uint64_t*)(flash_stored)+3) );
+			HAL_FLASH_Program(FLASH_TYPEPROGRAM_DOUBLEWORD, 0x08008020+64*log_counter, *((uint64_t*)(flash_stored)+4) );
+			HAL_FLASH_Program(FLASH_TYPEPROGRAM_DOUBLEWORD, 0x08008028+64*log_counter, *((uint64_t*)(flash_stored)+5) );
+			HAL_FLASH_Program(FLASH_TYPEPROGRAM_DOUBLEWORD, 0x08008030+64*log_counter, *((uint64_t*)(flash_stored+56)) );
+			HAL_FLASH_Program(FLASH_TYPEPROGRAM_DOUBLEWORD, 0x08008038+64*log_counter, *((uint64_t*)(flash_stored+64)) );
 			HAL_FLASH_Lock();
 		}
 

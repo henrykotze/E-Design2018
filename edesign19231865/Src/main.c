@@ -142,7 +142,15 @@ int main(void)
 
  HAL_ADC_Start_DMA(&hadc2, ADC1_buffer, 7);
 
+ if(erase_flash==1){
+	HAL_FLASH_Unlock();
+	pEraseInit->NbPages = 5;
+	pEraseInit->PageAddress = (uint32_t)(0x08008000);
+	pEraseInit->TypeErase = (uint32_t)FLASH_TYPEERASE_PAGES;
 
+	HAL_FLASHEx_Erase(pEraseInit,flash_error);
+	HAL_FLASH_Lock();
+ }
 
 
  // int i2c_state = init_iqs263();
