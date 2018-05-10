@@ -35,14 +35,16 @@
 #include "stm32f3xx.h"
 #include "stm32f3xx_it.h"
 
+
 /* USER CODE BEGIN 0 */
-extern uint8_t tim2_flag;
-extern uint8_t rx_flag;
-extern uint8_t tim3_flag;
-extern uint8_t systick_flag;
-extern uint8_t touch_flag;
-extern uint16_t fake_RTC_timer;
-extern uint32_t flash_counter;
+#include "variables.h"
+//extern uint8_t tim2_flag;
+//extern uint8_t rx_flag;
+//extern uint8_t tim3_flag;
+//extern uint8_t systick_flag;
+//extern uint8_t touch_flag;
+//extern uint16_t fake_RTC_timer;
+//extern uint32_t flash_counter;
 /* USER CODE END 0 */
 
 /* External variables --------------------------------------------------------*/

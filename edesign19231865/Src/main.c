@@ -140,7 +140,7 @@ int main(void)
 //  HAL_ADC_Start(&hadc2);
   HAL_NVIC_SetPriority(USART1_IRQn, 0, 0);
 
-// HAL_ADC_Start_DMA(&hadc2, ADC1_buffer, 7);
+ HAL_ADC_Start_DMA(&hadc2, ADC1_buffer, 7);
 
  if(erase_flash==1){
 	HAL_FLASH_Unlock();
@@ -180,7 +180,7 @@ int main(void)
 	  if(systick_flag == 1){	// Seven Segment
 		  systick_flag = 0;
 		  seven_segment();
-		// HAL_ADC_Start_DMA(&hadc2, ADC1_buffer, 7);
+		 HAL_ADC_Start_DMA(&hadc2, ADC1_buffer, 7);
 
 	  }
 	  if(adc_flag == 1){	// ADC conversion
