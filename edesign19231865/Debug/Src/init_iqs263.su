@@ -1,3 +1,3 @@
-init_iqs263.c:16:5:init_iqs263	24	static
-init_iqs263.c:142:6:handleEvents	32	static
-init_iqs263.c:200:6:i2c_mem_read	0	static
+init_iqs263.c:16:5:init_iqs263	40	static
+init_iqs263.c:153:6:handleEvents	56	static
+init_iqs263.c:229:6:i2c_mem_read	0	static

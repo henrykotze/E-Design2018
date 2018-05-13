@@ -27,5 +27,17 @@ void HAL_RTCEx_WakeUpTimerEventCallback(RTC_HandleTypeDef *hrtc)
 rtcSecFlag = 1; // Flag to indicate 1 second period
 }
 
+void HAL_I2C_MemTxCpltCallback(I2C_HandleTypeDef *hi2c){
+	rtcSecFlag = 1; // Flag to indicate 1 second period
+}
 
+void HAL_I2C_MemRxCpltCallback(I2C_HandleTypeDef *hi2c){
+	rtcSecFlag = 1; // Flag to indicate 1 second period
+
+}
+
+void HAL_I2C_MasterRxCpltCallback(I2C_HandleTypeDef *hi2c){
+	rtcSecFlag = 1; // Flag to indicate 1 second period
+
+}
 
