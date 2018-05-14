@@ -16,7 +16,7 @@ extern uint8_t* studentnumber;
 extern char endSimbol[8];
 extern char comma[2];
 extern uint8_t* return_value;
-
+extern uint32_t i2c_counter;
 // Timer Variables
 extern uint8_t tim3_flag;
 extern uint32_t tim3_now;
@@ -29,7 +29,8 @@ extern char studentnumber1[];
 
 // Seven Segment Variables
 extern uint8_t segment_counter;
-extern uint8_t* segment_val;
+extern unsigned char* segment_val;
+extern uint8_t display_set_temp;
 
 // Heater Variables
 extern char heater_ON[];

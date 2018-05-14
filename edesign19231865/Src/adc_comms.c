@@ -20,7 +20,7 @@ void adc_comms(){
 	adc_buffer_voltage = ((float)(adc_raw_voltage-2072.202f)/0.008629f)*((float)(adc_raw_voltage-2072.202f)/0.008629f)+adc_buffer_voltage;
 
 	//Converting Current
-//	adc_buffer_current = (pow((float)(adc_raw_current-2072.202f)/0.14603f,2.0f))+adc_buffer_current;
+	adc_buffer_current = ((adc_raw_current-2072.202f)/0.14603f)*((adc_raw_current-2072.202f)/0.14603f)+adc_buffer_current;
 
 	//Converting Ambient temperature
 	if( (raw_ambient_temp-615.f)/12.3f < 100){
@@ -32,6 +32,7 @@ void adc_comms(){
 		raw_geyser_temp = (raw_geyser_temp-615.f)/12.3f;
 		geyser_temp_int = raw_geyser_temp;
 		sprintf(geyser_temp,"%lu", raw_geyser_temp);
+		sprintf(segment_val, "%u", (uint8_t*)raw_geyser_temp);
 	}
 
 	adc_counter += 1;

@@ -125,7 +125,7 @@ int main(void)
   MX_RTC_Init();
   MX_I2C1_Init();
   /* USER CODE BEGIN 2 */
-  int erase_flash = 1;
+  int erase_flash = 0;
   HAL_ADCEx_Calibration_Start(&hadc2, ADC_SINGLE_ENDED);
 
   init_peripherals();
@@ -136,11 +136,7 @@ int main(void)
  // HAL_RTCEx_SetWakeUpTimer_IT(&hrtc,2048,RTC_WAKEUPCLOCK_RTCCLK_DIV16);
 
   HAL_RTCEx_SetWakeUpTimer_IT(&hrtc,2048,RTC_WAKEUPCLOCK_RTCCLK_DIV16);
-  //Init_IQS263();
-
 //  HAL_ADC_Start(&hadc2);
-  HAL_NVIC_SetPriority(USART1_IRQn, 0, 0);
-
  HAL_ADC_Start_DMA(&hadc2, ADC1_buffer, 7);
 
  if(erase_flash==1){
@@ -155,7 +151,6 @@ int main(void)
 
 
   int i2c_state = init_iqs263();
-//  Init_IQS263();
 
 
   /* USER CODE END 2 */
@@ -164,7 +159,7 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (i2c_state)
   {
-	  handleEvents();
+
 
 //	  IQS263_READ_TOUCH_Events();
   /* USER CODE END WHILE */
@@ -178,12 +173,19 @@ int main(void)
 	  }
 
 
-	  if(systick_flag == 1 && uwTick%5 == 0){	// Seven Segment
+	  if(systick_flag == 1){	// Seven Segment
 		  systick_flag = 0;
+		  i2c_counter += 1;
 		  seven_segment();
-		 HAL_ADC_Start_DMA(&hadc2, ADC1_buffer, 7);
-
+		  HAL_ADC_Start_DMA(&hadc2, ADC1_buffer, 7);
 	  }
+
+	  if(i2c_counter == 150){
+		  i2c_counter = 0;
+		  handleEvents();
+	  }
+
+
 	  if(adc_flag == 1){	// ADC conversion
 		  adc_flag = 0;
 		  adc_comms();

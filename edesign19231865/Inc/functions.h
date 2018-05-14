@@ -5,7 +5,7 @@
 
 
 // I2C DEFAULT SLAVE ADDRESS
-#define IQS263_ADD             0x44
+#define IQS263_ADD             0x44<<1
 
 /*********************** IQS263 REGISTERS *************************************/
 

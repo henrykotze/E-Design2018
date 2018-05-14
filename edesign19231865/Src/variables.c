@@ -53,7 +53,8 @@ uint8_t sizeOfTemp = 0;
 
 // Seven Segment Variables
 uint8_t segment_counter = 0;
-uint8_t* segment_val = NULL;
+unsigned char* segment_val = NULL;
+uint8_t display_set_temp = 0;
 
 // ADC Variables
 uint8_t adc_flag = 0;
@@ -116,6 +117,7 @@ unsigned char events = 0;                       // variable identified with all 
 
  // Touch Toggle
 uint8_t touch_flag = 0;
+uint32_t i2c_counter = 0;
 
 
 uint32_t* ADC1_buffer = NULL;

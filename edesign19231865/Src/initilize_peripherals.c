@@ -43,11 +43,15 @@ void init_peripherals(){
 	memset(uart_command, 0x00, 60);
 
 
-	set_temp = (uint8_t*)malloc(3);
-	memset(set_temp, 0x00, 4);
 
+	set_temp = (uint8_t*)malloc(4);
+	memset(set_temp, 0x00, 4);
+	*set_temp = 0;
 	segment_val =set_temp;
 	//	  memset(segment_val, 0x00, 4);
+	segment_val = (uint8_t*)malloc(4);
+	memset(segment_val, 0x00, 4);
+//	*segment_val = 48;
 
 	ADC1_buffer = (uint32_t*)malloc(7*sizeof(uint32_t));
 	memset(ADC1_buffer, 0x00, 7);

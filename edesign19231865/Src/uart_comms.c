@@ -97,7 +97,8 @@ void uart_comms(){
 			sizeOfTemp = uart_counter - 5;
 			memset(set_temp, 0x00, 4);
 			memcpy(set_temp, uart_command+3, sizeOfTemp * sizeof(uint8_t) );
-			segment_val =set_temp;
+			*set_temp += 48;
+//			sprintf(segment_val, "%d", *set_temp);
 
 			break;
 
@@ -105,8 +106,8 @@ void uart_comms(){
 			// transmit temperature
 			memcpy(return_value, uart_command, 2);
 			memcpy(return_value+2, comma, 1);
-			memcpy(return_value+3, set_temp, sizeOfTemp * sizeof(uint8_t));
-			memcpy(return_value+3+sizeOfTemp * sizeof(uint8_t),endSimbol, 2);
+			memcpy(return_value+3, segment_val, strlen(segment_val));
+			memcpy(return_value+3+strlen((char*)return_value),endSimbol, 2);
 
 			HAL_UART_Transmit_IT(&huart1,(uint8_t*)return_value, strlen((char*)return_value));
 			break;
