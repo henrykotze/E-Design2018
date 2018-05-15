@@ -19,8 +19,6 @@ void heating_scheduling(){
 
 		// checking heating schedule 1
 		if( (time->Hours - heating_schedule[0].Hours) > 0 && (time->Hours - heating_schedule[1].Hours) < 0){
-//			heater_state = heater_ON;
-//			HAL_GPIO_WritePin(GPIOB,GPIO_PIN_14,GPIO_PIN_RESET);
 			heating_control();
 		}
 
@@ -32,16 +30,12 @@ void heating_scheduling(){
 		else if( (time->Hours - heating_schedule[0].Hours == 0 || time->Hours - heating_schedule[1].Hours == 0 )
 				&& ( (time->Minutes - heating_schedule[0].Minutes == 0) || (time->Minutes - heating_schedule[1].Minutes == 0) )
 				&& ( (time->Seconds - heating_schedule[0].Seconds > 0) && (time->Seconds - heating_schedule[1].Seconds < 0) ) ){
-//			heater_state = heater_ON;
-//			HAL_GPIO_WritePin(GPIOB,GPIO_PIN_14,GPIO_PIN_RESET);
 			heating_control();
 		}
 
 		// checking schedule 2
 
 		else if( (time->Hours - heating_schedule[2].Hours) > 0 && (time->Hours - heating_schedule[3].Hours) < 0){
-//					heater_state = heater_ON;
-//					HAL_GPIO_WritePin(GPIOB,GPIO_PIN_14,GPIO_PIN_RESET);
 			heating_control();
 		}
 
@@ -53,28 +47,20 @@ void heating_scheduling(){
 		else if( (time->Hours - heating_schedule[2].Hours == 0 || time->Hours - heating_schedule[3].Hours == 0 )
 				&& ( (time->Minutes - heating_schedule[2].Minutes == 0) || (time->Minutes - heating_schedule[3].Minutes == 0) )
 				&& ( (time->Seconds - heating_schedule[2].Seconds > 0) && (time->Seconds - heating_schedule[3].Seconds < 0) ) ){
-//			heater_state = heater_ON;
-//			HAL_GPIO_WritePin(GPIOB,GPIO_PIN_14,GPIO_PIN_RESET);
 			heating_control();
 		}
 		// checking schedule 3
 		else if( (time->Hours - heating_schedule[4].Hours) > 0 && (time->Hours - heating_schedule[5].Hours) < 0){
-//			heater_state = heater_ON;
-//			HAL_GPIO_WritePin(GPIOB,GPIO_PIN_14,GPIO_PIN_RESET);
 			heating_control();
 		}
 
 		else if( (time->Hours - heating_schedule[4].Hours == 0 || time->Hours - heating_schedule[5].Hours == 0 )
 				&& ( (time->Minutes - heating_schedule[4].Minutes > 0) && (time->Minutes - heating_schedule[5].Minutes < 0) ) ){
-//			heater_state = heater_ON;
-//			HAL_GPIO_WritePin(GPIOB,GPIO_PIN_14,GPIO_PIN_RESET);
 			heating_control();
 		}
 		else if( (time->Hours - heating_schedule[4].Hours == 0 || time->Hours - heating_schedule[5].Hours == 0 )
 				&& ( (time->Minutes - heating_schedule[4].Minutes == 0) || (time->Minutes - heating_schedule[5].Minutes == 0) )
 				&& ( (time->Seconds - heating_schedule[4].Seconds > 0) && (time->Seconds - heating_schedule[5].Seconds < 0) ) ){
-//			heater_state = heater_ON;
-//			HAL_GPIO_WritePin(GPIOB,GPIO_PIN_14,GPIO_PIN_RESET);
 			heating_control();
 		}
 		else{
@@ -92,6 +78,6 @@ void heating_control(){
 	}
 	else{
 		heater_state = heater_OFF;
-		HAL_GPIO_WritePin(GPIOB,GPIO_PIN_14,GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(GPIOB,GPIO_PIN_14,GPIO_PIN_SET);
 	}
 }

@@ -83,7 +83,8 @@ void convert_adc_raw();
 void liters_pumped();
 void heating_scheduling();
 void write2Flash();
-void readFlash(uint8_t log_num);
+void logPosition();
 void heating_control();
+void mainLoop();
 
 #endif

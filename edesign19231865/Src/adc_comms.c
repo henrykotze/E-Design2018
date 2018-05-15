@@ -25,22 +25,23 @@ void adc_comms(){
 	//Converting Ambient temperature
 	if( (raw_ambient_temp-615.f)/12.3f < 100){
 		raw_ambient_temp = (raw_ambient_temp-615.0f)/12.3f;
-		sprintf(ambient_temp,"%lu", raw_ambient_temp);
+		sprintf(ambient_temp,"%ld", raw_ambient_temp);
 	}
 	//Converting Geyser Temperature
 	if( (raw_geyser_temp-615.f)/12.3f < 100){
 		raw_geyser_temp = (raw_geyser_temp-615.f)/12.3f;
 		geyser_temp_int = raw_geyser_temp;
 		sprintf(geyser_temp,"%lu", raw_geyser_temp);
-		sprintf(segment_val, "%u", (uint8_t*)raw_geyser_temp);
+		sprintf(segment_val, "%lu", raw_geyser_temp);
 	}
 
 	adc_counter += 1;
-	if(adc_counter == 10){
-		*voltage_int_rms = sqrt(adc_buffer_voltage/10.f);
-		*current_int_rms = sqrt(adc_buffer_current/10.f);
+	if(adc_counter == 50){
+		*voltage_int_rms = sqrt(adc_buffer_voltage/50.f);
+		*current_int_rms = sqrt(adc_buffer_current/50.f);
 		sprintf(voltage_rms,"%lu", *voltage_int_rms);
 		sprintf(current_rms,"%lu", *current_int_rms);
+
 		adc_counter = 0;
 
 		adc_buffer_voltage = 0;

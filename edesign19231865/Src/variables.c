@@ -30,6 +30,8 @@ uint8_t tim2_flag = 0;
 // Heater On Off Variables
 char heater_ON[] = {'O','N'};
 char heater_OFF[] = {'O','F','F'};
+char loggingIdentifier[] = {'$','L'};
+char noLoggingData[] = "$L,0,0,0,0,0,0,0,0,OFF,CLOSED\r\n";
 char* heater_state = NULL;
 
 // Unknown parameters:
@@ -53,8 +55,9 @@ uint8_t sizeOfTemp = 0;
 
 // Seven Segment Variables
 uint8_t segment_counter = 0;
-unsigned char* segment_val = NULL;
+char* segment_val = NULL;
 uint8_t display_set_temp = 0;
+char* temp_val = NULL;
 
 // ADC Variables
 uint8_t adc_flag = 0;
@@ -106,8 +109,8 @@ uint8_t RTC_timer_flag = 0;
 uint32_t flash_counter = 0 ;
 uint8_t* flash_stored = NULL;
 uint8_t log_counter = 0;
-uint8_t log_receiced_num = 0;
-uint8_t log_full = 0;
+uint8_t* log_receiced_num = NULL;
+uint8_t log_empty = 1;
 uint8_t* flash_mem_start = (uint8_t*)0x08008000;
 uint8_t flash_flag = 0;
 
@@ -125,3 +128,7 @@ uint32_t* ADC2_buffer = NULL;
 
 FLASH_EraseInitTypeDef *pEraseInit = NULL;
 uint32_t* flash_error = NULL;
+
+uint8_t sizeoflogging = 0;
+uint8_t recv_buffer[16];
+uint8_t touch_bytes_buffer[2] = {0x03, 0x0};

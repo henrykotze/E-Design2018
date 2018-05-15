@@ -97,6 +97,7 @@ void SysTick_Handler(void)
   systick_flag = 1;
   RTC_timer_flag = 1;
   flash_flag = 1;
+  adc_flag = 1;
   //adc_flag = 1;
   /* USER CODE END SysTick_IRQn 1 */
 }

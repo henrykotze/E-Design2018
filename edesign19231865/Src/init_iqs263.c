@@ -152,8 +152,8 @@ int init_iqs263(){
 
 void handleEvents(void){
 
-	uint8_t recv_buffer[16];
-	uint8_t touch_bytes_buffer[2] = {0x03, 0x0};
+//	uint8_t recv_buffer[16];
+//	uint8_t touch_bytes_buffer[2] = {0x03, 0x0};
 	display_set_temp = 0;
 
 //	 uint16_t detected_channel = 0;
@@ -225,18 +225,6 @@ void handleEvents(void){
 				display_set_temp = 1;
 			}
 		}
-
-
-
-
-
-
-//	segment_val = (uint8_t*)data_buffer;
-//	if (((events & 0x04) == 0x04) && (events != 0)){
-//		sliderCoords = data_buffer[3];
-//	}
-
-
 }
 
 

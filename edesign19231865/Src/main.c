@@ -125,7 +125,7 @@ int main(void)
   MX_RTC_Init();
   MX_I2C1_Init();
   /* USER CODE BEGIN 2 */
-  int erase_flash = 0;
+  int erase_flash = 1;
   HAL_ADCEx_Calibration_Start(&hadc2, ADC_SINGLE_ENDED);
 
   init_peripherals();
@@ -135,23 +135,24 @@ int main(void)
   // 32.768/16 = 2.048kHz
  // HAL_RTCEx_SetWakeUpTimer_IT(&hrtc,2048,RTC_WAKEUPCLOCK_RTCCLK_DIV16);
 
-  HAL_RTCEx_SetWakeUpTimer_IT(&hrtc,2048,RTC_WAKEUPCLOCK_RTCCLK_DIV16);
+//  HAL_RTCEx_SetWakeUpTimer_IT(&hrtc,2048,RTC_WAKEUPCLOCK_RTCCLK_DIV16);
 //  HAL_ADC_Start(&hadc2);
- HAL_ADC_Start_DMA(&hadc2, ADC1_buffer, 7);
+ HAL_ADC_Start_DMA(&hadc2, ADC1_buffer, 5);
 
- if(erase_flash==1){
+ if(erase_flash==0){
 	HAL_FLASH_Unlock();
-	pEraseInit->NbPages = 5;
+	pEraseInit->NbPages = 10;
 	pEraseInit->PageAddress = (uint32_t)(0x08008000);
 	pEraseInit->TypeErase = (uint32_t)FLASH_TYPEERASE_PAGES;
 
 	HAL_FLASHEx_Erase(pEraseInit,flash_error);
 	HAL_FLASH_Lock();
  }
-
+ 	 HAL_RTC_GetTime(&hrtc,time,RTC_FORMAT_BIN);
+ 	 HAL_RTC_GetDate(&hrtc,date,RTC_FORMAT_BIN);
 
   int i2c_state = init_iqs263();
-
+  logPosition();
 
   /* USER CODE END 2 */
 
@@ -160,62 +161,10 @@ int main(void)
   while (i2c_state)
   {
 
-
-//	  IQS263_READ_TOUCH_Events();
   /* USER CODE END WHILE */
 
   /* USER CODE BEGIN 3 */
-	  //IQS263_READ_TOUCH_Events();
-
-	  if(rx_flag == 1 ){ 	// UART Comms
-		  rx_flag = 0;
-		  uart_comms();
-	  }
-
-
-	  if(systick_flag == 1){	// Seven Segment
-		  systick_flag = 0;
-		  i2c_counter += 1;
-		  seven_segment();
-		  HAL_ADC_Start_DMA(&hadc2, ADC1_buffer, 7);
-	  }
-
-	  if(i2c_counter == 150){
-		  i2c_counter = 0;
-		  handleEvents();
-	  }
-
-
-	  if(adc_flag == 1){	// ADC conversion
-		  adc_flag = 0;
-		  adc_comms();
-	  }
-	  if(touch_flag == 1 ){
-		  touch_flag = 0;
-		  // do something
-	  }
-	  if(RTC_timer_flag == 1){
-		  fake_RTC_timer += 1;
-		  RTC_timer_flag = 0;
-		  if(fake_RTC_timer == 1000){
-			  fake_RTC_timer = 0;
-			  heating_scheduling();
-		  }
-		 //do something
-	  }
-	  if(flash_flag){
-		  flash_flag = 0;
-		  flash_counter += 1;
-		  if(flash_counter == 10000){
-			  flash_counter = 0;
-			  if(enableFlashLogging){
-			  write2Flash();
-		  	  }
-		  }
-	  }
-
-
-
+	  mainLoop();
   }
   /* USER CODE END 3 */
 
@@ -269,7 +218,7 @@ void SystemClock_Config(void)
   PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_USART1|RCC_PERIPHCLK_I2C1
                               |RCC_PERIPHCLK_RTC|RCC_PERIPHCLK_ADC12;
   PeriphClkInit.Usart1ClockSelection = RCC_USART1CLKSOURCE_PCLK1;
-  PeriphClkInit.Adc12ClockSelection = RCC_ADC12PLLCLK_DIV1;
+  PeriphClkInit.Adc12ClockSelection = RCC_ADC12PLLCLK_DIV128;
   PeriphClkInit.I2c1ClockSelection = RCC_I2C1CLKSOURCE_HSI;
   PeriphClkInit.RTCClockSelection = RCC_RTCCLKSOURCE_LSE;
   if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInit) != HAL_OK)

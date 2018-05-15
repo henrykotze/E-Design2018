@@ -29,12 +29,14 @@ extern char studentnumber1[];
 
 // Seven Segment Variables
 extern uint8_t segment_counter;
-extern unsigned char* segment_val;
+extern char* segment_val;
 extern uint8_t display_set_temp;
-
+extern char* temp_val;
 // Heater Variables
 extern char heater_ON[];
 extern char heater_OFF[];
+extern char loggingIdentifier[];
+extern char noLoggingData[];
 extern char* heater_state;
 
 // Water Accumulated
@@ -85,8 +87,8 @@ extern uint8_t enableFlashLogging;
 extern uint32_t flash_counter;
 extern uint8_t* flash_stored;
 extern uint8_t log_counter;
-extern uint8_t log_receiced_num;
-extern uint8_t log_full;
+extern uint8_t* log_receiced_num;
+extern uint8_t log_empty;
 extern uint8_t* flash_mem_start;
 extern uint8_t flash_flag;
 // Heating Schedule
@@ -122,5 +124,9 @@ extern RTC_TimeTypeDef heating_schedule[6];
 extern uint16_t fake_RTC_timer;
 extern FLASH_EraseInitTypeDef *pEraseInit;
 extern uint32_t* flash_error;
+extern uint8_t sizeoflogging;
+extern uint8_t recv_buffer[16];
+extern uint8_t touch_bytes_buffer[2];
+
 
 #endif

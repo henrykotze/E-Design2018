@@ -47,17 +47,19 @@ void init_peripherals(){
 	set_temp = (uint8_t*)malloc(4);
 	memset(set_temp, 0x00, 4);
 	*set_temp = 0;
-	segment_val =set_temp;
+//	segment_val =set_temp;
 	//	  memset(segment_val, 0x00, 4);
-	segment_val = (uint8_t*)malloc(4);
+	segment_val = (char*)malloc(4);
 	memset(segment_val, 0x00, 4);
-//	*segment_val = 48;
+//
+	temp_val = (char*)malloc(4);
+	memset(temp_val, 0x00, 4);
 
-	ADC1_buffer = (uint32_t*)malloc(7*sizeof(uint32_t));
-	memset(ADC1_buffer, 0x00, 7);
+	ADC1_buffer = (uint32_t*)malloc(5*sizeof(uint32_t));
+	memset(ADC1_buffer, 0x00, 5);
 
-	ADC2_buffer = (uint32_t*)malloc(7*sizeof(uint32_t));
-	memset(ADC2_buffer, 0x00, 7);
+	ADC2_buffer = (uint32_t*)malloc(5*sizeof(uint32_t));
+	memset(ADC2_buffer, 0x00, 5);
 
 	voltage_rms =(char*)malloc(3*sizeof(char));
 	memset(voltage_rms, 0x00, 3);
@@ -125,7 +127,8 @@ void init_peripherals(){
 //	*heating_schedule = malloc(3*6*sizeof(uint32_t));
 //	memset(heating_schedule, 0x00, 18);
 
-
+	log_receiced_num = (uint8_t*)malloc(3*sizeof(uint8_t));
+	memset(log_receiced_num, 0x00, 3);
 	// FLASH
 	flash_stored = (uint8_t*)malloc(70*sizeof(uint8_t));
 	memset(flash_stored, 0x00, 70);
