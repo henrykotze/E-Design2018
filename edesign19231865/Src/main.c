@@ -141,8 +141,8 @@ int main(void)
 
  if(erase_flash==0){
 	HAL_FLASH_Unlock();
-	pEraseInit->NbPages = 10;
-	pEraseInit->PageAddress = (uint32_t)(0x08008000);
+	pEraseInit->NbPages = 5;
+	pEraseInit->PageAddress = (uint32_t)(0x08008800);
 	pEraseInit->TypeErase = (uint32_t)FLASH_TYPEERASE_PAGES;
 
 	HAL_FLASHEx_Erase(pEraseInit,flash_error);

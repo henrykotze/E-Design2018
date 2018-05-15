@@ -111,7 +111,7 @@ uint8_t* flash_stored = NULL;
 uint8_t log_counter = 0;
 uint8_t* log_receiced_num = NULL;
 uint8_t log_empty = 1;
-uint8_t* flash_mem_start = (uint8_t*)0x08008000;
+uint8_t* flash_mem_start = (uint8_t*)0x08008800;
 uint8_t flash_flag = 0;
 
 unsigned char sliderCoords;                     // variable identified with a Slide event
