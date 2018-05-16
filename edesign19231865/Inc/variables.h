@@ -18,7 +18,7 @@ extern char comma[2];
 extern uint8_t* return_value;
 extern uint32_t i2c_counter;
 // Timer Variables
-extern uint8_t tim3_flag;
+extern uint8_t pump_flag;
 extern uint32_t tim3_now;
 extern uint32_t tim3_prev;
 extern uint8_t tim2_flag;

@@ -21,7 +21,7 @@ uint8_t auto_heating = 0;
 
 
 // Timer variables
-uint8_t tim3_flag = 0;
+uint8_t pump_flag = 0;
 uint32_t tim3_now = 0;
 uint32_t tim3_prev = 0;
 uint8_t systick_flag = 0;

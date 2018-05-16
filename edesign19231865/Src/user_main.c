@@ -80,6 +80,10 @@ void mainLoop(){
 		  	  }
 		  }
 	  }
+	  // Pumping is occurring
+	  if(pump_flag == 1){
+		  liters_pumped();
+	  }
 
 
 
