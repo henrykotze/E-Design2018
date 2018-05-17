@@ -128,7 +128,7 @@ int main(void)
   HAL_UART_Receive_IT(&huart1, (uint8_t*)&rx_buffer, 1);
  HAL_ADC_Start_DMA(&hadc2, ADC1_buffer, 4);
 
- if(erase_flash==0){
+ if(erase_flash==1){
 	HAL_FLASH_Unlock();
 	pEraseInit->NbPages = 5;
 	pEraseInit->PageAddress = (uint32_t)(0x08008800);
@@ -287,7 +287,7 @@ static void MX_ADC2_Init(void)
 
     /**Configure Regular Channel 
     */
-  sConfig.Channel = ADC_CHANNEL_15;
+  sConfig.Channel = ADC_CHANNEL_13;
   sConfig.Rank = ADC_REGULAR_RANK_4;
   if (HAL_ADC_ConfigChannel(&hadc2, &sConfig) != HAL_OK)
   {

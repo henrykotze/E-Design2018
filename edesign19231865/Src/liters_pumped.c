@@ -8,8 +8,6 @@ extern ADC_HandleTypeDef hadc2;
 
 void liters_pumped(){
 
-
-
 	if(valve_timer == 5){
 		pump_flag = 0;
 		valve_timer = 0;

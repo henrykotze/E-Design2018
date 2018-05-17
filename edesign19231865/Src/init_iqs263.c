@@ -159,66 +159,52 @@ void handleEvents(void){
 //	 uint16_t detected_channel = 0;
 		while(HAL_GPIO_ReadPin(GPIOA,GPIO_PIN_4)==1);
 		//select sysflags
-		uint8_t sysflag_buffer[] = {SYS_FLAGS, 0, 0, 0};
-	    HAL_I2C_Master_Sequential_Transmit_IT(&hi2c1, IQS263_ADD, sysflag_buffer, 1, I2C_FIRST_FRAME);
-	    while (HAL_I2C_GetState(&hi2c1) != HAL_I2C_STATE_READY){}
-
-		// Get sysflags byte
-	    HAL_I2C_Master_Sequential_Receive_IT(&hi2c1, (uint16_t)IQS263_ADD, &recv_buffer[1], 1, I2C_NEXT_FRAME);
-	    while (HAL_I2C_GetState(&hi2c1) != HAL_I2C_STATE_READY){}
+//		uint8_t sysflag_buffer[] = {SYS_FLAGS, 0, 0, 0};
+//	    HAL_I2C_Master_Sequential_Transmit_IT(&hi2c1, IQS263_ADD, sysflag_buffer, 1, I2C_FIRST_FRAME);
+//	    while (HAL_I2C_GetState(&hi2c1) != HAL_I2C_STATE_READY){}
+//
+//		// Get sysflags byte
+//	    HAL_I2C_Master_Sequential_Receive_IT(&hi2c1, (uint16_t)IQS263_ADD, &recv_buffer[1], 1, I2C_NEXT_FRAME);
+//	    while (HAL_I2C_GetState(&hi2c1) != HAL_I2C_STATE_READY){}
 
 		//select touch event
 	    HAL_I2C_Master_Sequential_Transmit_IT(&hi2c1, IQS263_ADD, touch_bytes_buffer, 1, I2C_FIRST_FRAME);
 	    while (HAL_I2C_GetState(&hi2c1) != HAL_I2C_STATE_READY){}
 
 		// Get touch event byte
-	    HAL_I2C_Master_Sequential_Receive_IT(&hi2c1, (uint16_t)IQS263_ADD, &recv_buffer[2], 1, I2C_NEXT_FRAME);
+	    HAL_I2C_Master_Sequential_Receive_IT(&hi2c1, (uint16_t)IQS263_ADD, &recv_buffer[2], 1, I2C_LAST_FRAME);
 	    while (HAL_I2C_GetState(&hi2c1) != HAL_I2C_STATE_READY){}
 
 
 
 		//Part 2 coords
 		// Select coord register
-		uint8_t coordinates_buffer[2] = {0x02};
-		HAL_I2C_Master_Sequential_Transmit_IT(&hi2c1, IQS263_ADD, coordinates_buffer, 1, I2C_FIRST_FRAME);
-	    while (HAL_I2C_GetState(&hi2c1) != HAL_I2C_STATE_READY){}
-
-		// Read coord register of 3 bytes
+//		uint8_t coordinates_buffer[2] = {0x02};
+//		HAL_I2C_Master_Sequential_Transmit_IT(&hi2c1, IQS263_ADD, coordinates_buffer, 1, I2C_FIRST_FRAME);
+//	    while (HAL_I2C_GetState(&hi2c1) != HAL_I2C_STATE_READY){}
 //
+//		// Read coord register of 3 bytes
+////
+//
+//	    HAL_I2C_Master_Sequential_Receive_IT(&hi2c1, (uint16_t)IQS263_ADD, &recv_buffer[4], 3, I2C_LAST_FRAME);
+//	    while (HAL_I2C_GetState(&hi2c1) != HAL_I2C_STATE_READY){}
 
-	    HAL_I2C_Master_Sequential_Receive_IT(&hi2c1, (uint16_t)IQS263_ADD, &recv_buffer[4], 3, I2C_LAST_FRAME);
-	    while (HAL_I2C_GetState(&hi2c1) != HAL_I2C_STATE_READY){}
 
 
-		if ((recv_buffer[2]&0x40)== 0x40)	// flick right
-		{
-			if(*set_temp + 1 <= 100){
-			*set_temp += 1;
-			display_set_temp = 1;
-			}
-		}
-		else if((recv_buffer[2]&0x80)== 0x80) //flick left
-		{
-			if(*set_temp - 1 >= 0){
-				*set_temp -= 1;
-				display_set_temp = 1;
-			}
-		}
-
-		else if((recv_buffer[3]&0x02) == 0x02) // most left position on slider
+		if(recv_buffer[2]== 0x03) // most left position on slider
 		{
 			if(*set_temp - 1 >= 0 ){
 				*set_temp -= 1;
 				display_set_temp = 1;
 			}
 		}
-		else if((recv_buffer[3]&0x04) == 0x04)	// middle position on slider
+		else if(recv_buffer[2]== 0x05)	// middle position on slider
 		{
 			display_set_temp = 1;
 		}
 
 
-		else if ((recv_buffer[3]&0x08) == 0x08)	// right most position on slider
+		else if (recv_buffer[2]== 0x09)	// right most position on slider
 		{
 			if(*set_temp +1 <= 100){
 				*set_temp += 1;

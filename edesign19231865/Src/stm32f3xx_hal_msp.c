@@ -95,14 +95,14 @@ void HAL_ADC_MspInit(ADC_HandleTypeDef* hadc)
     PC2     ------> ADC2_IN8
     PC3     ------> ADC2_IN9
     PB2     ------> ADC2_IN12
-    PB15     ------> ADC2_IN15 
+    PB12     ------> ADC2_IN13 
     */
     GPIO_InitStruct.Pin = VOLTAGE_RMS_Pin|CURRENT_RMS_Pin;
     GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
     GPIO_InitStruct.Pull = GPIO_NOPULL;
     HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
-    GPIO_InitStruct.Pin = AMBIENT_TEMP_Pin|GEYSER_TEMP_Pin;
+    GPIO_InitStruct.Pin = AMBIENT_TEMP_Pin|GPIO_PIN_12;
     GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
     GPIO_InitStruct.Pull = GPIO_NOPULL;
     HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
@@ -146,11 +146,11 @@ void HAL_ADC_MspDeInit(ADC_HandleTypeDef* hadc)
     PC2     ------> ADC2_IN8
     PC3     ------> ADC2_IN9
     PB2     ------> ADC2_IN12
-    PB15     ------> ADC2_IN15 
+    PB12     ------> ADC2_IN13 
     */
     HAL_GPIO_DeInit(GPIOC, VOLTAGE_RMS_Pin|CURRENT_RMS_Pin);
 
-    HAL_GPIO_DeInit(GPIOB, AMBIENT_TEMP_Pin|GEYSER_TEMP_Pin);
+    HAL_GPIO_DeInit(GPIOB, AMBIENT_TEMP_Pin|GPIO_PIN_12);
 
     /* ADC2 DMA DeInit */
     HAL_DMA_DeInit(hadc->DMA_Handle);

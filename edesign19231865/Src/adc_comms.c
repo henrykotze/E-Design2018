@@ -34,12 +34,6 @@ void adc_comms(){
 		sprintf(geyser_temp,"%lu", raw_geyser_temp);
 		sprintf(segment_val, "%lu", raw_geyser_temp);
 	}
-	else{
-			raw_geyser_temp = 0;
-			geyser_temp_int = raw_geyser_temp;
-			sprintf(geyser_temp,"%lu", raw_geyser_temp);
-			sprintf(segment_val, "%lu", raw_geyser_temp);
-	}
 
 	adc_counter += 1;
 	if(adc_counter == 80){

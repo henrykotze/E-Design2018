@@ -37,22 +37,21 @@ void mainLoop(){
 	  }
 
 	  // Seven Segment
-	  if(systick_flag == 1){
+	  if(systick_flag == 1 && uwTick%10){
 		  systick_flag = 0;
 		  i2c_counter += 1;
-//		  seven_segment();
-//		  HAL_ADC_Start_DMA(&hadc2, ADC1_buffer, 7);
+		  seven_segment();
 	  }
 
-	  if(i2c_counter == 150){
+	  if(i2c_counter == 250){
 		  i2c_counter = 0;
-//		  handleEvents();
+		  handleEvents();
 	  }
 
 	  // ADC conversion
 	  if(adc_flag == 1){
 		  adc_flag = 0;
-//		  adc_comms();
+		  adc_comms();
 	  }
 	  // Nothing at the moment
 	  if(touch_flag == 1 ){
