@@ -21,7 +21,7 @@ extern uint32_t i2c_counter;
 extern uint8_t pump_flag;
 extern uint32_t tim3_now;
 extern uint32_t tim3_prev;
-extern uint8_t tim2_flag;
+extern uint8_t valve_timer;
 extern uint8_t systick_flag;
 
 extern uint8_t sizeOfTemp0;

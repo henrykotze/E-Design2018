@@ -16,7 +16,7 @@ I2C_HandleTypeDef hi2c1;
 
 RTC_HandleTypeDef hrtc;
 
-TIM_HandleTypeDef htim2;
+//TIM_HandleTypeDef htim2;
 
 UART_HandleTypeDef huart1;
 
@@ -40,19 +40,19 @@ void mainLoop(){
 	  if(systick_flag == 1){
 		  systick_flag = 0;
 		  i2c_counter += 1;
-		  seven_segment();
+//		  seven_segment();
 //		  HAL_ADC_Start_DMA(&hadc2, ADC1_buffer, 7);
 	  }
 
 	  if(i2c_counter == 150){
 		  i2c_counter = 0;
-		  handleEvents();
+//		  handleEvents();
 	  }
 
 	  // ADC conversion
 	  if(adc_flag == 1){
 		  adc_flag = 0;
-		  adc_comms();
+//		  adc_comms();
 	  }
 	  // Nothing at the moment
 	  if(touch_flag == 1 ){

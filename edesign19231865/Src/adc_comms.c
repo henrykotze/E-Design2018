@@ -2,8 +2,8 @@
 #include "variables.h"
 #include "stm32f3xx_hal.h"
 // external Variables
-extern TIM_HandleTypeDef htim2;
-extern TIM_HandleTypeDef htim3;
+//extern TIM_HandleTypeDef htim2;
+//extern TIM_HandleTypeDef htim3;
 extern UART_HandleTypeDef huart1;
 extern ADC_HandleTypeDef hadc2;
 
@@ -33,6 +33,12 @@ void adc_comms(){
 		geyser_temp_int = raw_geyser_temp;
 		sprintf(geyser_temp,"%lu", raw_geyser_temp);
 		sprintf(segment_val, "%lu", raw_geyser_temp);
+	}
+	else{
+			raw_geyser_temp = 0;
+			geyser_temp_int = raw_geyser_temp;
+			sprintf(geyser_temp,"%lu", raw_geyser_temp);
+			sprintf(segment_val, "%lu", raw_geyser_temp);
 	}
 
 	adc_counter += 1;

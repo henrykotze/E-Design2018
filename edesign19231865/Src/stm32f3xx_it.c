@@ -50,7 +50,6 @@
 extern DMA_HandleTypeDef hdma_adc2;
 extern I2C_HandleTypeDef hi2c1;
 extern RTC_HandleTypeDef hrtc;
-extern TIM_HandleTypeDef htim2;
 extern UART_HandleTypeDef huart1;
 
 /******************************************************************************/
@@ -98,6 +97,9 @@ void SysTick_Handler(void)
   RTC_timer_flag = 1;
   flash_flag = 1;
   adc_flag = 1;
+  if(pump_flag == 1){
+	  valve_timer += 1;
+  }
   //adc_flag = 1;
   /* USER CODE END SysTick_IRQn 1 */
 }
@@ -163,23 +165,6 @@ void EXTI9_5_IRQHandler(void)
   /* USER CODE BEGIN EXTI9_5_IRQn 1 */
   pump_flag = 1;
   /* USER CODE END EXTI9_5_IRQn 1 */
-}
-
-/**
-* @brief This function handles TIM2 global interrupt.
-*/
-void TIM2_IRQHandler(void)
-{
-  /* USER CODE BEGIN TIM2_IRQn 0 */
-
-  /* USER CODE END TIM2_IRQn 0 */
-  HAL_TIM_IRQHandler(&htim2);
-  /* USER CODE BEGIN TIM2_IRQn 1 */
-//	tim2_flag = 0;
-//	pump_flag = 0;
-//	HAL_TIM_Base_Stop_IT(&htim2);
-
-  /* USER CODE END TIM2_IRQn 1 */
 }
 
 /**

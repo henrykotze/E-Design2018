@@ -25,7 +25,7 @@ uint8_t pump_flag = 0;
 uint32_t tim3_now = 0;
 uint32_t tim3_prev = 0;
 uint8_t systick_flag = 0;
-uint8_t tim2_flag = 0;
+uint8_t valve_timer = 0;
 
 // Heater On Off Variables
 char heater_ON[] = {'O','N'};
