@@ -41,10 +41,13 @@ void mainLoop(){
 		  systick_flag = 0;
 		  i2c_counter += 1;
 		  seven_segment();
+
+
 	  }
 
 	  if(i2c_counter == 250){
 		  i2c_counter = 0;
+		  touch_flag = 0;
 		  handleEvents();
 	  }
 
@@ -56,7 +59,6 @@ void mainLoop(){
 	  // Nothing at the moment
 	  if(touch_flag == 1 ){
 		  touch_flag = 0;
-		  // do something
 	  }
 	  // scheduling of heating and RTC
 	  if(RTC_timer_flag == 1){

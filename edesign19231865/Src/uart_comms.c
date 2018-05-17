@@ -33,9 +33,7 @@ void uart_comms(){
 			break;
 
 		case 'B':
-			memcpy(return_value, uart_command, 2);
-			memcpy(return_value+2, endSimbol,2 );
-			HAL_UART_Transmit_IT(&huart1, return_value,  strlen((char*)return_value));
+
 			if(uart_command[3]=='1'){
 				valve_state = valve_OPEN;
 
@@ -45,12 +43,14 @@ void uart_comms(){
 				valve_state=valve_CLOSE;
 				HAL_GPIO_WritePin(GPIOB,GPIO_PIN_13,GPIO_PIN_RESET);		// Valve
 			}
+
+			memcpy(return_value, uart_command, 2);
+			memcpy(return_value+2, endSimbol,2 );
+			HAL_UART_Transmit_IT(&huart1, return_value,  strlen((char*)return_value));
 			break;
 
 		case 'C':
-			memcpy(return_value, uart_command, 2);
-			memcpy(return_value+2, endSimbol,2 );
-			HAL_UART_Transmit_IT(&huart1, return_value, strlen((char*)return_value));
+
 			if(uart_command[3]=='0'){
 				// auto heating off
 				auto_heating = 0;
@@ -58,12 +58,12 @@ void uart_comms(){
 			else if(uart_command[3] == '1'){
 				auto_heating = 1;
 			}
+			memcpy(return_value, uart_command, 2);
+			memcpy(return_value+2, endSimbol,2 );
+			HAL_UART_Transmit_IT(&huart1, return_value, strlen((char*)return_value));
 			break;
 
 		case 'D':
-			memcpy(return_value, uart_command, 2);
-			memcpy(return_value+2, endSimbol,2 );
-			HAL_UART_Transmit_IT(&huart1, return_value,  strlen((char*)return_value));
 			if(auto_heating == 0){	// if auto heating off
 				if(uart_command[3]=='0'){
 					heater_state = heater_OFF;
@@ -75,29 +75,31 @@ void uart_comms(){
 					HAL_GPIO_WritePin(GPIOB,GPIO_PIN_14,GPIO_PIN_SET);	// Heater
 				}
 			}
+			memcpy(return_value, uart_command, 2);
+			memcpy(return_value+2, endSimbol,2 );
+			HAL_UART_Transmit_IT(&huart1, return_value,  strlen((char*)return_value));
 			break;
 
 		case 'E': //Enable/Disble logging to flash memory
-			memcpy(return_value, uart_command, 2);
-			memcpy(return_value+2, endSimbol,2 );
-			HAL_UART_Transmit_IT(&huart1, return_value, strlen((char*)return_value));
 			if(uart_command[3]=='0'){ // logging disable
 				enableFlashLogging = 0;
 			}
 			else if(uart_command[3] == '1'){ // logging enable
 				enableFlashLogging = 1;
 			}
+			memcpy(return_value, uart_command, 2);
+			memcpy(return_value+2, endSimbol,2 );
+			HAL_UART_Transmit_IT(&huart1, return_value, strlen((char*)return_value));
 			break;
 
 		case 'F'://Set new temperature set-point
-			memcpy(return_value, uart_command,2);
-			memcpy(return_value+2,endSimbol, 2);
-			HAL_UART_Transmit_IT(&huart1,(uint8_t*)return_value, strlen((char*)return_value));
-
 			sizeOfTemp = uart_counter - 5;
 			memset(temp_val, 0x00, 4);
 			memcpy(temp_val, uart_command+3, sizeOfTemp * sizeof(uint8_t) );
 			*set_temp = strtol(temp_val, NULL,10);
+			memcpy(return_value, uart_command,2);
+			memcpy(return_value+2,endSimbol, 2);
+			HAL_UART_Transmit_IT(&huart1,(uint8_t*)return_value, strlen((char*)return_value));
 			break;
 
 		case 'G':
@@ -112,10 +114,6 @@ void uart_comms(){
 			break;
 
 		case 'H': //set time
-			memcpy(return_value, uart_command, 2);
-			memcpy(return_value+2,endSimbol, 2);
-			HAL_UART_Transmit_IT(&huart1,return_value, strlen((char*)return_value));
-
 			__HAL_RTC_WRITEPROTECTION_DISABLE(&hrtc); // Disable write protection
 			RTC_EnterInitMode(&hrtc); // Enter init mode
 
@@ -132,6 +130,9 @@ void uart_comms(){
 			__HAL_RTC_WRITEPROTECTION_ENABLE(&hrtc);
 			HAL_RTC_GetTime(&hrtc,time,RTC_FORMAT_BIN);
 			HAL_RTC_GetDate(&hrtc,date,RTC_FORMAT_BIN);
+			memcpy(return_value, uart_command, 2);
+			memcpy(return_value+2,endSimbol, 2);
+			HAL_UART_Transmit_IT(&huart1,return_value, strlen((char*)return_value));
 
 			break;
 
@@ -161,9 +162,7 @@ void uart_comms(){
 			break;
 
 		case 'J': // set heating schedule
-			memcpy(return_value, uart_command, 2);
-			memcpy(return_value+2, endSimbol,2 );
-			HAL_UART_Transmit_IT(&huart1,return_value, strlen((char*)return_value));
+
 
 
 			if(uart_command[3] == '1'){ // first heating schedule
@@ -224,6 +223,9 @@ void uart_comms(){
 				heating_info = (strtok(NULL, "\r\n"));
 				heating_schedule[5].Seconds = strtol(heating_info, NULL,10);
 			}
+			memcpy(return_value, uart_command, 2);
+			memcpy(return_value+2, endSimbol,2 );
+			HAL_UART_Transmit_IT(&huart1,return_value, strlen((char*)return_value));
 
 			break;
 

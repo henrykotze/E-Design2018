@@ -53,6 +53,8 @@ void SysTick_Handler(void);
 void RTC_WKUP_IRQHandler(void);
 void EXTI0_IRQHandler(void);
 void DMA1_Channel2_IRQHandler(void);
+void DMA1_Channel3_IRQHandler(void);
+void DMA1_Channel4_IRQHandler(void);
 void EXTI9_5_IRQHandler(void);
 void I2C1_EV_IRQHandler(void);
 void I2C1_ER_IRQHandler(void);

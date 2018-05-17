@@ -128,7 +128,7 @@ int main(void)
   HAL_UART_Receive_IT(&huart1, (uint8_t*)&rx_buffer, 1);
  HAL_ADC_Start_DMA(&hadc2, ADC1_buffer, 4);
 
- if(erase_flash==1){
+ if(erase_flash==0){
 	HAL_FLASH_Unlock();
 	pEraseInit->NbPages = 5;
 	pEraseInit->PageAddress = (uint32_t)(0x08008800);
@@ -419,6 +419,12 @@ static void MX_DMA_Init(void)
   /* DMA1_Channel2_IRQn interrupt configuration */
   HAL_NVIC_SetPriority(DMA1_Channel2_IRQn, 0, 1);
   HAL_NVIC_EnableIRQ(DMA1_Channel2_IRQn);
+  /* DMA1_Channel3_IRQn interrupt configuration */
+  NVIC_SetPriority(DMA1_Channel3_IRQn, NVIC_EncodePriority(NVIC_GetPriorityGrouping(),0, 0));
+  NVIC_EnableIRQ(DMA1_Channel3_IRQn);
+  /* DMA1_Channel4_IRQn interrupt configuration */
+  NVIC_SetPriority(DMA1_Channel4_IRQn, NVIC_EncodePriority(NVIC_GetPriorityGrouping(),0, 0));
+  NVIC_EnableIRQ(DMA1_Channel4_IRQn);
 
 }
 

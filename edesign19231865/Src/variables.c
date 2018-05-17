@@ -16,7 +16,6 @@ char comma[] = {','};
 uint8_t* return_value = NULL;
 
 
-
 uint8_t auto_heating = 0;
 
 
@@ -28,7 +27,7 @@ uint8_t systick_flag = 0;
 uint8_t valve_timer = 0;
 
 // Heater On Off Variables
-char heater_ON[] = {'O','N'};
+char heater_ON[] = {'O','N','\0'};
 char heater_OFF[] = {'O','F','F'};
 char loggingIdentifier[] = {'$','L'};
 char noLoggingData[] = "$L,0,0,0,0,0,0,0,0,OFF,CLOSED\r\n";
@@ -119,7 +118,7 @@ unsigned char data_buffer[30];
 unsigned char events = 0;                       // variable identified with all events
 
  // Touch Toggle
-uint8_t touch_flag = 0;
+uint8_t touch_flag = 1;
 uint32_t i2c_counter = 0;
 
 

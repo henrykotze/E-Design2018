@@ -10,9 +10,9 @@ extern ADC_HandleTypeDef hadc2;
 extern RTC_HandleTypeDef hrtc;
 extern I2C_HandleTypeDef hi2c1;
 
-//unsigned char sliderCoords;                     // variable identified with a Slide event
-//unsigned char data_buffer[30];
-//unsigned char events = 0;                       // variable identified with all events
+
+
+
 int init_iqs263(){
 	// READING DEVICE INFORMATION
 //	 data_buffer[0] = SYSTEM_FLAGS_VAL;
@@ -61,10 +61,6 @@ int init_iqs263(){
 	while (HAL_I2C_GetState(&hi2c1) != HAL_I2C_STATE_READY){};
 	HAL_Delay(42);
 
-//	while(HAL_GPIO_ReadPin(GPIOA,GPIO_PIN_4)==1()){}; // Waiting for device
-//	HAL_I2C_Mem_Read( &hi2c1, IQS263_ADD, PROX_SETTINGS, I2C_MEMADD_SIZE_8BIT,  &data_buffer[0], 5,50);
-//	while (HAL_I2C_GetState(&hi2c1) != HAL_I2C_STATE_READY){};
-
 	while(HAL_GPIO_ReadPin(GPIOA,GPIO_PIN_4)==1){}; // Waiting for device
 	HAL_I2C_Mem_Read( &hi2c1, IQS263_ADD, PROX_SETTINGS, I2C_MEMADD_SIZE_8BIT,  &data_buffer[0], 5,50);
 	while (HAL_I2C_GetState(&hi2c1) != HAL_I2C_STATE_READY){};
@@ -83,14 +79,6 @@ int init_iqs263(){
 	HAL_I2C_Mem_Write( &hi2c1, IQS263_ADD, PROX_SETTINGS, I2C_MEMADD_SIZE_8BIT,  &data_buffer[0], 5,50);
 	while (HAL_I2C_GetState(&hi2c1) != HAL_I2C_STATE_READY){};
 	HAL_Delay(42);
-
-	//reading prox Settings
-
-//	data_buffer[0] = 0;
-//	data_buffer[1] = 0;
-//	data_buffer[2] = 0;
-//	data_buffer[3] = 0;
-//	data_buffer[4] = 0;
 
 	while(HAL_GPIO_ReadPin(GPIOA,GPIO_PIN_4)==1){}; // Waiting for device
 	HAL_I2C_Mem_Read( &hi2c1, IQS263_ADD, PROX_SETTINGS, I2C_MEMADD_SIZE_8BIT,  &data_buffer[0], 5,50);
@@ -152,64 +140,37 @@ int init_iqs263(){
 
 void handleEvents(void){
 
-//	uint8_t recv_buffer[16];
-//	uint8_t touch_bytes_buffer[2] = {0x03, 0x0};
-	display_set_temp = 0;
 
-//	 uint16_t detected_channel = 0;
-		while(HAL_GPIO_ReadPin(GPIOA,GPIO_PIN_4)==1);
-		//select sysflags
-//		uint8_t sysflag_buffer[] = {SYS_FLAGS, 0, 0, 0};
-//	    HAL_I2C_Master_Sequential_Transmit_IT(&hi2c1, IQS263_ADD, sysflag_buffer, 1, I2C_FIRST_FRAME);
-//	    while (HAL_I2C_GetState(&hi2c1) != HAL_I2C_STATE_READY){}
-//
-//		// Get sysflags byte
-//	    HAL_I2C_Master_Sequential_Receive_IT(&hi2c1, (uint16_t)IQS263_ADD, &recv_buffer[1], 1, I2C_NEXT_FRAME);
-//	    while (HAL_I2C_GetState(&hi2c1) != HAL_I2C_STATE_READY){}
+		display_set_temp = 0;
+		while(HAL_GPIO_ReadPin(GPIOA,GPIO_PIN_4)==1){};
+		HAL_I2C_Mem_Read( &hi2c1, IQS263_ADD, 0x03, I2C_MEMADD_SIZE_8BIT,  &recv_buffer[2], 1,10);
 
-		//select touch event
-	    HAL_I2C_Master_Sequential_Transmit_IT(&hi2c1, IQS263_ADD, touch_bytes_buffer, 1, I2C_FIRST_FRAME);
-	    while (HAL_I2C_GetState(&hi2c1) != HAL_I2C_STATE_READY){}
+			  // do something
 
-		// Get touch event byte
-	    HAL_I2C_Master_Sequential_Receive_IT(&hi2c1, (uint16_t)IQS263_ADD, &recv_buffer[2], 1, I2C_LAST_FRAME);
-	    while (HAL_I2C_GetState(&hi2c1) != HAL_I2C_STATE_READY){}
-
-
-
-		//Part 2 coords
-		// Select coord register
-//		uint8_t coordinates_buffer[2] = {0x02};
-//		HAL_I2C_Master_Sequential_Transmit_IT(&hi2c1, IQS263_ADD, coordinates_buffer, 1, I2C_FIRST_FRAME);
-//	    while (HAL_I2C_GetState(&hi2c1) != HAL_I2C_STATE_READY){}
-//
-//		// Read coord register of 3 bytes
-////
-//
-//	    HAL_I2C_Master_Sequential_Receive_IT(&hi2c1, (uint16_t)IQS263_ADD, &recv_buffer[4], 3, I2C_LAST_FRAME);
-//	    while (HAL_I2C_GetState(&hi2c1) != HAL_I2C_STATE_READY){}
-
-
-
-		if(recv_buffer[2]== 0x03) // most left position on slider
+		if(recv_buffer[2]== 0x03 && touch_flag == 0) // most left position on slider
 		{
 			if(*set_temp - 1 >= 0 ){
 				*set_temp -= 1;
 				display_set_temp = 1;
+				touch_flag = 1;
 			}
 		}
-		else if(recv_buffer[2]== 0x05)	// middle position on slider
+		else if(recv_buffer[2]== 0x05 && touch_flag == 0)	// middle position on slider
 		{
 			display_set_temp = 1;
 		}
 
 
-		else if (recv_buffer[2]== 0x09)	// right most position on slider
+		else if (recv_buffer[2]== 0x09 && touch_flag == 0)	// right most position on slider
 		{
 			if(*set_temp +1 <= 100){
 				*set_temp += 1;
 				display_set_temp = 1;
+				touch_flag = 1;
 			}
+		}
+		else{
+			display_set_temp = 0;
 		}
 }
 

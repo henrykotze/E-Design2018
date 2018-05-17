@@ -13,6 +13,9 @@ void seven_segment(){
 	if(display_set_temp){
 		sprintf(segment_val, "%d", *set_temp);
 	}
+	else {
+		sprintf(segment_val, "%lu", raw_geyser_temp);
+	}
 
 	if(segment_counter == 0){	// Left Most Digit
 
