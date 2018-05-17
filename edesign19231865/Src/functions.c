@@ -41,8 +41,8 @@ void HAL_I2C_MasterRxCpltCallback(I2C_HandleTypeDef *hi2c){
 
 }
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
-	htim->Instance->CNT = 0;
+
 	tim2_flag = 0;
 	pump_flag = 0;
-	HAL_TIM_Base_Stop_IT(htim);
+	HAL_TIM_Base_Stop_IT(&htim2);
 }

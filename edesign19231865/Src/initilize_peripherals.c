@@ -146,7 +146,7 @@ void init_peripherals(){
 	// get time
 	HAL_RTC_GetTime(&hrtc, time, RTC_FORMAT_BCD);
 
-	HAL_TIM_Base_Start_IT(&htim2);
+	//HAL_TIM_Base_Start_IT(&htim2);
 	//HAL_TIM_Base_Start_IT(&htim3);
 	// p696 on HAL & Low level drivers
 

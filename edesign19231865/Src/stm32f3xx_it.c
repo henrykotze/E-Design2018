@@ -175,9 +175,9 @@ void TIM2_IRQHandler(void)
   /* USER CODE END TIM2_IRQn 0 */
   HAL_TIM_IRQHandler(&htim2);
   /* USER CODE BEGIN TIM2_IRQn 1 */
-  tim2_flag = 0;
-  pump_flag = 0;
-  HAL_TIM_Base_Stop_IT(&htim2);
+//	tim2_flag = 0;
+//	pump_flag = 0;
+//	HAL_TIM_Base_Stop_IT(&htim2);
 
   /* USER CODE END TIM2_IRQn 1 */
 }

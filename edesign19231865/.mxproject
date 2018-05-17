@@ -1,7 +1,7 @@
 [PreviousGenFiles]
-HeaderPath=C:/Users/Henry/Desktop/4de Jaar/E-Design2018/edesign19231865/Inc
+HeaderPath=C:/Users/labuser/Desktop/E-Design2018/edesign19231865/Inc
 HeaderFiles=stm32f3xx_it.h;stm32f3xx_hal_conf.h;main.h;
-SourcePath=C:/Users/Henry/Desktop/4de Jaar/E-Design2018/edesign19231865/Src
+SourcePath=C:/Users/labuser/Desktop/E-Design2018/edesign19231865/Src
 SourceFiles=stm32f3xx_it.c;stm32f3xx_hal_msp.c;main.c;
 
 [PreviousLibFiles]

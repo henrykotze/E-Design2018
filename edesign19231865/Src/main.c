@@ -137,7 +137,7 @@ int main(void)
 
 //  HAL_RTCEx_SetWakeUpTimer_IT(&hrtc,2048,RTC_WAKEUPCLOCK_RTCCLK_DIV16);
 //  HAL_ADC_Start(&hadc2);
- HAL_ADC_Start_DMA(&hadc2, ADC1_buffer, 5);
+ HAL_ADC_Start_DMA(&hadc2, ADC1_buffer, 4);
 
  if(erase_flash==0){
 	HAL_FLASH_Unlock();
@@ -218,7 +218,7 @@ void SystemClock_Config(void)
   PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_USART1|RCC_PERIPHCLK_I2C1
                               |RCC_PERIPHCLK_RTC|RCC_PERIPHCLK_ADC12;
   PeriphClkInit.Usart1ClockSelection = RCC_USART1CLKSOURCE_PCLK1;
-  PeriphClkInit.Adc12ClockSelection = RCC_ADC12PLLCLK_DIV128;
+  PeriphClkInit.Adc12ClockSelection = RCC_ADC12PLLCLK_DIV64;
   PeriphClkInit.I2c1ClockSelection = RCC_I2C1CLKSOURCE_HSI;
   PeriphClkInit.RTCClockSelection = RCC_RTCCLKSOURCE_LSE;
   if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInit) != HAL_OK)

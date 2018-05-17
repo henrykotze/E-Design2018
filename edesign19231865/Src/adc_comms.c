@@ -36,9 +36,9 @@ void adc_comms(){
 	}
 
 	adc_counter += 1;
-	if(adc_counter == 50){
-		*voltage_int_rms = sqrt(adc_buffer_voltage/50.f);
-		*current_int_rms = sqrt(adc_buffer_current/50.f);
+	if(adc_counter == 80){
+		*voltage_int_rms = sqrt(adc_buffer_voltage/80.f);
+		*current_int_rms = sqrt(adc_buffer_current/80.f);
 		sprintf(voltage_rms,"%lu", *voltage_int_rms);
 		sprintf(current_rms,"%lu", *current_int_rms);
 

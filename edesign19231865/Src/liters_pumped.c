@@ -13,11 +13,13 @@ void liters_pumped(){
 	//tim3_now = htim3.Instance->CNT; // timer value
 
 	if(tim2_flag == 0){
-		HAL_TIM_Base_Start_IT(&htim2);
-		htim2.Instance->CNT = 0;
-		water_acc+=100;
-		sprintf(total_water,"%lu", water_acc);
 		tim2_flag = 1;
+		water_acc+=100;
+		HAL_TIM_Base_Start_IT(&htim2);
+//		htim2.Instance->CNT = 0;
+
+		sprintf(total_water,"%lu", water_acc);
+
 	}
 //	HAL_TIM_Base_Stop_IT
 
