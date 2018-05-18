@@ -128,7 +128,7 @@ int main(void)
   HAL_UART_Receive_IT(&huart1, (uint8_t*)&rx_buffer, 1);
  HAL_ADC_Start_DMA(&hadc2, ADC1_buffer, 4);
 
- if(erase_flash==0){
+ if(erase_flash==1){
 	HAL_FLASH_Unlock();
 	pEraseInit->NbPages = 5;
 	pEraseInit->PageAddress = (uint32_t)(0x08008800);
@@ -137,7 +137,7 @@ int main(void)
 	HAL_FLASHEx_Erase(pEraseInit,flash_error);
 	HAL_FLASH_Lock();
  }
- 	 HAL_RTC_GetTime(&hrtc,time,RTC_FORMAT_BIN);
+ 	 HAL_RTC_GetTime(&hrtc,timeOfRTC,RTC_FORMAT_BIN);
  	 HAL_RTC_GetDate(&hrtc,date,RTC_FORMAT_BIN);
 
   int i2c_state = init_iqs263();

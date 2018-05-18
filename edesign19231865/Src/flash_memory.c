@@ -16,7 +16,7 @@ void write2Flash(){
 
 	if(log_counter <= 100){
 		log_empty = 0;
-		HAL_RTC_GetTime(&hrtc,time,RTC_FORMAT_BIN);
+		HAL_RTC_GetTime(&hrtc,timeOfRTC,RTC_FORMAT_BIN);
 		HAL_RTC_GetDate(&hrtc,date,RTC_FORMAT_BIN);
 
 		// Identifier
@@ -25,15 +25,15 @@ void write2Flash(){
 
 		// Time
 		//hours
-		itoa((time->Hours),temp_time_var,10  );
+		itoa((timeOfRTC->Hours),temp_time_var,10  );
 		memcpy(flash_stored+strlen((char*)flash_stored),temp_time_var,strlen(temp_time_var));
 		memcpy(flash_stored+strlen((char*)flash_stored),comma,1 );
 		//minutes
-		itoa((time->Minutes),temp_time_var,10  );
+		itoa((timeOfRTC->Minutes),temp_time_var,10  );
 		memcpy(flash_stored+strlen((char*)flash_stored),temp_time_var,strlen(temp_time_var));
 		memcpy(flash_stored+strlen((char*)flash_stored),comma,1 );
 		//seconds
-		itoa((time->Seconds),temp_time_var,10  );
+		itoa((timeOfRTC->Seconds),temp_time_var,10  );
 		memcpy(flash_stored+strlen((char*)flash_stored),temp_time_var,strlen(temp_time_var));
 		memcpy(flash_stored+strlen((char*)flash_stored),comma,1 );
 

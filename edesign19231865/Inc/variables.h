@@ -100,7 +100,7 @@ extern char* heating_info;
 extern size_t heating_time_size;
 
 // TIME
-extern RTC_TimeTypeDef* time;
+extern RTC_TimeTypeDef* timeOfRTC;
 extern RTC_TimeTypeDef* new_time;
 extern RTC_DateTypeDef* date;
 extern uint8_t rtcSecFlag;
@@ -127,6 +127,6 @@ extern uint32_t* flash_error;
 extern uint8_t sizeoflogging;
 extern uint8_t recv_buffer[16];
 extern uint8_t touch_bytes_buffer[2];
-
-
+extern uint32_t time_intervals[6];
+extern uint32_t RTC_in_seconds;
 #endif

@@ -90,7 +90,7 @@ char* heating_info = NULL;
 size_t heating_time_size;
 
 // Time Variables & RTC
-RTC_TimeTypeDef* time = NULL;
+RTC_TimeTypeDef* timeOfRTC = NULL;
 RTC_TimeTypeDef* new_time = NULL;
 RTC_DateTypeDef* date = NULL;
 char* temp_time_var = NULL;
@@ -131,3 +131,7 @@ uint32_t* flash_error = NULL;
 uint8_t sizeoflogging = 0;
 uint8_t recv_buffer[16];
 uint8_t touch_bytes_buffer[2] = {0x03, 0x0};
+
+// TIME
+uint32_t time_intervals[6];
+uint32_t RTC_in_seconds = 0;

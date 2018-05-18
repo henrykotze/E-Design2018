@@ -46,7 +46,7 @@ void init_peripherals(){
 
 	set_temp = (uint8_t*)malloc(4);
 	memset(set_temp, 0x00, 4);
-	*set_temp = 0;
+	*set_temp = 50;
 //	segment_val =set_temp;
 	//	  memset(segment_val, 0x00, 4);
 	segment_val = (char*)malloc(4);
@@ -105,14 +105,14 @@ void init_peripherals(){
 
 
 	// Initiliazing the RTC
-	time = malloc(6*sizeof(uint32_t));
-	memset(time, 0x00, 6);
+	timeOfRTC = malloc(6*sizeof(uint32_t));
+	memset(timeOfRTC, 0x00, 6);
 //
-	time->Hours = 0x0;
-	time->Minutes = 0x0;
-	time->Seconds = 0x0;
-	time->DayLightSaving = RTC_DAYLIGHTSAVING_NONE;
-	time->StoreOperation = RTC_STOREOPERATION_RESET;
+	timeOfRTC->Hours = 0x0;
+	timeOfRTC->Minutes = 0x0;
+	timeOfRTC->Seconds = 0x0;
+	timeOfRTC->DayLightSaving = RTC_DAYLIGHTSAVING_NONE;
+	timeOfRTC->StoreOperation = RTC_STOREOPERATION_RESET;
 
 	date = malloc(sizeof(uint32_t));
 	memset(date,0x00,1);
@@ -144,7 +144,7 @@ void init_peripherals(){
 	pEraseInit = (FLASH_EraseInitTypeDef*)malloc(4*sizeof(uint32_t));
 
 	// get time
-	HAL_RTC_GetTime(&hrtc, time, RTC_FORMAT_BCD);
+	HAL_RTC_GetTime(&hrtc, timeOfRTC, RTC_FORMAT_BCD);
 
 	//HAL_TIM_Base_Start_IT(&htim2);
 	//HAL_TIM_Base_Start_IT(&htim3);

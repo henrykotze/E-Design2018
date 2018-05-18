@@ -1,11 +1,6 @@
 #include "functions.h"
 #include "variables.h"
 #include "stm32f3xx_hal.h"
-// external Variables
-//extern TIM_HandleTypeDef htim2;
-//extern TIM_HandleTypeDef htim3;
-extern UART_HandleTypeDef huart1;
-extern ADC_HandleTypeDef hadc2;
 extern RTC_HandleTypeDef hrtc;
 
 
@@ -13,57 +8,42 @@ void heating_scheduling(){
 
 
 	if(auto_heating == 1){
-		HAL_RTC_GetTime(&hrtc,time,RTC_FORMAT_BIN);
+		HAL_RTC_GetTime(&hrtc,timeOfRTC,RTC_FORMAT_BIN);
 		HAL_RTC_GetDate(&hrtc,date,RTC_FORMAT_BIN);
+		RTC_in_seconds = timeOfRTC->Hours*3600 + timeOfRTC->Minutes*60 +timeOfRTC->Seconds;
 
-
-		// checking heating schedule 1
-		if( (time->Hours - heating_schedule[0].Hours) > 0 && (time->Hours - heating_schedule[1].Hours) < 0){
-			heating_control();
+		// heating schedule 1
+		if( (time_intervals[0] - time_intervals[1]) < 0){ // no overlapping days
+			if (RTC_in_seconds > time_intervals[0] && RTC_in_seconds < time_intervals[1]){
+				heating_control();
+			}
 		}
-
-		else if( (time->Hours - heating_schedule[0].Hours == 0 || time->Hours - heating_schedule[1].Hours == 0 )
-				&& ( (time->Minutes - heating_schedule[0].Minutes > 0) && (time->Minutes - heating_schedule[1].Minutes < 0) ) ){
-			heating_control();
+		else if((time_intervals[0] - time_intervals[1]) > 0){	// overlapping
+			if( !( (RTC_in_seconds>time_intervals[1]) && (RTC_in_seconds< time_intervals[0]) )){
+				heating_control();
+			}
 		}
-		else if( (time->Hours - heating_schedule[0].Hours == 0 || time->Hours - heating_schedule[1].Hours == 0 )
-				&& ( (time->Minutes - heating_schedule[0].Minutes == 0) || (time->Minutes - heating_schedule[1].Minutes == 0) )
-				&& ( (time->Seconds - heating_schedule[0].Seconds > 0) && (time->Seconds - heating_schedule[1].Seconds < 0) ) ){
-			heating_control();
+		// heating schedule 2
+		if( (time_intervals[2] - time_intervals[3]) < 0){ // no overlapping days
+			if (RTC_in_seconds > time_intervals[2] && RTC_in_seconds < time_intervals[3]){
+				heating_control();
+			}
 		}
-
-		// checking schedule 2
-
-		else if( (time->Hours - heating_schedule[2].Hours) > 0 && (time->Hours - heating_schedule[3].Hours) < 0){
-			heating_control();
+		else{	// overlapping
+			if( !(RTC_in_seconds>time_intervals[3] && RTC_in_seconds< time_intervals[2] )){
+				heating_control();
+			}
 		}
-
-		else if( (time->Hours - heating_schedule[2].Hours == 0 || time->Hours - heating_schedule[3].Hours == 0 )
-				&& ( (time->Minutes - heating_schedule[2].Minutes > 0) && (time->Minutes - heating_schedule[3].Minutes < 0) ) ){
-			heating_control();
+		// heating schedule 3
+		if( (time_intervals[4] - time_intervals[5]) < 0){ // no overlapping days
+			if ( (RTC_in_seconds > time_intervals[4]) && RTC_in_seconds < time_intervals[5]){
+				heating_control();
+			}
 		}
-		else if( (time->Hours - heating_schedule[2].Hours == 0 || time->Hours - heating_schedule[3].Hours == 0 )
-				&& ( (time->Minutes - heating_schedule[2].Minutes == 0) || (time->Minutes - heating_schedule[3].Minutes == 0) )
-				&& ( (time->Seconds - heating_schedule[2].Seconds > 0) && (time->Seconds - heating_schedule[3].Seconds < 0) ) ){
-			heating_control();
-		}
-		// checking schedule 3
-		else if( (time->Hours - heating_schedule[4].Hours) > 0 && (time->Hours - heating_schedule[5].Hours) < 0){
-			heating_control();
-		}
-
-		else if( (time->Hours - heating_schedule[4].Hours == 0 || time->Hours - heating_schedule[5].Hours == 0 )
-				&& ( (time->Minutes - heating_schedule[4].Minutes > 0) && (time->Minutes - heating_schedule[5].Minutes < 0) ) ){
-			heating_control();
-		}
-		else if( (time->Hours - heating_schedule[4].Hours == 0 || time->Hours - heating_schedule[5].Hours == 0 )
-				&& ( (time->Minutes - heating_schedule[4].Minutes == 0) || (time->Minutes - heating_schedule[5].Minutes == 0) )
-				&& ( (time->Seconds - heating_schedule[4].Seconds > 0) && (time->Seconds - heating_schedule[5].Seconds < 0) ) ){
-			heating_control();
-		}
-		else{
-			heater_state = heater_OFF;
-			HAL_GPIO_WritePin(GPIOB,GPIO_PIN_14,GPIO_PIN_SET);
+		else{	// overlapping
+			if( !(RTC_in_seconds>time_intervals[5] && RTC_in_seconds< time_intervals[4] )){
+				heating_control();
+			}
 		}
 	}
 }
