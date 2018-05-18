@@ -1,2 +1,2 @@
-init_iqs263.c:16:5:init_iqs263	32	static
-init_iqs263.c:141:6:handleEvents	24	static
+init_iqs263.c:16:5:init_iqs263	40	static
+init_iqs263.c:144:6:handleEvents	4	static

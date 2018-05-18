@@ -23,7 +23,8 @@ extern uint32_t tim3_now;
 extern uint32_t tim3_prev;
 extern uint8_t valve_timer;
 extern uint8_t systick_flag;
-
+extern uint8_t rtc_flag2;
+extern uint8_t i2c_flag2;
 extern uint8_t sizeOfTemp0;
 extern char studentnumber1[];
 

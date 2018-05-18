@@ -135,6 +135,9 @@ int init_iqs263(){
 	if ( (data_buffer[1] & 0x02) == 0x02){
 		return -1;
 	}
+
+
+
 	return 1;
 }
 
@@ -142,8 +145,8 @@ void handleEvents(void){
 
 
 		display_set_temp = 0;
-		while(HAL_GPIO_ReadPin(GPIOA,GPIO_PIN_4)==1){};
-		HAL_I2C_Mem_Read( &hi2c1, IQS263_ADD, 0x03, I2C_MEMADD_SIZE_8BIT,  &recv_buffer[2], 1,10);
+//		while(HAL_GPIO_ReadPin(GPIOA,GPIO_PIN_4)==1){};
+//		HAL_I2C_Mem_Read_IT( &hi2c1, IQS263_ADD, 0x03, I2C_MEMADD_SIZE_8BIT,  &recv_buffer[2],1,1);
 
 			  // do something
 

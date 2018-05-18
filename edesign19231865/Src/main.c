@@ -128,10 +128,10 @@ int main(void)
   HAL_UART_Receive_IT(&huart1, (uint8_t*)&rx_buffer, 1);
  HAL_ADC_Start_DMA(&hadc2, ADC1_buffer, 4);
 
- if(erase_flash==1){
+ if(erase_flash==0){
 	HAL_FLASH_Unlock();
 	pEraseInit->NbPages = 5;
-	pEraseInit->PageAddress = (uint32_t)(0x08008800);
+	pEraseInit->PageAddress = (uint32_t)(0x08009000);
 	pEraseInit->TypeErase = (uint32_t)FLASH_TYPEERASE_PAGES;
 
 	HAL_FLASHEx_Erase(pEraseInit,flash_error);
@@ -140,14 +140,14 @@ int main(void)
  	 HAL_RTC_GetTime(&hrtc,timeOfRTC,RTC_FORMAT_BIN);
  	 HAL_RTC_GetDate(&hrtc,date,RTC_FORMAT_BIN);
 
-  int i2c_state = init_iqs263();
+//  int i2c_state = init_iqs263();
   logPosition();
 
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  while (i2c_state)
+  while (1)
   {
 
   /* USER CODE END WHILE */
@@ -259,7 +259,7 @@ static void MX_ADC2_Init(void)
   sConfig.Channel = ADC_CHANNEL_8;
   sConfig.Rank = ADC_REGULAR_RANK_1;
   sConfig.SingleDiff = ADC_SINGLE_ENDED;
-  sConfig.SamplingTime = ADC_SAMPLETIME_601CYCLES_5;
+  sConfig.SamplingTime = ADC_SAMPLETIME_181CYCLES_5;
   sConfig.OffsetNumber = ADC_OFFSET_NONE;
   sConfig.Offset = 0;
   if (HAL_ADC_ConfigChannel(&hadc2, &sConfig) != HAL_OK)
@@ -419,12 +419,6 @@ static void MX_DMA_Init(void)
   /* DMA1_Channel2_IRQn interrupt configuration */
   HAL_NVIC_SetPriority(DMA1_Channel2_IRQn, 0, 1);
   HAL_NVIC_EnableIRQ(DMA1_Channel2_IRQn);
-  /* DMA1_Channel3_IRQn interrupt configuration */
-  NVIC_SetPriority(DMA1_Channel3_IRQn, NVIC_EncodePriority(NVIC_GetPriorityGrouping(),0, 0));
-  NVIC_EnableIRQ(DMA1_Channel3_IRQn);
-  /* DMA1_Channel4_IRQn interrupt configuration */
-  NVIC_SetPriority(DMA1_Channel4_IRQn, NVIC_EncodePriority(NVIC_GetPriorityGrouping(),0, 0));
-  NVIC_EnableIRQ(DMA1_Channel4_IRQn);
 
 }
 

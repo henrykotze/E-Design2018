@@ -69,7 +69,8 @@ void init_peripherals(){
 
 	total_water =(char*)malloc(20*sizeof(char));
 	memset(total_water, 0x00, 20);
-	sprintf(total_water,"%lu", water_acc);
+//	total_water = "0";
+//	sprintf(total_water,"%lu", water_acc);
 
 
 	voltage_int_rms = (uint32_t*)malloc(4*sizeof(uint32_t));
@@ -151,7 +152,7 @@ void init_peripherals(){
 	// p696 on HAL & Low level drivers
 
 	//	HAL_ADCEx_Calibration_Start(&hadc1,ADC_SINGLE_ENDED);
-
+//	sprintf(total_water,"%lu", water_acc);
 
 
 

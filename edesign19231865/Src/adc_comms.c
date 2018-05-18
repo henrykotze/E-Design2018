@@ -34,17 +34,17 @@ void adc_comms(){
 		sprintf(geyser_temp,"%lu", raw_geyser_temp);
 		sprintf(segment_val, "%lu", raw_geyser_temp);
 	}
-//	else{
-//		raw_geyser_temp = (raw_geyser_temp-620.4f)/12.41f;
-//		raw_geyser_temp = 50;
-//		geyser_temp_int = 50;
-//		sprintf(geyser_temp,"%lu", raw_geyser_temp);
-//		sprintf(segment_val, "%lu", raw_geyser_temp);
-//	}
+	else{
+		raw_geyser_temp = (raw_geyser_temp-620.4f)/12.41f;
+		raw_geyser_temp = 0;
+		geyser_temp_int = 0;
+		sprintf(geyser_temp,"%lu", raw_geyser_temp);
+		sprintf(segment_val, "%lu", raw_geyser_temp);
+	}
 	adc_counter += 1;
-	if(adc_counter == 5000){
-		*voltage_int_rms = sqrt(adc_buffer_voltage/5000.f);
-		*current_int_rms = sqrt(adc_buffer_current/5000.f);
+	if(adc_counter == 100){
+		*voltage_int_rms = __builtin_sqrtf(adc_buffer_voltage/100.f);
+		*current_int_rms = __builtin_sqrtf(adc_buffer_current/100.f);
 		sprintf(voltage_rms,"%lu", *voltage_int_rms);
 		sprintf(current_rms,"%lu", *current_int_rms);
 

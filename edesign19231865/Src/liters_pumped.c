@@ -12,7 +12,7 @@ void liters_pumped(){
 		pump_flag = 0;
 		valve_timer = 0;
 		water_acc+=100;
-		sprintf(total_water,"%lu", water_acc);
+//		sprintf(total_water,"%lu", water_acc);
 
 	}
 }

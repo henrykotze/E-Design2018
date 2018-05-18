@@ -128,8 +128,8 @@ void uart_comms(){
 			HAL_RTC_SetTime(&hrtc, timeOfRTC, RTC_FORMAT_BIN);
 			HAL_RTC_SetDate(&hrtc, date, RTC_FORMAT_BIN);
 			__HAL_RTC_WRITEPROTECTION_ENABLE(&hrtc);
-			HAL_RTC_GetTime(&hrtc,timeOfRTC,RTC_FORMAT_BIN);
-			HAL_RTC_GetDate(&hrtc,date,RTC_FORMAT_BIN);
+//			HAL_RTC_GetTime(&hrtc,timeOfRTC,RTC_FORMAT_BIN);
+//			HAL_RTC_GetDate(&hrtc,date,RTC_FORMAT_BIN);
 			memcpy(return_value, uart_command, 2);
 			memcpy(return_value+2,endSimbol, 2);
 			HAL_UART_Transmit_IT(&huart1,return_value, strlen((char*)return_value));
@@ -137,8 +137,7 @@ void uart_comms(){
 			break;
 
 		case 'I': // get time
-			HAL_RTC_GetTime(&hrtc,timeOfRTC,RTC_FORMAT_BIN);
-			HAL_RTC_GetDate(&hrtc,date,RTC_FORMAT_BIN);
+
 			memcpy(return_value, uart_command, 2);
 			memcpy(return_value+2,comma,1);
 
@@ -232,6 +231,9 @@ void uart_comms(){
 			break;
 
 		case 'K':
+			sprintf(total_water,"%lu", water_acc);
+//			sprintf(voltage_rms,"%lu", *voltage_int_rms);
+//			sprintf(current_rms,"%lu", *current_int_rms);
 			// send telematary
 			memcpy(return_value, uart_command, 2);
 			memcpy(return_value+2,comma,1 );
@@ -279,7 +281,7 @@ void uart_comms(){
 			break;
 		}
 		memset(uart_command,0x00, 60);
-
+		memset(uart_command_copy,0x00,60);
 		uart_counter = 0;
 	}
 	else if(uart_counter > 59 ){

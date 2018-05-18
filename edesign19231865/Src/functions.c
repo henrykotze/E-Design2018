@@ -14,9 +14,9 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart){
 
 }
 
-void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc){
-	adc_flag = 1;
-}
+//void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc){
+//	adc_flag = 1;
+//}
 
 //void  HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef * htim){
 ////	tim3_flag = 1;
