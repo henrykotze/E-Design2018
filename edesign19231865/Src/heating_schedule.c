@@ -13,34 +13,34 @@ void heating_scheduling(){
 		RTC_in_seconds = timeOfRTC->Hours*3600 + timeOfRTC->Minutes*60 +timeOfRTC->Seconds;
 
 		// heating schedule 1
-		if( (time_intervals[0] - time_intervals[1]) < 0){ // no overlapping days
+		if( (time_intervals[1] - time_intervals[0] ) > 0){ // no overlapping days
 			if (RTC_in_seconds > time_intervals[0] && RTC_in_seconds < time_intervals[1]){
 				heating_control();
 			}
 		}
-		else if((time_intervals[0] - time_intervals[1]) > 0){	// overlapping
+		else if((time_intervals[1] - time_intervals[0] ) != 0){	// overlapping
 			if( !( (RTC_in_seconds>time_intervals[1]) && (RTC_in_seconds< time_intervals[0]) )){
 				heating_control();
 			}
 		}
 		// heating schedule 2
-		if( (time_intervals[2] - time_intervals[3]) < 0){ // no overlapping days
+		if( (time_intervals[3] - time_intervals[2]) < 0){ // no overlapping days
 			if (RTC_in_seconds > time_intervals[2] && RTC_in_seconds < time_intervals[3]){
 				heating_control();
 			}
 		}
-		else{	// overlapping
+		else if( (time_intervals[3] - time_intervals[2]) != 0 ){	// overlapping
 			if( !(RTC_in_seconds>time_intervals[3] && RTC_in_seconds< time_intervals[2] )){
 				heating_control();
 			}
 		}
 		// heating schedule 3
-		if( (time_intervals[4] - time_intervals[5]) < 0){ // no overlapping days
+		if( (time_intervals[5] - time_intervals[4] ) < 0){ // no overlapping days
 			if ( (RTC_in_seconds > time_intervals[4]) && RTC_in_seconds < time_intervals[5]){
 				heating_control();
 			}
 		}
-		else{	// overlapping
+		else if( (time_intervals[5] - time_intervals[4] ) != 0){	// overlapping
 			if( !(RTC_in_seconds>time_intervals[5] && RTC_in_seconds< time_intervals[4] )){
 				heating_control();
 			}
